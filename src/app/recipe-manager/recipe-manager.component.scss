@@ -1,0 +1,65 @@
+.container {
+  padding-top: 70px;
+}
+
+ion-card {
+  margin-bottom: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.tag-input-row,
+.step-input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.suggestions,
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.steps-list {
+  margin-top: 12px;
+}
+
+.step-card {
+  margin: 0 0 12px 0;
+}
+
+.step-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.step-text {
+  flex: 1;
+}
+
+.step-text p {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+}
+
+.step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.action-row {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0 40px;
+}

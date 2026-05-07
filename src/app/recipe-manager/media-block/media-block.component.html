@@ -1,0 +1,17 @@
+<form [formGroup]="mediaFbArray">
+  <ion-card formGroupName="media">
+    <ion-card-header>
+      <ion-card-title>Media</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item *ngFor="let field of mediaFields">
+        <ion-label position="stacked">{{ field.label }}</ion-label>
+        <ion-input
+          [formControlName]="field.control"
+          [placeholder]="field.placeholder"
+        ></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</form>    

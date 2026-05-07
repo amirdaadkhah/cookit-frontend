@@ -1,0 +1,31 @@
+<ion-searchbar
+  #searchInput
+  placeholder="Search ingredients..."
+  inputmode="search"
+  show-clear-button="focus"
+  show-cancel-button="focus"
+  (ionInput)="onInput($event)"
+  (ionClear)="onClear()"
+></ion-searchbar>
+<ng-container *ngIf="(filtered$ | async) as results">
+  <ion-list inset="true" *ngIf="!(queryIsEmpty$ | async) && results.length > 0">
+    <ion-item 
+      *ngFor="let ing of results; trackBy: trackById"
+      (click)="onIngredientClick(ing)">
+        <ion-label>
+          <h2>{{ ing.name }}</h2>
+          <ion-chip 
+            *ngFor="let p of (ing.parts ?? []); trackBy: trackByPartId"
+            (click)="onIngredientClick(ing, p)">
+            <ion-label>{{ p.name }}</ion-label>
+          </ion-chip>
+        </ion-label>
+    </ion-item>
+  </ion-list>
+  <!-- optional empty state -->
+  <div class="empty" *ngIf="!(queryIsEmpty$ | async) && results.length === 0 && currentQuery.length > 1">
+    <ion-icon name="search-outline"></ion-icon>
+    <h3>No matches</h3>
+    <p>Try a different keyword.</p>
+  </div>
+</ng-container>

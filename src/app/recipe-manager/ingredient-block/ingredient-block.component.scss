@@ -1,0 +1,45 @@
+.grid-2,
+.grid-3 {
+  display: grid;
+  gap: 12px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.toggles,
+.check-grid {
+  margin-top: 10px;
+}
+
+
+.ingredient-block {
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.ingredient-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.substitutes {
+  margin-top: 10px;
+}
+
+.substitute-row {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  margin-bottom: 8px;
+}

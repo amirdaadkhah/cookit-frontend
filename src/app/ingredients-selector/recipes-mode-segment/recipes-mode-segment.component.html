@@ -1,0 +1,15 @@
+<div class="content">
+  <ion-segment 
+    [value]="SEGMENT.MATCH_ALL" 
+    mode="ios"
+    class="segment"
+    (ionChange)="onSegmentChange($event)">
+      <ion-segment-button [value]="SEGMENT.MATCH_ALL" class="segment-button">
+        <ion-label>100% Match</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button [value]="SEGMENT.MATCH_BEST">
+        <ion-label>Best Match</ion-label>
+      </ion-segment-button>
+  </ion-segment>
+</div>

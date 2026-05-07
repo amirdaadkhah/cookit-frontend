@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="title">what makes CookIt various:</div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <app-card 
+          [icon]="icon" 
+          [title]="title" 
+          [description]="description">
+        </app-card>
+      </ion-col>
+      <ion-col size="4">
+        <app-card 
+          [icon]="icon" 
+          [title]="title" 
+          [description]="description">
+        </app-card>
+      </ion-col>
+      <ion-col size="4">
+        <app-card 
+          [icon]="icon" 
+          [title]="title" 
+          [description]="description">
+        </app-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="demo-button">
+    <button class="button" (click)="onStartDemo()">Start Demo Version</button>
+  </div>
+</div>

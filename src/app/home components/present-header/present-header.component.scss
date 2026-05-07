@@ -1,0 +1,70 @@
+@use '../../../theme/variables.scss' as *;
+
+.container {
+  display: flex;
+  position: relative;
+  width: 100vw;
+
+  .img {
+    width: 100vw;
+    object-fit: fill;
+
+    @media (min-width: $MIN-WIDTH-RESPONSIVE-BIG-SCREEN) {
+      width: 100vw;
+      max-height: 720px;
+    }
+  }
+
+  .logo {
+    position: absolute;
+    margin-inline-start: $HOME-PAGE-SIDE_PADDING;
+    top: 10%;
+    background-color: transparent;
+    z-index: 1;
+    height: 20vw;
+  }
+
+  .email-input {
+    position: absolute;
+    width: 45vw;
+    top: 75%;
+    margin-inline-start: 45%;
+    --background: white;
+    border-radius: 10px;
+    z-index: 2;
+    color: black;
+    --min-height: 64px;
+    box-shadow: 1px 1px rgba(34, 33, 33, 0.176);
+    --inner-padding-end: 0;
+
+    .input {
+      display: flex;
+      width: 70%;
+      height: 100%;
+      border-bottom-right-radius: 40px;
+      border-top-right-radius: 40px;
+      background: transparent;
+      font-weight: bold;
+      color: rgb(69, 69, 69);
+    }
+
+    .subscribe-button {
+      width: 30%;
+      z-index: 3;
+      text-align: center;
+      padding-inline-start: 25px;
+      border: 4px solid white;
+      border-radius: 10px;
+      background:
+        radial-gradient(
+            circle 40px at left,
+            transparent 39px,
+            #2ecc71 40px
+        );
+      height: 100%;
+      color: white;
+      font-weight: bold;
+      font-size: 1.5vw;
+    }
+  }
+}

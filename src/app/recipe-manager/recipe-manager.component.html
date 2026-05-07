@@ -1,0 +1,204 @@
+<ion-content class="container">
+  <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Basic Info</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Recipe ID</ion-label>
+          <ion-input formControlName="id" placeholder="..."></ion-input>
+        </ion-item>
+        <ion-note color="danger" *ngIf="recipeForm.get('id')?.touched && recipeForm.get('id')?.hasError('required')">
+          ID is required.
+        </ion-note>
+        <ion-note color="danger" *ngIf="recipeForm.get('id')?.touched && recipeForm.get('id')?.hasError('duplicateId')">
+          This ID already exists. It must be unique.
+        </ion-note>
+
+        <ion-item>
+          <ion-label position="stacked">Title</ion-label>
+          <ion-input formControlName="title" placeholder="..."></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Category (ies)</ion-label>
+          <ion-select formControlName="category" multiple="true" interface="popover" placeholder="Select categories">
+            <ion-select-option *ngFor="let category of categoryOptions" [value]="category">
+              {{ category }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <div formGroupName="diet" class="toggles">
+          <ion-item>
+            <ion-label>Vegetarian</ion-label>
+            <ion-toggle formControlName="vegetarian"></ion-toggle>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Vegan</ion-label>
+            <ion-toggle formControlName="vegan"></ion-toggle>
+          </ion-item>
+        </div>
+
+        <ion-item>
+          <ion-label>Warm served</ion-label>
+          <ion-toggle formControlName="isWarm"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Origin</ion-label>
+          <ion-input formControlName="origin" placeholder="Optional"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Updated At</ion-label>
+          <ion-input type="date" formControlName="updatedAt"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card formGroupName="times">
+      <ion-card-header>
+        <ion-card-title>Times</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="grid-3">
+        <ion-item>
+          <ion-label position="stacked">Prep (min)</ion-label>
+          <ion-input type="number" formControlName="prepMin"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Cook (min)</ion-label>
+          <ion-input type="number" formControlName="cookMin"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Total (min)</ion-label>
+          <ion-input type="number" formControlName="totalMin"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card formGroupName="nutrition">
+      <ion-card-header>
+        <ion-card-title>Nutrition</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="grid-3">
+        <ion-item>
+          <ion-label position="stacked">Portion</ion-label>
+          <ion-input formControlName="portion" placeholder="Each Slice/100g/..."></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Kcal</ion-label>
+          <ion-input formControlName="kcal" placeholder="-"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Protein</ion-label>
+          <ion-input formControlName="protein" placeholder="-"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Add ingredients -->
+    <app-ingredient-block></app-ingredient-block>
+
+    <!-- Tags -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Tags</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="tag-input-row">
+          <ion-item>
+            <ion-label position="stacked">Tag</ion-label>
+            <ion-input
+              [formControl]="tagSearch"
+              placeholder="Search or create tag, e.g. high_protein"
+            ></ion-input>
+          </ion-item>
+
+          <ion-button 
+            (click)="addTagFromInput()"
+            [disabled]="tagSuggestions().length > 0">
+              Add Tag
+          </ion-button>
+        </div>
+
+        <div class="suggestions" *ngIf="tagSuggestions().length > 0">
+          <ion-chip
+            *ngFor="let tag of tagSuggestions(); trackBy: trackByIndex"
+            (click)="addSuggestedTag(tag)"
+          >
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+        </div>
+
+        <div class="selected-tags" formArrayName="tags" *ngIf="tagsArray.length">
+          <ion-chip color="primary" *ngFor="let tag of tagsArray.controls; let i = index; trackBy: trackByIndex">
+            <ion-label>{{ tag.value }}</ion-label>
+            <ion-icon name="close-circle" (click)="removeTag(i)"></ion-icon>
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- instruction steps -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Steps</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="step-input-row">
+          <ion-item>
+            <ion-label position="stacked">New Step</ion-label>
+            <ion-textarea
+              [formControl]="stepInput"
+              rows="3"
+              placeholder="Enter one step at a time"
+            ></ion-textarea>
+          </ion-item>
+
+          <ion-button (click)="addStep()">Add Step</ion-button>
+        </div>
+
+        <div class="steps-list" formArrayName="steps">
+          <ion-card class="step-card" *ngFor="let step of stepsArray.controls; let i = index; trackBy: trackByIndex">
+            <ion-card-content>
+              <div class="step-row">
+                <div class="step-text">
+                  <strong>Step {{ i + 1 }}</strong>
+                  <p>{{ step.value }}</p>
+                </div>
+
+                <div class="step-actions">
+                  <ion-button fill="clear" size="small" (click)="moveStepUp(i)">↑</ion-button>
+                  <ion-button fill="clear" size="small" (click)="moveStepDown(i)">↓</ion-button>
+                  <ion-button color="danger" fill="clear" size="small" (click)="removeStep(i)">Remove</ion-button>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Social Media URLs block-->
+    <app-media-block></app-media-block>
+
+    <div class="action-row">
+      <ion-button expand="block" type="submit">Save Recipe</ion-button>
+      <ion-button expand="block" fill="outline" type="button" (click)="copyGeneratedJson()">
+        Copy JSON
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

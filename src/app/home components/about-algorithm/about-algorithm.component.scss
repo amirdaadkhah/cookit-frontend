@@ -1,0 +1,40 @@
+@use '../../../theme/variables.scss' as *;
+
+.container {
+  padding-inline-start: $HOME-PAGE-SIDE_PADDING;
+  padding-inline-end: $HOME-PAGE-SIDE_PADDING;
+  background: $BACKGROUND;
+  padding-bottom: 30px;
+
+  .title {
+    padding: 40px 0;
+    background: transparent;
+    color: $HOME-PAGE-TITLE-COLOR;
+    text-align: left;
+    flex-direction: column;
+    font-size: 3.125rem;
+    font-weight: 400;
+    line-height: 130%;
+  }
+
+  .demo-button {
+    background: transparent;
+    background: transparent;
+    text-align: end;
+
+    .button {
+      background: $HOME-PAGE-DEMO-BUTTON-BGCOLOR;
+      height: 48px;
+      padding: 0 10px;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .button:hover {
+      transform: scale(1.1);
+    }
+  }
+}

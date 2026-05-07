@@ -1,0 +1,88 @@
+@use "../../theme/variables.scss" as *;
+
+.footer-container {
+  background-color: $FOOTER-BG;
+  color: $FOOTER-TEXT-COLOR;
+  padding: 50px $HOME-PAGE-SIDE_PADDING 20px 50px;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+  
+    .brand-info {
+      max-width: 40%;
+      align-items: flex-start;
+        
+      .description {
+        padding-top: 20px;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .brand-logo {
+        height: 30px;
+      }
+    }
+  
+    .contact-info {
+      align-items: flex-end;
+    
+      h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+  
+      .tel, .insta, .email, .web {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      a {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .copy-right{
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #444444;
+    padding-top: 10px;
+    font-size: 12px;
+  }
+
+  .developed-by {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 14px;
+  }
+
+  .developed-by a {
+    color: inherit;      /* keeps the color same as div text */
+    text-decoration: none; /* removes underline */
+  }
+
+  .developed-by a:hover {
+    text-decoration: underline; /* subtle hover effect */
+    font-weight: bold;
+  }
+}  
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 30px;
+
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    
+      .brand-info,
+      .contact-info {
+        max-width: 100%;
+      }
+    }
+  }
+}

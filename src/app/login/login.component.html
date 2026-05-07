@@ -1,0 +1,48 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Sign in</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <ion-item>
+            <ion-label position="stacked">Username</ion-label>
+            <ion-input
+              type="text"
+              formControlName="username"
+              placeholder="Enter username">
+            </ion-input>
+          </ion-item>
+
+          <ion-text color="danger" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
+            <p class="error-text">Username is required</p>
+          </ion-text>
+
+          <ion-item>
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input
+              type="password"
+              formControlName="password"
+              placeholder="Enter password">
+            </ion-input>
+          </ion-item>
+
+          <ion-text color="danger" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+            <p class="error-text">Password is required</p>
+          </ion-text>
+
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="loginForm.invalid || loading"
+            class="login-button">
+            <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+            <span *ngIf="!loading">Login</span>
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

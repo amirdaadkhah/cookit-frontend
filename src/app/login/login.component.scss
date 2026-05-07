@@ -1,0 +1,20 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-button {
+  margin-top: 20px;
+}
+
+.error-text {
+  margin: 6px 16px 0;
+  font-size: 0.85rem;
+}
