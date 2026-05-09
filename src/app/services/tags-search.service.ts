@@ -12,7 +12,8 @@ export interface RecipeTagDto {
 })
 export class TagsSearchService {
   // private readonly apiURL = 'http://localhost:5432';
-  private apiURL = 'http://192.168.0.15:5432';
+  // private apiURL = 'http://192.168.0.15:5432';
+  private apiURL = 'https://cookit-backend-z5vy.onrender.com';
 
   private allTags: string[] = [];
 

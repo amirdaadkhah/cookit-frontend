@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class RecipeService {
   // private apiURL = 'http://localhost:3000';
-  private apiURL = 'http://192.168.0.15:5432';
-
+  // private apiURL = 'http://192.168.0.15:5432';
+  private apiURL = 'https://cookit-backend-z5vy.onrender.com';
   constructor(
     private http: HttpClient
   ) {}
