@@ -1,3 +1,4 @@
+import { environment } from '@/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
@@ -11,10 +12,7 @@ export interface RecipeTagDto {
   providedIn: 'root',
 })
 export class TagsSearchService {
-  // private readonly apiURL = 'http://localhost:5432';
-  // private apiURL = 'http://192.168.0.15:5432';
-  private apiURL = 'https://cookit-backend-z5vy.onrender.com';
-
+  private apiURL = environment.apiURL;
   private allTags: string[] = [];
 
   constructor(
@@ -44,8 +42,7 @@ export class TagsSearchService {
     );
 
     // if matches exist → return them
-    // if no match → return user input as suggestion
-    return matches.length > 0 ? matches : [normalizedQuery];
+    return matches.length > 0 ? matches : [];
   }
 
   normalizeTag(tag: string): string {
@@ -71,7 +68,6 @@ export class TagsSearchService {
   }
 
   private addTagsToServer(tags: string[]): Observable<any> {
-    console.log('is sent to server: ', tags)
     return this.http.post(`${this.apiURL}/tags/add`, { tags });
   }
 

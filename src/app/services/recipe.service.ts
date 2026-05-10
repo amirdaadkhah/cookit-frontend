@@ -1,3 +1,4 @@
+import { environment } from '@/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -6,9 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecipeService {
-  // private apiURL = 'http://localhost:3000';
-  // private apiURL = 'http://192.168.0.15:5432';
-  private apiURL = 'https://cookit-backend-z5vy.onrender.com';
+  private apiURL = environment.apiURL;
+  
   constructor(
     private http: HttpClient
   ) {}
