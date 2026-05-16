@@ -5,22 +5,44 @@
   color: $FOOTER-TEXT-COLOR;
   padding: 50px $HOME-PAGE-SIDE_PADDING 20px 50px;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
+    padding: 20px;
+  }
+
   .footer-content {
     display: flex;
     justify-content: space-between;
   
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
     .brand-info {
       max-width: 40%;
       align-items: flex-start;
         
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
+        max-width: 100%;
+      }
+
       .description {
         padding-top: 20px;
         line-height: 1.6;
         font-size: 14px;
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+          font-size: 12px;
+        }
       }
 
       .brand-logo {
         height: 30px;
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+          height: 100px;
+        }
       }
     }
   
@@ -45,44 +67,40 @@
     }
   }
   
-  .copy-right{
+  .copy-right {
     text-align: center;
     margin-top: 20px;
     border-top: 1px solid #444444;
     padding-top: 10px;
     font-size: 12px;
+    opacity: 0.8;
+
+    
   }
 
   .developed-by {
     text-align: center;
     padding-top: 10px;
     font-size: 14px;
-  }
-
-  .developed-by a {
-    color: inherit;      /* keeps the color same as div text */
-    text-decoration: none; /* removes underline */
-  }
-
-  .developed-by a:hover {
-    text-decoration: underline; /* subtle hover effect */
-    font-weight: bold;
-  }
-}  
-
-@media (max-width: 768px) {
-  .footer-container {
-    padding: 30px;
-
-    .footer-content {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
     
-      .brand-info,
-      .contact-info {
-        max-width: 100%;
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      ion-icon {
+        font-size: 16px;
+      }
+
+      &:hover {
+        color: #38bdf8; // subtle highlight
+        transform: translateY(-1px);
       }
     }
   }
-}
+}  

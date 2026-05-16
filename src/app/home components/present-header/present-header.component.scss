@@ -5,6 +5,10 @@
   position: relative;
   width: 100vw;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+    flex-direction: column;
+  }
+  
   .img {
     width: 100vw;
     object-fit: fill;
@@ -36,6 +40,13 @@
     --min-height: 64px;
     box-shadow: 1px 1px rgba(34, 33, 33, 0.176);
     --inner-padding-end: 0;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+      position: relative;
+      padding-top: 2vw;
+      width: 96vw;
+      margin-inline-start: 2%;
+    }
 
     .input {
       display: flex;
