@@ -7,7 +7,7 @@
   <ion-grid>
     <ion-row>
       <!-- Categories -->
-      <ion-col size="9">
+      <ion-col size="12" size-md="9">
         <div class="categories">
           <button *ngFor="let cat of categories"
                   [class.active]="cat === selectedCategory"
@@ -15,8 +15,10 @@
             {{ cat }}
           </button>
         </div>
+  
         <!-- Search Bar -->
         <app-ingredients-search (searchChange)="onSearchChange($event)" (searchedItemClicked)="selectedSearchedItem($event)"></app-ingredients-search>
+
         <!-- Ingredients grid -->
         <div class="ingredients-grid">
           <div *ngFor="let ing of groupedIngredients[selectedCategory]" class="ingredient-card">
@@ -29,6 +31,7 @@
         </div>
         <!-- Meat parts modal -->
         <div class="part-modal" *ngIf="selectedPart">
+          <button class="close-btn" (click)="cancelPartSelection()">✕</button>
           <div class="title">Which Part of {{ selectedPart.name }} do you have?</div>
           <div class="parts-grid">
             <div *ngFor="let part of selectedPart.parts" (click)="addIngredientPartToCart(part)" class="part-card">
@@ -40,7 +43,7 @@
         </div>
       </ion-col>
 
-      <!-- Selected Ingredients -->
+      <!-- Selected Ingredients - desktop -->
       <ion-col class="cart-col" size="3">
         <div class="cart">
           <div class="title">Your selected Ingredients</div>
@@ -63,6 +66,31 @@
           </button>
         </div>
       </ion-col>
+    </ion-row>
+
+    <!-- Selected Ingredients - Mobile -->
+    <ion-row class="cart-row-mobile">
+      <ion-col size="9">
+        <div class="title">Your selected Ingredients</div>
+        <div class="desc">add at least 3 ingredients and then press the 'Generate Recipes' button</div>
+      </ion-col>
+      <ion-col size="3" class="icon-col">
+        <div class="cart-wrapper">
+          <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
+          <ion-badge class="cart-badge">{{ cart.length }}</ion-badge>
+        </div>
+      </ion-col>
+      <app-recipes-mode-segment 
+        class="segment-mobile"
+        (segmentChange)="onSegmentChanged($event)"
+        >
+      </app-recipes-mode-segment>
+      <button 
+        class="button" 
+        [disabled]="cart.length === 0"
+        (click)="generateRecipes()"
+        >Generate Recipes
+      </button>
     </ion-row>
   </ion-grid>
 </div>

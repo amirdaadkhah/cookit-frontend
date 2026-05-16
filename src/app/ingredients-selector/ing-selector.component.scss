@@ -39,6 +39,32 @@
   justify-content: center;
 }
 
+%generate-button {
+  width: 80%;
+  padding: 0.6rem;
+  background: $GREEN;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease-in-out;
+  height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+
+  &:disabled { 
+    background: #ccc; 
+    cursor: not-allowed; 
+    box-shadow: none;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    }
+  }
+
 /* =========================
    Ingredient Selector
 ========================= */
@@ -100,6 +126,10 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     padding: 10px 0;
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
     .ingredient-card {
       @extend %card;
       text-align: center;
@@ -145,12 +175,31 @@
     padding: 1rem;
     @extend %card;
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+      top: 10%; left: 5%; right: 5%; bottom: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: #666;
+      transition: all 0.2s ease;
+    }
+
     .title { 
       @extend %section-title;
       text-align: start;
       font-size: 1.3rem;
       margin-bottom: 1rem; 
       color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+        padding: 10px 5px 10px 10px;
+      }
     }
 
     .parts-grid {
@@ -189,7 +238,7 @@
 }
 
 /* =========================
-   Cart Column
+   Cart Column Desktop View
 ========================= */
 
 .cart-col {
@@ -197,6 +246,10 @@
   flex-direction: column;
   background: $ING-SELECTOR-BG;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
+    display: none;
+
+  }
   .cart {
     @extend %card;
     height: 100%;
@@ -248,30 +301,71 @@
     background: transparent;
 
     .button {
-      width: 80%;
-      padding: 0.6rem;
-      background: $GREEN;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
-      transition: transform 0.15s ease-in-out;
-      height: 44px;
-      font-size: 15px;
-      font-weight: 600;
+      @extend %generate-button;
+    }
+  }
+}
 
+/* =========================
+   Cart Row Mobile View
+========================= */
 
-      &:disabled { 
-        background: #ccc; 
-        cursor: not-allowed; 
-        box-shadow: none;
+.cart-row-mobile {
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+
+  @media (min-width: $MIN-WIDTH-RESPONSIVE) { // desktop view
+    display: none;
+  }
+
+  .title {
+    padding-bottom: 0;
+    white-space: nowrap;
+    font-size: 5vw;
+  }
+
+  .desc {
+    padding: 10px 20px;
+    color: grey;
+    font-size: 12px;
+  }
+
+  .icon-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cart-wrapper {
+      position: relative;
+      display: inline-block;
+
+      .cart-icon {
+        font-size: 48px;
       }
 
-      &:hover {
-        transform: scale(1.1);
+      .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
+  }
+
+  .segment-mobile {
+    width: 100%;
+  }
+
+  .button {
+    margin-inline-start: 10px; 
+    margin-bottom: 15px;
+    @extend %generate-button;
+    width: 95%;
   }
 }
