@@ -4,45 +4,38 @@
       <ion-card-title>Ingredients</ion-card-title>
     </ion-card-header>
     <ion-card-content formArrayName="ingredients">
-      <div
-        class="ingredient-block"
-        *ngFor="let ingredient of ingredientsArray.controls; let i = index; trackBy: trackByIndex"
-        [formGroupName]="i">
+      <div class="ingredient-block"
+        *ngFor="let ingredient of ingredientsArray.controls; let i = index; trackBy: trackByIndex" [formGroupName]="i">
         <div class="ingredient-header">
           <h3>Ingredient {{ i + 1 }}</h3>
-          <ion-button 
-            color="danger" 
-            fill="clear" 
-            size="small" 
-            (click)="removeIngredient(i)" 
+          <ion-button color="danger" fill="clear" size="small" (click)="removeIngredient(i)"
             *ngIf="ingredientsArray.length > 1">
-              Remove
+            Remove
           </ion-button>
         </div>
 
         <div class="grid-2">
           <ion-item>
             <ion-label position="stacked">Ingredient ID</ion-label>
-            <ion-input 
-              formControlName="ingredientId"
-              (ionInput)="onIngredientsSearch($event, i)"
-              placeholder="Example: potato"
-              clearInput="true">
+            <ion-input formControlName="ingredientId" (ionInput)="onIngredientsSearch($event, i)"
+              placeholder="Example: potato" clearInput="true">
             </ion-input>
           </ion-item>
 
           <!-- Search Results -->
-          <ion-list 
-            *ngIf="
+          <ion-list *ngIf="
               activeInput?.type === 'ingredient' &&
               activeInput?.i === i &&
               (ingredientsResults$ | async) as results
             ">
-            <ion-item
-              button
-              *ngFor="let item of results"
-              (click)="onIngredientsSelected(item, i)">
-                {{ item.name }} {{ item.id }}
+            <ion-item button *ngFor="let item of results"
+              (click)="!item.parts?.length && onIngredientsSelected(item, i)">
+              <ion-label>
+                <h2> {{ item.id }} {{ item.name }}</h2>
+                <ion-chip *ngFor="let p of (item.parts ?? [])" (click)="onIngredientsSelected(item, i, p)">
+                  <ion-label>{{ p.name }}</ion-label>
+                </ion-chip>
+              </ion-label>
             </ion-item>
           </ion-list>
 
@@ -85,31 +78,28 @@
               Add Substitute
             </ion-button>
           </div>
-          <div
-            class="substitute-row"
+          <div class="substitute-row"
             *ngFor="let substitute of ingredientSubstitutes(i).controls; let j = index; trackBy: trackByControl">
             <ion-item>
               <ion-label position="stacked">Substitute {{ j + 1 }}</ion-label>
-              <ion-input 
-                [formControlName]="j" 
-                (ionInput)="onSubstitutionsSearch($event, i, j)"
-                placeholder="Example: Maple Syrup"
-                clearInput="true"
-              ></ion-input>
+              <ion-input [formControlName]="j" (ionInput)="onSubstitutionsSearch($event, i, j)"
+                placeholder="Example: Maple Syrup" clearInput="true"></ion-input>
             </ion-item>
             <!-- Search Results -->
-            <ion-list 
-              *ngIf="
+            <ion-list *ngIf="
                 activeInput?.type === 'substitute' &&
                 activeInput?.i === i &&
                 activeInput?.j === j &&
                 (ingredientsResults$ | async) as results
             ">
-              <ion-item
-                button
-                *ngFor="let item of results"
-                (click)="onSubstitutionSelected(item, i, j)">
-                  {{ item.name }} {{ item.id }}
+              <ion-item button *ngFor="let item of results"
+                (click)="!item.parts?.length && onSubstitutionSelected(item, i, j)">
+                <ion-label>
+                  <h2> {{ item.id }} {{ item.name }}</h2>
+                  <ion-chip *ngFor="let p of (item.parts ?? [])" (click)="onSubstitutionSelected(item, i, j, p)">
+                    <ion-label>{{ p.name }} {{ p.id }}</ion-label>
+                  </ion-chip>
+                </ion-label>
               </ion-item>
             </ion-list>
             <ion-button color="danger" fill="clear" size="small" (click)="removeSubstitute(i, j)">

@@ -1,5 +1,5 @@
 import { IngredientPickerService } from '@/app/services/ingredient-picker.service';
-import { Ingredient } from '@/app/services/ingredient-service';
+import { Ingredient, IngredientPart } from '@/app/services/ingredient-service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -43,8 +43,7 @@ export class IngredientBlockComponent {
   constructor(
     private ingredientPickerService: IngredientPickerService,
     private readonly fb: FormBuilder,
-  ) 
-  {
+  ) {
     this.addIngredient(); // one block of 'add ingredients' is showing as default
   }
 
@@ -65,10 +64,11 @@ export class IngredientBlockComponent {
     this.ingredientPickerService.search(value);
   }
 
-  onIngredientsSelected(item: Ingredient, i: number, j?: number): void {
+  onIngredientsSelected(item: Ingredient, i: number, part?: IngredientPart): void {
     // 1. set ID into form (this is what gets saved in JSON)
     const control = this.ingredientsArray.at(i).get('ingredientId');
-    control?.setValue(item.id)
+    const value = part?.id ? part.id : item.id
+    control?.setValue(value)
     this.activeInput = null; // hide dropdown search list
   }
 
@@ -80,15 +80,16 @@ export class IngredientBlockComponent {
     const value = event.detail?.value ?? '';
     this.activeInput = {
       type: 'substitute',
-      i:i, j: j
+      i: i, j: j
     };
     this.ingredientPickerService.search(value);
   }
 
-  onSubstitutionSelected(item: Ingredient, i: number, j: number): void {
+  onSubstitutionSelected(item: Ingredient, i: number, j: number, part?: IngredientPart): void {
     const formArray = this.ingredientSubstitutes(i);
     const control = formArray.at(j);
-    control.setValue(item.id); // 1. set value to input
+    const value = part?.id ? part.id : item.id
+    control.setValue(value); // 1. set value to input
     this.activeInput = null; // hide dropdown search list
   }
 
@@ -124,7 +125,7 @@ export class IngredientBlockComponent {
   trackByIndex(index: number): number {
     return index;
   }
-  
+
   trackByControl(index: number, control: any) {
     return control;
   }
