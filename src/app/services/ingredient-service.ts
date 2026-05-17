@@ -25,6 +25,8 @@ export class IngredientService {
   private readonly jsonURL = 'assets/db/ingredients.json';
   private ingredientsSubject = new BehaviorSubject<Ingredient[]>([]);
   ingredients$ = this.ingredientsSubject.asObservable();
+  private generalIngredientsSubject = new BehaviorSubject<Ingredient[]>([]);
+  generalIngredients$ = this.generalIngredientsSubject.asObservable();
   private searchSubject = new BehaviorSubject<SearchState>({ query: '', mode: 'all'});
   readonly search$ = this.searchSubject.asObservable();
   readonly queryIsEmpty$ = this.search$.pipe(
@@ -51,8 +53,22 @@ export class IngredientService {
   loadIngredients() {
     this.ingredientsSubject.next([]);
     this.http.get<Ingredient[]>(this.jsonURL).subscribe({
-      next: (data) => this.ingredientsSubject.next(data ?? []),
-      error: () => this.ingredientsSubject.next([]),
+      next: (data) => {
+        const ingredients = data ?? [];
+        const generalIngredients = ingredients.filter(
+          i => i.type === 'general'
+        );
+        const nonGeneralIngredients = ingredients.filter(
+          i => i.type !== 'general'
+        );
+
+        this.ingredientsSubject.next(nonGeneralIngredients ?? [])
+        this.generalIngredientsSubject.next(generalIngredients ?? [])
+      },
+      error: () => {
+        this.ingredientsSubject.next([])
+        this.generalIngredientsSubject.next([])
+      },
     });
   }
 

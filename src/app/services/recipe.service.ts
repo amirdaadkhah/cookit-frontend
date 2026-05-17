@@ -16,9 +16,7 @@ export interface SearchForRecipePayload {
 export class RecipeService {
   private apiURL = environment.apiURL;
   
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   searchRecipes(payload: SearchForRecipePayload): Observable<any> {
     return this.http.post(`${this.apiURL}/recipes/search`, payload);

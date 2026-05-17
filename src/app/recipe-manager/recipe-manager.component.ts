@@ -8,7 +8,7 @@ import { IngredientBlockComponent } from './ingredient-block/ingredient-block.co
 import { MediaBlockComponent } from './media-block/media-block.component';
 import { RecipeService } from '../services/recipe.service';
 
-type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'lunch' | 'dinner' | 'drink';
+type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink';
 interface RecipeIngredient {
   ingredientId: number | null;
   isMain: boolean;
@@ -74,8 +74,7 @@ export class RecipeManagerComponent {
     'dessert',
     'breakfast',
     'snack',
-    'lunch',
-    'dinner',
+    'food',
     'drink',
   ];
 
