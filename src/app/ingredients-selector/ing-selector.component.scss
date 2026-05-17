@@ -3,7 +3,6 @@
 /* =========================
    Reusable Placeholders
 ========================= */
-
 %card {
   background: white;
   border-radius: 8px;
@@ -38,32 +37,6 @@
   align-items: center;
   justify-content: center;
 }
-
-%generate-button {
-  width: 80%;
-  padding: 0.6rem;
-  background: $GREEN;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
-  transition: transform 0.15s ease-in-out;
-  height: 44px;
-  font-size: 15px;
-  font-weight: 600;
-
-  &:disabled { 
-    background: #ccc; 
-    cursor: not-allowed; 
-    box-shadow: none;
-  }
-
-  &:hover {
-    transform: scale(1.1);
-    }
-  }
 
 /* =========================
    Ingredient Selector
@@ -126,7 +99,7 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     padding: 10px 0;
 
-    @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
       grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     }
 
@@ -139,18 +112,20 @@
       .image-wrapper {
         position: relative;
 
-        img { 
+        img {
           @extend %image;
         }
 
         .plus-btn {
           position: absolute;
-          bottom: 0; right: 5px;
-          width: 24px; height: 24px;
-          border-radius: 50%; 
+          bottom: 0;
+          right: 5px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
           border: none;
           background: white;
-          color: $GREEN; 
+          color: $GREEN;
           cursor: pointer;
           transform: translateY(50%);
           font-size: 20px;
@@ -158,7 +133,7 @@
         }
       }
 
-      .name { 
+      .name {
         @extend %name-block;
       }
     }
@@ -170,13 +145,19 @@
 
   .part-modal {
     position: fixed;
-    top: 20%; left: 10%; right: 40%;
+    top: 20%;
+    left: 10%;
+    right: 40%;
     z-index: 100;
     padding: 1rem;
     @extend %card;
 
-    @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
-      top: 10%; left: 5%; right: 5%; bottom: 10px;
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // mobile view
+      top: 10%;
+      left: 5%;
+      right: 5%;
+      bottom: 10px;
     }
 
     .close-btn {
@@ -190,14 +171,15 @@
       transition: all 0.2s ease;
     }
 
-    .title { 
+    .title {
       @extend %section-title;
       text-align: start;
       font-size: 1.3rem;
-      margin-bottom: 1rem; 
+      margin-bottom: 1rem;
       color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
 
-      @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // mobile view
         padding: 10px 5px 10px 10px;
       }
     }
@@ -214,11 +196,11 @@
         padding: 0.2rem;
         margin: 3px;
 
-        img { 
+        img {
           @extend %image;
         }
 
-        .name { 
+        .name {
           @extend %name-block;
         }
       }
@@ -235,137 +217,29 @@
       cursor: pointer;
     }
   }
-}
 
-/* =========================
-   Cart Column Desktop View
-========================= */
-
-.cart-col {
-  display: flex;
-  flex-direction: column;
-  background: $ING-SELECTOR-BG;
-
-  @media (max-width: $MAX-WIDTH-RESPONSIVE) { 
-    display: none;
-
-  }
-  .cart {
-    @extend %card;
-    height: 100%;
-
-    .title {
-      @extend %section-title;
-      text-align: start;
-      font-size: 1.1rem;
-    }
-
-    .line {
-      width: 95%;
-      height: 1px;
-      background: $ING-SELECTOR-LINE-COLOR;
-      // text-align: center;
-      margin-inline-start: 5px;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.5rem;
-     
-      img { 
-        width: 50px; 
-        height: 40px; 
-        object-fit: contain; 
-        padding: 5px 5px 5px 15px;
-      }
-
-      .name {
-        @extend %name-block;
-      }
-
-      button { 
-        margin-left: auto; 
-        padding-inline-end: 10px;
-        border: none; 
-        background: none; 
-        color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR; 
-        font-size: 1.2rem; 
-        cursor: pointer; 
-      }
-    }
-  }
-
-  .generate-recipe-button {
-    text-align: center;
-    background: transparent;
-
-    .button {
-      @extend %generate-button;
-    }
-  }
-}
-
-/* =========================
-   Cart Row Mobile View
-========================= */
-
-.cart-row-mobile {
-  background-color: white;
-  border-radius: 8px;
-  text-align: center;
-
-  @media (min-width: $MIN-WIDTH-RESPONSIVE) { // desktop view
-    display: none;
-  }
-
-  .title {
-    padding-bottom: 0;
-    white-space: nowrap;
-    font-size: 5vw;
-  }
-
-  .desc {
-    padding: 10px 20px;
-    color: grey;
-    font-size: 12px;
-  }
-
-  .icon-col {
+  .cart-col {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    background: $ING-SELECTOR-BG;
 
-    .cart-wrapper {
-      position: relative;
-      display: inline-block;
-
-      .cart-icon {
-        font-size: 48px;
+    /* MOBILE */
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        .cart-col {
+          order: -1;
+          width: 100%;
+        }
       }
 
-      .cart-badge {
-        position: absolute;
-        top: -6px;
-        right: -8px;
-        font-size: 10px;
-        padding: 3px 6px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+    /* DESKTOP */
+
+    .selected-ing-panel-mobile {
+      @media (min-width: $MIN-WIDTH-RESPONSIVE) {
+        .cart-col {
+          order: 0;
+        }
       }
     }
-  }
-
-  .segment-mobile {
-    width: 100%;
-  }
-
-  .button {
-    margin-inline-start: 10px; 
-    margin-bottom: 15px;
-    @extend %generate-button;
-    width: 95%;
   }
 }
