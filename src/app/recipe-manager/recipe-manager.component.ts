@@ -29,8 +29,6 @@ import { TagsBlockComponent } from './tags-block/tags-block.component';
 export class RecipeManagerComponent {
   @ViewChild(IngredientBlockComponent)
   ingredientBlock!: IngredientBlockComponent;
-  @ViewChild(MediaBlockComponent)
-  mediaBlock!: MediaBlockComponent;
 
   readonly categoryOptions: RecipeCategory[] = [
     'dessert',
@@ -39,10 +37,15 @@ export class RecipeManagerComponent {
     'food',
     'drink',
   ];
+
+
+
   readonly tagSearch = new FormControl('', { nonNullable: true });
   readonly tagSuggestions = signal<string[]>([]);
   readonly stepInput = new FormControl('', { nonNullable: true });
   readonly recipeForm: FormGroup = createRecipeForm(this.fb);
+
+
 
   constructor(
     private readonly fb: FormBuilder,
@@ -50,6 +53,10 @@ export class RecipeManagerComponent {
     private readonly alertController: AlertController,
     private recipeService: RecipeService
   ) { }
+
+  get mediaGroup(): FormGroup {
+    return this.recipeForm.get('media') as FormGroup;
+  }
 
   get stepsArray(): FormArray {
     return this.recipeForm.get('steps') as FormArray;
@@ -78,7 +85,7 @@ export class RecipeManagerComponent {
     const payload = RecipeMapper.toPayload(
       formValue,
       this.ingredientBlock.ingredientsArray.getRawValue() ?? [],
-      this.mediaBlock.mediaFbArray.getRawValue().media,
+      this.mediaGroup.getRawValue().media,
       (formValue.tags ?? []).map((t: string) => this.normalizeTag(t))
     );
     return payload;

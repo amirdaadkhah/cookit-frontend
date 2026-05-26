@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -15,14 +15,7 @@ import { IonicModule } from '@ionic/angular';
   ]
 })
 export class MediaBlockComponent {
-  mediaFbArray = this.fb.group({
-    media: this.fb.group({
-      instagram: [''],
-      tiktok: [''],
-      youtube: [''],
-      webpage: [''],
-    }),  
-  });
+  @Input({ required: true }) mediaGroup!: FormGroup;
 
   readonly mediaFields = [
     {
@@ -47,5 +40,5 @@ export class MediaBlockComponent {
     }
   ];
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor() { }
 }
