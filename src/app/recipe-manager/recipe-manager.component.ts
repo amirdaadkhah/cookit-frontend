@@ -7,49 +7,9 @@ import { TagsSearchService } from '../services/tags-search.service';
 import { IngredientBlockComponent } from './ingredient-block/ingredient-block.component';
 import { MediaBlockComponent } from './media-block/media-block.component';
 import { RecipeService } from '../services/recipe.service';
-
-type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink';
-interface RecipeIngredient {
-  ingredientId: number | null;
-  isMain: boolean;
-  optional: boolean;
-  qty: number | null;
-  unit: string;
-  note: string | null;
-  subtitute: number[];
-}
-
-interface RecipePayload {
-  id: string;
-  title: string;
-  category: string[];
-  diet: {
-    vegan: boolean;
-    vegetarian: boolean;
-  };
-  isWarm: boolean;
-  times: {
-    prepMin: number | null;
-    cookMin: number | null;
-    totalMin: number | null;
-  };
-  nutrition: {
-    portion: string | null;
-    kcal: string | null;
-    protein: string | null;
-  };
-  ingredients: RecipeIngredient[];
-  media: {
-    instagram: string | null;
-    tiktok: string | null;
-    youtube: string | null;
-    webpage: string | null;
-  };
-  tags: string[];
-  origin: string | null;
-  steps: string[];
-  updatedAt: string;
-}
+import { RecipeMapper } from '../mapper/recipe.mapper';
+import { RecipeCategory, RecipePayload } from '../models/recipe.model';
+import { createRecipeForm, getRecipeFormDefaults, validateRecipe } from '../forms/recipe.form';
 
 @Component({
   selector: 'app-recipe-manager',
@@ -77,42 +37,10 @@ export class RecipeManagerComponent {
     'food',
     'drink',
   ];
-
   readonly tagSearch = new FormControl('', { nonNullable: true });
   readonly tagSuggestions = signal<string[]>([]);
   readonly stepInput = new FormControl('', { nonNullable: true });
-
-  readonly recipeForm: FormGroup = this.fb.group({
-    id: ['', [Validators.required]],
-    title: ['', [Validators.required, Validators.maxLength(120)]],
-    category: [[], [Validators.required]],
-    diet: this.fb.group({
-      vegan: [false],
-      vegetarian: [false],
-    }),
-    isWarm: [false],
-    times: this.fb.group({
-      prepMin: [null],
-      cookMin: [null],
-      totalMin: [null],
-    }),
-    nutrition: this.fb.group({
-      portion: [''],
-      kcal: [''],
-      protein: [''],
-    }),
-    ingredients: this.fb.array([]),
-    media: this.fb.group({
-      instagram: [''],
-      tiktok: [''],
-      youtube: [''],
-      webpage: [''],
-    }),
-    tags: this.fb.array<string>([]),
-    origin: [''],
-    steps: this.fb.array<string>([]),
-    updatedAt: [this.today()],
-  });
+  readonly recipeForm: FormGroup = createRecipeForm(this.fb);
 
   constructor(
     private readonly fb: FormBuilder,
@@ -128,9 +56,7 @@ export class RecipeManagerComponent {
     return this.recipeForm.get('steps') as FormArray;
   }
 
-  get tagsArray(): FormArray {
-    return this.recipeForm.get('tags') as FormArray;
-  }
+
 
   addStep(): void {
     const value = this.stepInput.value.trim();
@@ -162,6 +88,10 @@ export class RecipeManagerComponent {
 
     this.stepsArray.at(index + 1).setValue(current);
     this.stepsArray.at(index).setValue(next);
+  }
+
+  get tagsArray(): FormArray {
+    return this.recipeForm.get('tags') as FormArray;
   }
 
   private setupTagSearch(): void {
@@ -203,109 +133,63 @@ export class RecipeManagerComponent {
 
   async saveRecipe(): Promise<void> {
     this.recipeForm.markAllAsTouched();
-    const Validations = [
-      { condition: this.stepsArray.length === 0, message: 'Please add at least one step.', color: 'warning'},
-      { condition: this.ingredientBlock.ingredientsArray.length === 0, message: 'Please add at least one ingredient.', color: 'warning'},
-      { condition: this.recipeForm.invalid, message: 'Please fix the form errors first.', color: 'danger'},
-    ]
-    const failed = Validations.find(v => v.condition);
-    if (failed) {
-      const toast = await this.toastController.create({
-        message: failed.message,
-        color: failed.color,
-        duration: 2000,
-        position: 'middle' // 👈 this is what you need
-      });
-      await toast.present();
+    const error = validateRecipe(this.recipeForm, this.stepsArray, this.ingredientBlock.ingredientsArray);
+    if (error) {
+      this.showToast(error.message, 2200, error.color, 'middle');
       return;
     }
-
     const payload = this.buildPayload();
     this.recipeService.addRecipe(payload).subscribe({
-      next: (res) => {
-        this.showToast('Recipe saved successfully.', 'success');
-        this.showJsonPreview(payload);
-        this.resetForm();
-      },
-      error: (err) => {
-        console.log('Failed to save recipe:', err);
-      }
+      next: (res) => this.onSaveSuccess(payload),
+      error: (err) => this.onSaveError(err),
     });
   }
 
   buildPayload(): RecipePayload {
     const formValue = this.recipeForm.getRawValue();
-    return {
-      id: formValue.id,
-      title: formValue.title,
-      category: formValue.category ?? [],
-      diet: {
-        vegan: formValue.diet.vegan,
-        vegetarian: formValue.diet.vegetarian,
-      },
-      isWarm: !!formValue.isWarm,
-      times: {
-        prepMin: this.toNullableNumber(formValue.times?.prepMin),
-        cookMin: this.toNullableNumber(formValue.times?.cookMin),
-        totalMin: this.toNullableNumber(formValue.times?.totalMin),
-      },
-      nutrition: {
-        portion: this.toNullableString(formValue.nutrition?.portion),
-        kcal: this.toNullableString(formValue.nutrition?.kcal),
-        protein: this.toNullableString(formValue.nutrition?.protein),
-      },
-      ingredients: (this.ingredientBlock.ingredientsArray.getRawValue() ?? []).map((item: any) => ({
-        ingredientId: Number(item.ingredientId),
-        isMain: !!item.isMain,
-        optional: !!item.optional,
-        qty: this.toNullableNumber(item.qty),
-        unit: item.unit,
-        note: this.toNullableString(item.note),
-        subtitute: (item.subtitute ?? [])
-          .map((s: number) => String(s).trim())
-          .filter((s: string) => !!s),
-      })),
-      media: {
-        instagram: this.toNullableString(this.mediaBlock.mediaFbArray.getRawValue().media?.instagram),
-        tiktok: this.toNullableString(this.mediaBlock.mediaFbArray.getRawValue().media?.tiktok),
-        youtube: this.toNullableString(this.mediaBlock.mediaFbArray.getRawValue().media?.youtube),
-        webpage: this.toNullableString(this.mediaBlock.mediaFbArray.getRawValue().media?.webpage)
-      },
-      tags: (formValue.tags ?? []).map((t: string) => this.tagsSearchService.normalizeTag(t)),
-      origin: this.toNullableString(formValue.origin),
-      steps: (formValue.steps ?? []).map((s: string) => s.trim()).filter((s: string) => !!s),
-      updatedAt: formValue.updatedAt || this.today(),
-    };
+    const payload = RecipeMapper.toPayload(
+      formValue,
+      this.ingredientBlock.ingredientsArray.getRawValue() ?? [],
+      this.mediaBlock.mediaFbArray.getRawValue().media,
+      (formValue.tags ?? []).map((t: string) => this.tagsSearchService.normalizeTag(t))
+    );
+    return payload;
+  }
+
+  private async onSaveSuccess(payload: RecipePayload) {
+    this.showToast('Recipe saved successfully.', 2200, 'success', 'top');
+    this.showJsonPreview(payload);
+    this.resetForm();
+  }
+
+  private onSaveError(err: any) {
+    console.log('Failed to save recipe:', err);
+    console.error('Failed to save recipe:', err);
   }
 
   copyGeneratedJson(): void {
     const payload = this.buildPayload();
     navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
-    this.showToast('JSON copied to clipboard.', 'success');
+    this.showToast('JSON copied to clipboard.', 2200, 'success', 'top');
   }
 
   resetForm(): void {
-    while (this.ingredientBlock.ingredientsArray.length) this.ingredientBlock.ingredientsArray.removeAt(0);
-    while (this.stepsArray.length) this.stepsArray.removeAt(0);
-    while (this.tagsArray.length) this.tagsArray.removeAt(0);
-
-    this.recipeForm.reset({
-      id: '',
-      title: '',
-      category: [],
-      diet: { vegan: false, vegetarian: false },
-      isWarm: false,
-      times: { prepMin: null, cookMin: null, totalMin: null },
-      nutrition: { portion: '', kcal: '', protein: '' },
-      media: { instagram: '', tiktok: '', youtube: '', webpage: '' },
-      origin: '',
-      updatedAt: this.today(),
-    });
-
-    this.tagSearch.setValue('');
-    this.stepInput.setValue('');
+    this.resetFormState();
+    this.resetUiState();
     this.ingredientBlock.addIngredient();
     this.recipeForm.get('id')?.updateValueAndValidity();
+  }
+
+  private resetFormState() {
+    this.ingredientBlock.ingredientsArray.clear();
+    this.stepsArray.clear();
+    this.tagsArray.clear();
+  }
+
+  private resetUiState() {
+    this.recipeForm.reset(getRecipeFormDefaults());
+    this.tagSearch.setValue('');
+    this.stepInput.setValue('');
   }
 
   trackByIndex(index: number): number {
@@ -316,31 +200,12 @@ export class RecipeManagerComponent {
     return control;
   }
 
-  private toNullableString(value: unknown): string | null {
-    if (value === null || value === undefined) return null;
-    const str = String(value).trim();
-    return str === '' ? null : str;
-  }
-
-  private toNullableNumber(value: unknown): number | null {
-    if (value === null || value === undefined || value === '') return null;
-    const num = Number(value);
-    return Number.isNaN(num) ? null : num;
-  }
-
-  private today(): Date {
-    return new Date();
-  }
-
-  private async showToast(
-    message: string,
-    color: 'success' | 'danger' | 'warning'
-  ): Promise<void> {
+  private async showToast(message: string, duration: number, color: 'success' | 'danger' | 'warning', position: 'top' | 'middle'): Promise<void> {
     const toast = await this.toastController.create({
       message,
-      duration: 2200,
+      duration: duration,
       color,
-      position: 'top',
+      position: position,
     });
     await toast.present();
   }
