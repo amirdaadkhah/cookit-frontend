@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, DestroyRef, inject, signal, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertController, IonicModule, ToastController } from '@ionic/angular';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { TagsSearchService } from '../services/tags-search.service';
 import { IngredientBlockComponent } from './ingredient-block/ingredient-block.component';
 import { MediaBlockComponent } from './media-block/media-block.component';
@@ -10,6 +10,7 @@ import { RecipeService } from '../services/recipe.service';
 import { RecipeMapper } from '../mapper/recipe.mapper';
 import { RecipeCategory, RecipePayload } from '../models/recipe.model';
 import { createRecipeForm, getRecipeFormDefaults, validateRecipe } from '../forms/recipe.form';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-recipe-manager',
@@ -41,6 +42,7 @@ export class RecipeManagerComponent {
   readonly tagSuggestions = signal<string[]>([]);
   readonly stepInput = new FormControl('', { nonNullable: true });
   readonly recipeForm: FormGroup = createRecipeForm(this.fb);
+private destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly fb: FormBuilder,
@@ -99,10 +101,11 @@ export class RecipeManagerComponent {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        map(value => {
+        switchMap(value => {
           const query = value.trim();
           return this.tagsSearchService.searchTags(query);
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(tags => {
         const selected = this.tagsArray.value as string[];
