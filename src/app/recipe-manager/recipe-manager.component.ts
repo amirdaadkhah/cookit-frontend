@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, signal, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, signal, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AlertController, IonicModule, ToastController } from '@ionic/angular';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { TagsSearchService } from '../services/tags-search.service';
 import { IngredientBlockComponent } from './ingredient-block/ingredient-block.component';
 import { MediaBlockComponent } from './media-block/media-block.component';
 import { RecipeService } from '../services/recipe.service';
 import { RecipeMapper } from '../mapper/recipe.mapper';
 import { RecipeCategory, RecipePayload } from '../models/recipe.model';
 import { createRecipeForm, getRecipeFormDefaults, validateRecipe } from '../forms/recipe.form';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StepsBlockComponent } from './steps-block/steps-block.component';
+import { TagsBlockComponent } from './tags-block/tags-block.component';
 
 @Component({
   selector: 'app-recipe-manager',
@@ -22,7 +21,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ReactiveFormsModule,
     IonicModule,
     IngredientBlockComponent,
-    MediaBlockComponent
+    MediaBlockComponent,
+    StepsBlockComponent,
+    TagsBlockComponent
   ]
 })
 export class RecipeManagerComponent {
@@ -42,96 +43,20 @@ export class RecipeManagerComponent {
   readonly tagSuggestions = signal<string[]>([]);
   readonly stepInput = new FormControl('', { nonNullable: true });
   readonly recipeForm: FormGroup = createRecipeForm(this.fb);
-private destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly fb: FormBuilder,
-    private tagsSearchService: TagsSearchService,
     private readonly toastController: ToastController,
     private readonly alertController: AlertController,
     private recipeService: RecipeService
-  ) {
-    this.setupTagSearch();
-  }
+  ) { }
 
   get stepsArray(): FormArray {
     return this.recipeForm.get('steps') as FormArray;
   }
 
-
-
-  addStep(): void {
-    const value = this.stepInput.value.trim();
-    if (!value) return;
-
-    this.stepsArray.push(new FormControl(value, Validators.required));
-    this.stepInput.setValue('');
-  }
-
-  removeStep(index: number): void {
-    this.stepsArray.removeAt(index);
-  }
-
-  moveStepUp(index: number): void {
-    if (index === 0) return;
-
-    const current = this.stepsArray.at(index).value;
-    const previous = this.stepsArray.at(index - 1).value;
-
-    this.stepsArray.at(index - 1).setValue(current);
-    this.stepsArray.at(index).setValue(previous);
-  }
-
-  moveStepDown(index: number): void {
-    if (index >= this.stepsArray.length - 1) return;
-
-    const current = this.stepsArray.at(index).value;
-    const next = this.stepsArray.at(index + 1).value;
-
-    this.stepsArray.at(index + 1).setValue(current);
-    this.stepsArray.at(index).setValue(next);
-  }
-
   get tagsArray(): FormArray {
     return this.recipeForm.get('tags') as FormArray;
-  }
-
-  private setupTagSearch(): void {
-    this.tagSearch.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap(value => {
-          const query = value.trim();
-          return this.tagsSearchService.searchTags(query);
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(tags => {
-        const selected = this.tagsArray.value as string[];
-        this.tagSuggestions.set(
-          tags.filter(tag => !selected.includes(tag))
-        );
-      });
-  }
-
-  addTagFromInput(): void {
-    const currentTags = this.tagsArray.value as string[];
-    this.tagsSearchService.addNewTagsToDB(currentTags);
-    this.tagSearch.setValue('');
-  }
-
-  addSuggestedTag(tag: string): void {
-    const currentTags = this.tagsArray.value as string[];
-    if (!currentTags.includes(tag)) {
-      this.tagsArray.push(new FormControl(tag));
-    }
-    this.tagSearch.setValue('');
-    this.tagSuggestions.set([]);
-  }
-
-  removeTag(index: number): void {
-    this.tagsArray.removeAt(index);
   }
 
   async saveRecipe(): Promise<void> {
@@ -154,7 +79,7 @@ private destroyRef = inject(DestroyRef);
       formValue,
       this.ingredientBlock.ingredientsArray.getRawValue() ?? [],
       this.mediaBlock.mediaFbArray.getRawValue().media,
-      (formValue.tags ?? []).map((t: string) => this.tagsSearchService.normalizeTag(t))
+      (formValue.tags ?? []).map((t: string) => this.normalizeTag(t))
     );
     return payload;
   }
@@ -231,5 +156,9 @@ private destroyRef = inject(DestroyRef);
       .replace('>', '&gt;')
       .replace('"', '&quot;')
       .replace("'", '&#039;');
+  }
+
+  normalizeTag(tag: string): string {
+    return tag.trim().toLowerCase().replace(/\s+/g, '_');
   }
 }

@@ -110,86 +110,10 @@
     <app-ingredient-block></app-ingredient-block>
 
     <!-- Tags -->
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Tags</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <div class="tag-input-row">
-          <ion-item>
-            <ion-label position="stacked">Tag</ion-label>
-            <ion-input
-              [formControl]="tagSearch"
-              placeholder="Search or create tag, e.g. high_protein"
-            ></ion-input>
-          </ion-item>
-
-          <ion-button 
-            (click)="addTagFromInput()"
-            [disabled]="tagSuggestions().length > 0">
-              Add Tag
-          </ion-button>
-        </div>
-
-        <div class="suggestions" *ngIf="tagSuggestions().length > 0">
-          <ion-chip
-            *ngFor="let tag of tagSuggestions(); trackBy: trackByIndex"
-            (click)="addSuggestedTag(tag)"
-          >
-            <ion-label>{{ tag }}</ion-label>
-          </ion-chip>
-        </div>
-
-        <div class="selected-tags" formArrayName="tags" *ngIf="tagsArray.length">
-          <ion-chip color="primary" *ngFor="let tag of tagsArray.controls; let i = index; trackBy: trackByIndex">
-            <ion-label>{{ tag.value }}</ion-label>
-            <ion-icon name="close-circle" (click)="removeTag(i)"></ion-icon>
-          </ion-chip>
-        </div>
-      </ion-card-content>
-    </ion-card>
+    <app-tags-block [tagsArray]="tagsArray"></app-tags-block>
 
     <!-- instruction steps -->
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Steps</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <div class="step-input-row">
-          <ion-item>
-            <ion-label position="stacked">New Step</ion-label>
-            <ion-textarea
-              [formControl]="stepInput"
-              rows="3"
-              placeholder="Enter one step at a time"
-            ></ion-textarea>
-          </ion-item>
-
-          <ion-button (click)="addStep()">Add Step</ion-button>
-        </div>
-
-        <div class="steps-list" formArrayName="steps">
-          <ion-card class="step-card" *ngFor="let step of stepsArray.controls; let i = index; trackBy: trackByIndex">
-            <ion-card-content>
-              <div class="step-row">
-                <div class="step-text">
-                  <strong>Step {{ i + 1 }}</strong>
-                  <p>{{ step.value }}</p>
-                </div>
-
-                <div class="step-actions">
-                  <ion-button fill="clear" size="small" (click)="moveStepUp(i)">↑</ion-button>
-                  <ion-button fill="clear" size="small" (click)="moveStepDown(i)">↓</ion-button>
-                  <ion-button color="danger" fill="clear" size="small" (click)="removeStep(i)">Remove</ion-button>
-                </div>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </div>
-      </ion-card-content>
-    </ion-card>
+    <app-steps-block [stepsArray]="stepsArray"></app-steps-block>
 
     <!-- Social Media URLs block-->
     <app-media-block></app-media-block>

@@ -1,0 +1,34 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Tags</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="tag-input-row">
+      <ion-item>
+        <ion-label position="stacked">Tag</ion-label>
+        <ion-input 
+          [formControl]="tagSearch" 
+          placeholder="Search or create tag, e.g. high_protein">
+        </ion-input>
+      </ion-item>
+
+      <ion-button (click)="addTagFromInput()" [disabled]="tagSuggestions().length > 0">
+        Add Tag
+      </ion-button>
+    </div>
+
+    <div class="suggestions" *ngIf="tagSuggestions().length > 0">
+      <ion-chip *ngFor="let tag of tagSuggestions(); trackBy: trackByIndex" (click)="addSuggestedTag(tag)">
+        <ion-label>{{ tag }}</ion-label>
+      </ion-chip>
+    </div>
+
+    <div class="selected-tags" *ngIf="tagsArray.length">
+      <ion-chip color="primary" *ngFor="let tag of tagsArray.controls; let i = index; trackBy: trackByIndex">
+        <ion-label>{{ tag.value }}</ion-label>
+        <ion-icon name="close-circle" (click)="removeTag(i)"></ion-icon>
+      </ion-chip>
+    </div>
+  </ion-card-content>
+</ion-card>
