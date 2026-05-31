@@ -7,17 +7,6 @@
 
       <ion-card-content>
         <ion-item>
-          <ion-label position="stacked">Recipe ID</ion-label>
-          <ion-input formControlName="id" placeholder="..."></ion-input>
-        </ion-item>
-        <ion-note color="danger" *ngIf="recipeForm.get('id')?.touched && recipeForm.get('id')?.hasError('required')">
-          ID is required.
-        </ion-note>
-        <ion-note color="danger" *ngIf="recipeForm.get('id')?.touched && recipeForm.get('id')?.hasError('duplicateId')">
-          This ID already exists. It must be unique.
-        </ion-note>
-
-        <ion-item>
           <ion-label position="stacked">Title</ion-label>
           <ion-input formControlName="title" placeholder="..."></ion-input>
         </ion-item>
@@ -108,7 +97,7 @@
 
     <!-- Add ingredients -->
     <app-ingredient-block [ingredientsArray]="ingredientsArray"
-      (addIngredientEvent)="addIngredient($event?.id, $event?.name)">
+      (addIngredientEvent)="addIngredient($event.id, $event.name)">
     </app-ingredient-block>
 
     <!-- Tags -->

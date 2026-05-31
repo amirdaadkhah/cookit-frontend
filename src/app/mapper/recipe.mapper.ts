@@ -3,12 +3,11 @@ import { RecipePayload, RecipeIngredient } from "../models/recipe.model";
 export class RecipeMapper {
   static toPayload(
     form: any,
-    ingredients: any[],
+    ingredients: RecipeIngredient[],
     media: any,
     tags: any
   ): RecipePayload {
     return {
-      id: form.id,
       title: form.title,
       category: form.category ?? [],
       diet: {
@@ -26,7 +25,7 @@ export class RecipeMapper {
         kcal: this.toNullableString(form.nutrition?.kcal),
         protein: this.toNullableString(form.nutrition?.protein),
       },
-      ingredients: ingredients.map(this.mapIngredient),
+      ingredients: ingredients.map(i => this.mapIngredient(i)),
       media: this.mapMedia(media),
       tags: tags,
       origin: this.toNullableString(form.origin),
@@ -37,9 +36,10 @@ export class RecipeMapper {
 
 
   private static mapIngredient(item: any): RecipeIngredient {
+
     return {
       ingredientId: Number(item.ingredientId),
-      name: item.name,
+      name: this.toNullableString(item.name),
       isMain: !!item.isMain,
       optional: !!item.optional,
       qty: this.toNullableNumber(item.qty),

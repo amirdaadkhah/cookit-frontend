@@ -13,7 +13,6 @@ export interface RecipeIngredient {
 }
 
 export interface RecipePayload {
-  id: string;
   title: string;
   category: string[];
   diet: {
