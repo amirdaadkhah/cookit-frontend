@@ -107,7 +107,9 @@
     </ion-card>
 
     <!-- Add ingredients -->
-    <app-ingredient-block></app-ingredient-block>
+    <app-ingredient-block [ingredientsArray]="ingredientsArray"
+      (addIngredientEvent)="addIngredient($event?.id, $event?.name)">
+    </app-ingredient-block>
 
     <!-- Tags -->
     <app-tags-block [tagsArray]="tagsArray"></app-tags-block>

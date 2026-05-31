@@ -1,13 +1,15 @@
 export type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink';
 
+
 export interface RecipeIngredient {
   ingredientId: number | null;
+  name: string | null;
   isMain: boolean;
   optional: boolean;
   qty: number | null;
   unit: string;
   note: string | null;
-  subtitute: number[];
+  substitutes: number[];
 }
 
 export interface RecipePayload {

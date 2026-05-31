@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AlertController, IonicModule, ToastController } from '@ionic/angular';
 import { IngredientBlockComponent } from './ingredient-block/ingredient-block.component';
@@ -7,7 +7,7 @@ import { MediaBlockComponent } from './media-block/media-block.component';
 import { RecipeService } from '../services/recipe.service';
 import { RecipeMapper } from '../mapper/recipe.mapper';
 import { RecipeCategory, RecipePayload } from '../models/recipe.model';
-import { createRecipeForm, getRecipeFormDefaults, validateRecipe } from '../forms/recipe.form';
+import { createRecipeForm, getRecipeFormDefaults, validateRecipe, createIngredientGroup } from '../forms/recipe.form';
 import { StepsBlockComponent } from './steps-block/steps-block.component';
 import { TagsBlockComponent } from './tags-block/tags-block.component';
 
@@ -27,9 +27,6 @@ import { TagsBlockComponent } from './tags-block/tags-block.component';
   ]
 })
 export class RecipeManagerComponent {
-  @ViewChild(IngredientBlockComponent)
-  ingredientBlock!: IngredientBlockComponent;
-
   readonly categoryOptions: RecipeCategory[] = [
     'dessert',
     'breakfast',
@@ -38,21 +35,25 @@ export class RecipeManagerComponent {
     'drink',
   ];
 
-
-
   readonly tagSearch = new FormControl('', { nonNullable: true });
   readonly tagSuggestions = signal<string[]>([]);
   readonly stepInput = new FormControl('', { nonNullable: true });
   readonly recipeForm: FormGroup = createRecipeForm(this.fb);
-
-
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly toastController: ToastController,
     private readonly alertController: AlertController,
     private recipeService: RecipeService
-  ) { }
+  ) {
+    if (this.ingredientsArray.length === 0) {
+      this.addIngredient();
+    }
+  }
+
+  get ingredientsArray(): FormArray {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
 
   get mediaGroup(): FormGroup {
     return this.recipeForm.get('media') as FormGroup;
@@ -66,9 +67,13 @@ export class RecipeManagerComponent {
     return this.recipeForm.get('tags') as FormArray;
   }
 
+  addIngredient(id?: number, name?: string): void {
+    this.ingredientsArray.push(createIngredientGroup(this.fb, id, name));
+  }
+
   async saveRecipe(): Promise<void> {
     this.recipeForm.markAllAsTouched();
-    const error = validateRecipe(this.recipeForm, this.stepsArray, this.ingredientBlock.ingredientsArray);
+    const error = validateRecipe(this.recipeForm, this.stepsArray, this.ingredientsArray);
     if (error) {
       this.showToast(error.message, 2200, error.color, 'middle');
       return;
@@ -84,7 +89,7 @@ export class RecipeManagerComponent {
     const formValue = this.recipeForm.getRawValue();
     const payload = RecipeMapper.toPayload(
       formValue,
-      this.ingredientBlock.ingredientsArray.getRawValue() ?? [],
+      this.ingredientsArray.getRawValue() ?? [],
       this.mediaGroup.getRawValue().media,
       (formValue.tags ?? []).map((t: string) => this.normalizeTag(t))
     );
@@ -111,12 +116,12 @@ export class RecipeManagerComponent {
   resetForm(): void {
     this.resetFormState();
     this.resetUiState();
-    this.ingredientBlock.addIngredient();
+    this.addIngredient(); // one block of 'add ingredients' is showing as default
     this.recipeForm.get('id')?.updateValueAndValidity();
   }
 
   private resetFormState() {
-    this.ingredientBlock.ingredientsArray.clear();
+    this.ingredientsArray.clear();
     this.stepsArray.clear();
     this.tagsArray.clear();
   }

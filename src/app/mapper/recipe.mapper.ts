@@ -11,11 +11,11 @@ export class RecipeMapper {
       id: form.id,
       title: form.title,
       category: form.category ?? [],
-	  diet: {
-         vegan: form.diet.vegan,
-         vegetarian: form.diet.vegetarian,
+      diet: {
+        vegan: form.diet.vegan,
+        vegetarian: form.diet.vegetarian,
       },
-	        isWarm: !!form.isWarm,
+      isWarm: !!form.isWarm,
       times: {
         prepMin: this.toNullableNumber(form.times?.prepMin),
         cookMin: this.toNullableNumber(form.times?.cookMin),
@@ -39,18 +39,19 @@ export class RecipeMapper {
   private static mapIngredient(item: any): RecipeIngredient {
     return {
       ingredientId: Number(item.ingredientId),
+      name: item.name,
       isMain: !!item.isMain,
       optional: !!item.optional,
       qty: this.toNullableNumber(item.qty),
       unit: item.unit,
       note: this.toNullableString(item.note),
-      subtitute: (item.subtitute ?? [])
+      substitutes: (item.substitutes ?? [])
         .map((s: number) => String(s).trim())
         .filter((s: string) => !!s),
     };
   }
 
-    private static mapMedia(media: any) {
+  private static mapMedia(media: any) {
     return {
       instagram: this.toNullableString(media?.instagram),
       tiktok: this.toNullableString(media?.tiktok),

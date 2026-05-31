@@ -1,4 +1,4 @@
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ValidationResult } from "../models/recipe.model";
 
 export function createRecipeForm(fb: FormBuilder) {
@@ -21,7 +21,7 @@ export function createRecipeForm(fb: FormBuilder) {
       kcal: [''],
       protein: [''],
     }),
-    ingredients: fb.array([]),
+    ingredients: fb.array<RecipeIngredientForm>([]),
     media: fb.group({
       instagram: [''],
       tiktok: [''],
@@ -61,4 +61,40 @@ export function validateRecipe(form: FormGroup, steps: FormArray, ingredients: F
     return { message: 'Please fix the form errors first.', color: 'danger' };
   }
   return null;
+}
+
+export type RecipeIngredientForm = FormGroup<{
+  ingredientId: FormControl<number | null>;
+  name: FormControl<string | null>;
+  isMain: FormControl<boolean>;
+  optional: FormControl<boolean>;
+  qty: FormControl<number | null>;
+  unit: FormControl<string | null>;
+  note: FormControl<string | null>;
+  substitutes: FormArray<FormControl<number>>;
+}>;
+
+export function createIngredientGroup(
+  fb: FormBuilder,
+  id?: number,
+  name?: string
+): RecipeIngredientForm {
+  return fb.group({
+    ingredientId: fb.control<number | null>(id ?? null, {
+      validators: [Validators.required, Validators.min(1)],
+    }),
+    name: fb.control<string | null>(name ?? null),
+    isMain: fb.nonNullable.control(false),
+    optional: fb.nonNullable.control(false),
+    qty: fb.control<number | null>(null, {
+      validators: [Validators.required],
+    }),
+    unit: fb.control('pcs', { validators: [Validators.required] }),
+    note: fb.control<string | null>(null),
+    substitutes: fb.array<FormControl<number>>([]),
+  });
+}
+
+export function createIngredientsArray(fb: FormBuilder): FormArray {
+  return fb.array([]);
 }
