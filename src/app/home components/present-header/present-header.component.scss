@@ -4,11 +4,12 @@
   display: flex;
   position: relative;
   width: 100vw;
+  background: $BACKGROUND;
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
     flex-direction: column;
   }
-  
+
   .img {
     width: 100vw;
     object-fit: fill;
@@ -38,7 +39,7 @@
     z-index: 2;
     color: black;
     --min-height: 64px;
-    box-shadow: 1px 1px rgba(34, 33, 33, 0.176);
+    box-shadow: 2px 2px rgba(34, 33, 33, 0.176);
     --inner-padding-end: 0;
 
     @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
@@ -62,20 +63,24 @@
     .subscribe-button {
       width: 30%;
       z-index: 3;
-      text-align: center;
+      text-align: end;
+      padding-inline-end: 5px;
       padding-inline-start: 25px;
       border: 4px solid white;
       border-radius: 10px;
       background:
-        radial-gradient(
-            circle 40px at left,
-            transparent 39px,
-            #2ecc71 40px
-        );
+        radial-gradient(circle 40px at left,
+          transparent 39px,
+          #2ecc71 40px);
       height: 100%;
       color: white;
       font-weight: bold;
-      font-size: 1.5vw;
+      font-size: 1.9vw;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+        padding-inline-end: 8px;
+        font-size: 3.5vw;
+      }
     }
   }
 }

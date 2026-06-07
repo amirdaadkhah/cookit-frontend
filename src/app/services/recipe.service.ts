@@ -2,6 +2,7 @@ import { environment } from '@/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RecipePayload } from '../models/recipe.model';
 
 export interface SearchForRecipePayload {
   ingredientIds: number[]; // selected ingredient ids by user
@@ -22,7 +23,7 @@ export class RecipeService {
     return this.http.post(`${this.apiURL}/recipes/search`, payload);
   }
 
-  addRecipe(recipe: any) {
+  addRecipe(recipe: RecipePayload) {
     return this.http.post(
       `${this.apiURL}/add/recipe`,
       recipe
