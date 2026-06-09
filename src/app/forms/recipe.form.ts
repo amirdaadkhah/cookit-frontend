@@ -3,7 +3,6 @@ import { ValidationResult } from "../models/recipe.model";
 
 export function createRecipeForm(fb: FormBuilder) {
   return fb.group({
-    id: ['', [Validators.required]],
     title: ['', [Validators.required, Validators.maxLength(120)]],
     category: [[], [Validators.required]],
     diet: fb.group({
@@ -37,7 +36,6 @@ export function createRecipeForm(fb: FormBuilder) {
 
 export function getRecipeFormDefaults() {
   return {
-    id: '',
     title: '',
     category: [],
     diet: { vegan: false, vegetarian: false },
@@ -65,7 +63,7 @@ export function validateRecipe(form: FormGroup, steps: FormArray, ingredients: F
 
 export type RecipeIngredientForm = FormGroup<{
   ingredientId: FormControl<number | null>;
-  name: FormControl<string | null>;
+  // name: FormControl<string | null>;
   isMain: FormControl<boolean>;
   optional: FormControl<boolean>;
   qty: FormControl<number | null>;
@@ -83,7 +81,7 @@ export function createIngredientGroup(
     ingredientId: fb.control<number | null>(id ?? null, {
       validators: [Validators.required, Validators.min(1)],
     }),
-    name: fb.control<string | null>(name ?? null),
+    // name: fb.control<string | null>(name ?? null),
     isMain: fb.nonNullable.control(false),
     optional: fb.nonNullable.control(false),
     qty: fb.control<number | null>(null, {

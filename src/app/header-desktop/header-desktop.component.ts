@@ -45,8 +45,8 @@ export class HeaderDesktopComponent {
     console.log('openFacebook clicked');
   }
 
-  openFacebook(): void {
-    console.log('openFacebook clicked');
+  login(): void {
+    this.router.navigate(['/login']);
   }
 
   generateRecipe(): void {

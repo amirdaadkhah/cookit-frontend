@@ -10,21 +10,23 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     IonicModule,
-    CommonModule, 
+    CommonModule,
   ]
 })
 export class HeaderMobileComponent {
   logo: string = '../../assets/logos/logo.png';
-  
+
   constructor(
     private router: Router,
-  ) {}
+  ) { }
 
-  openMenu(): void {}
+  openMenu(): void { }
 
   homeClicked(): void {
     this.router.navigate(['/home']);
   }
 
-  login() {}
+  login() {
+    this.router.navigate(['/login']);
+  }
 }
