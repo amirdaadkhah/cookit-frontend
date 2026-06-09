@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HeaderDesktopComponent } from './header-desktop/header-desktop.component';
-
+import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { HeaderDesktopComponent } from './header-desktop/header-desktop.componen
   ],
   imports: [
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-    HeaderDesktopComponent
+    HeaderDesktopComponent,
+    HeaderMobileComponent,
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

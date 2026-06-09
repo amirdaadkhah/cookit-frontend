@@ -1,1 +1,27 @@
+<div class="container">
+  <div class="logo">
+    <ion-img class="logo" [src]="logo" alt="bester logo">
+    </ion-img>
+  </div>
+  <div class="nav">
+    <ion-button *ngFor="let button of buttons; let i = index" fill="clear" class="button"
+      (click)="navButtonClicked(button.route, i)">
+      {{button.key}}
+      <ion-icon *ngIf="button.dropDown" class="dropDown-icon" name="caret-down-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <!-- RIGHT: SOCIAL + CTA -->
+  <div class="social-cta">
+    <ion-button fill="clear" class="icon-btn" (click)="openInstagram()">
+      <ion-icon class="icon" name="logo-instagram"></ion-icon>
+    </ion-button>
 
+    <ion-button fill="clear" class="icon-btn" (click)="openFacebook()">
+      <ion-icon name="logo-facebook"></ion-icon>
+    </ion-button>
+
+    <ion-button class="cta-btn" (click)="generateRecipe()">
+      Your Next Meal
+    </ion-button>
+  </div>
+</div>

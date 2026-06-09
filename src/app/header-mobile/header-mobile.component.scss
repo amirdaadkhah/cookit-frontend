@@ -1,0 +1,34 @@
+@import '../../theme/variables.scss';
+
+$header-button-size: 48px;
+
+.header-container {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  background-color: $header-background;
+  padding: 0 8px;
+
+  .logo {
+    flex: 1; // takes remaaining space
+    height: 42px;
+    object-fit: contain;
+  }
+
+  .actions {
+    font-size: 26px;
+  }
+
+  .icon {
+    color: white;
+    font-size: 24px;
+  }
+}
+
+ion-button {
+  --ion-color-primary: white;
+  width: $header-button-size;
+  min-width: $header-button-size;
+  height: $header-button-size;
+  flex-shrink: 0;
+}
