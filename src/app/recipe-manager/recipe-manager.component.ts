@@ -10,6 +10,7 @@ import { RecipeCategory, RecipePayload } from '../models/recipe.model';
 import { createRecipeForm, getRecipeFormDefaults, validateRecipe, createIngredientGroup } from '../forms/recipe.form';
 import { StepsBlockComponent } from './steps-block/steps-block.component';
 import { TagsBlockComponent } from './tags-block/tags-block.component';
+import { TagsSearchService } from '../services/tags-search.service';
 
 @Component({
   selector: 'app-recipe-manager',
@@ -44,7 +45,8 @@ export class RecipeManagerComponent {
     private readonly fb: FormBuilder,
     private readonly toastController: ToastController,
     private readonly alertController: AlertController,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private tagService: TagsSearchService
   ) {
     if (this.ingredientsArray.length === 0) {
       this.addIngredient();
@@ -91,14 +93,23 @@ export class RecipeManagerComponent {
       formValue,
       this.ingredientsArray.getRawValue() ?? [],
       this.mediaGroup.getRawValue().media,
-      (formValue.tags ?? []).map((t: string) => this.normalizeTag(t))
+      (this.tagsArray.getRawValue() ?? []).map((t: string) => this.normalizeTag(t))
     );
     return payload;
   }
 
   private async onSaveSuccess(payload: RecipePayload) {
     this.showToast('Recipe saved successfully.', 2200, 'success', 'top');
-    this.showJsonPreview(payload);
+    // this.showJsonPreview(payload);
+    const tags: string[] = this.tagsArray.getRawValue();
+    this.tagService.addNewTagsToDB(tags).subscribe({
+      next: () => {
+        this.showToast('New tags saved successfully.', 2200, 'success', 'top');
+      },
+      error: err => {
+        console.error(err);
+      }
+    });
     this.resetForm();
   }
 

@@ -47,9 +47,8 @@ export class TagsBlockComponent {
   }
 
   addTagFromInput(): void {
-    const currentTags = this.tagsArray.value as string[];
-    this.tagsSearchService.addNewTagsToDB(currentTags);
-    this.tagSearch.setValue('');
+    const currentTags: string = this.tagSearch.value;
+    this.addSuggestedTag(currentTags);
   }
 
   addSuggestedTag(tag: string): void {

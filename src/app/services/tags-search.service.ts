@@ -47,7 +47,7 @@ export class TagsSearchService {
         const newTags = normalized.filter(t => !existingNormalized.includes(t));
         if (newTags.length === 0) return of(void 0);
 
-        return this.http.post(`${this.apiURL}/tags/add`, { newTags }).pipe(
+        return this.http.post(`${this.apiURL}/tags/add`, { tags: newTags }).pipe(
           tap({
             next: () => {
               console.log('Tags added');
