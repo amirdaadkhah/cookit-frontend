@@ -36,7 +36,6 @@ export class RecipeMapper {
 
 
   private static mapIngredient(item: any): RecipeIngredient {
-
     return {
       ingredientId: Number(item.ingredientId),
       name: this.toNullableString(item.name),
@@ -46,8 +45,8 @@ export class RecipeMapper {
       unit: item.unit,
       note: this.toNullableString(item.note),
       substitutes: (item.substitutes ?? [])
-        .map((s: number) => String(s).trim())
-        .filter((s: string) => !!s),
+        .map((s: number) => Number(s))
+        .filter((s: number) => !isNaN(s)),
     };
   }
 
