@@ -1,37 +1,32 @@
+import { environment } from '@/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RecipePayload } from '../models/recipe.model';
+
+export interface SearchForRecipePayload {
+  ingredientIds: number[]; // selected ingredient ids by user
+  mode?: string; // search mode -> match all | best match
+  limit?: number; // limit of search results
+  category?: string | null; // breakfast | lunch | dinner | snack | salad | dessert
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  // private apiURL = 'http://localhost:3000';
-  private apiURL = 'http://192.168.0.15:5432';
+  private apiURL = environment.apiURL;
+  
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http: HttpClient
-  ) {}
-
-  searchRecipes(payload: {
-    ingredientIds: number[]; // selected ingredient ids by user
-    mode?: string; // search mode -> match all | best match
-    limit?: number;
-    category?: string | null; // breakfast | lunch | dinner | snack | salad | dessert
-  }): Observable<any> {
+  searchRecipes(payload: SearchForRecipePayload): Observable<any> {
     return this.http.post(`${this.apiURL}/recipes/search`, payload);
   }
 
-  addRecipe(recipe: any) {
+  addRecipe(recipe: RecipePayload) {
     return this.http.post(
       `${this.apiURL}/add/recipe`,
       recipe
-    );
-  }
-
-  getIngredients() {
-    return this.http.get(
-      '/ingredients'
     );
   }
 }

@@ -1,0 +1,180 @@
+@use '../../../theme/variables.scss' as *;
+
+/* =========================
+   Reusable Placeholders
+========================= */
+%card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+%section-title {
+  font-weight: bold;
+  padding: 20px 5px 10px 15px;
+}
+
+%name-block {
+  padding: 0.5rem 0;
+  color: $ING-SELECTOR-NAME-TEXT-COLOR;
+  font-weight: bold;
+  font-size: 0.9rem;
+  background: $ING-SELECTOR-NAME-BG;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+%generate-button {
+  width: 80%;
+  padding: 0.6rem;
+  background: $GREEN;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease-in-out;
+  height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* =========================
+   Cart Column Desktop View
+========================= */
+.cart {
+  @extend %card;
+  height: 100%;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    display: none;
+  }
+
+  .title {
+    @extend %section-title;
+    text-align: start;
+    font-size: 1.1rem;
+  }
+
+  .line {
+    width: 95%;
+    height: 1px;
+    background: $ING-SELECTOR-LINE-COLOR;
+    margin-inline-start: 5px;
+  }
+
+  .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    img {
+      width: 50px;
+      height: 40px;
+      object-fit: contain;
+      padding: 5px 5px 5px 15px;
+    }
+
+    .name {
+      @extend %name-block;
+    }
+
+    button {
+      margin-left: auto;
+      padding-inline-end: 10px;
+      border: none;
+      background: none;
+      color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.generate-recipe-button {
+  text-align: center;
+  background: transparent;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    display: none;
+  }
+
+  .button {
+    @extend %generate-button;
+  }
+}
+
+
+/* =========================
+   Cart Row Mobile View
+========================= */
+.cart-row-mobile {
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+
+  @media (min-width: $MIN-WIDTH-RESPONSIVE) { // desktop view
+    display: none;
+  }
+
+  .title {
+    padding-bottom: 0;
+    white-space: nowrap;
+    font-size: 5vw;
+  }
+
+  .desc {
+    padding: 10px 20px;
+    color: grey;
+    font-size: 12px;
+  }
+
+  .icon-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cart-wrapper {
+      position: relative;
+      display: inline-block;
+
+      .cart-icon {
+        font-size: 48px;
+      }
+
+      .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .segment-mobile {
+    width: 100%;
+  }
+
+  .button {
+    margin-inline-start: 10px;
+    margin-bottom: 15px;
+    @extend %generate-button;
+    width: 95%;
+  }
+}

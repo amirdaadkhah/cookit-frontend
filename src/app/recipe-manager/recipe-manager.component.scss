@@ -1,5 +1,8 @@
+@use '../../theme/variables' as *;
+
 .container {
-  padding-top: 70px;
+  --padding-top: #{$header-desktop-height};
+  background: $BACKGROUND;
 }
 
 ion-card {

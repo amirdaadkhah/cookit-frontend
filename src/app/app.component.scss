@@ -1,0 +1,20 @@
+@use '../theme/variables' as *;
+
+@media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
+  .desktopView {
+    display: none;
+  }
+}
+
+@media (min-width: $MIN-WIDTH-RESPONSIVE) { // desktop view
+  .desktopView {
+    display: flex;
+    background: $header-background;
+    backdrop-filter: blur(10px); // Blur effect
+    -webkit-backdrop-filter: blur(10px); // For Safari
+  }
+
+  .mobileView {
+    display: none;
+  }
+}

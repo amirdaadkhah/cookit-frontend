@@ -1,127 +1,119 @@
-<form [formGroup]="ingredientFbArray">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Ingredients</ion-card-title>
-    </ion-card-header>
-    <ion-card-content formArrayName="ingredients">
-      <div
-        class="ingredient-block"
-        *ngFor="let ingredient of ingredientsArray.controls; let i = index; trackBy: trackByIndex"
-        [formGroupName]="i">
-        <div class="ingredient-header">
-          <h3>Ingredient {{ i + 1 }}</h3>
-          <ion-button 
-            color="danger" 
-            fill="clear" 
-            size="small" 
-            (click)="removeIngredient(i)" 
-            *ngIf="ingredientsArray.length > 1">
-              Remove
-          </ion-button>
-        </div>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Ingredients</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div class="ingredient-block"
+      *ngFor="let ingredient of ingredientsArray.controls; let i = index; trackBy: trackByIndex"
+      [formGroup]="ingredient">
+      <div class="ingredient-header">
+        <h3>Ingredient {{ i + 1 }}</h3>
+        <ion-button color="danger" fill="clear" size="small" (click)="removeIngredient(i)"
+          *ngIf="ingredientsArray.length > 1">
+          Remove
+        </ion-button>
+      </div>
 
-        <div class="grid-2">
-          <ion-item>
-            <ion-label position="stacked">Ingredient ID</ion-label>
-            <ion-input 
-              formControlName="ingredientId"
-              (ionInput)="onIngredientsSearch($event, i)"
-              placeholder="Example: potato"
-              clearInput="true">
-            </ion-input>
-          </ion-item>
+      <div class="grid-2">
+        <ion-item>
+          <ion-label position="stacked">Ingredient ID</ion-label>
+          <ion-input formControlName="ingredientId" (ionInput)="onIngredientsSearch($event, i)"
+            placeholder="Example: potato" clearInput="true">
+          </ion-input>
+        </ion-item>
 
-          <!-- Search Results -->
-          <ion-list 
-            *ngIf="
+        <!-- Search Results -->
+        <ion-list *ngIf="
               activeInput?.type === 'ingredient' &&
               activeInput?.i === i &&
               (ingredientsResults$ | async) as results
             ">
-            <ion-item
-              button
-              *ngFor="let item of results"
-              (click)="onIngredientsSelected(item, i)">
-                {{ item.name }} {{ item.id }}
-            </ion-item>
-          </ion-list>
-
-          <ion-item>
-            <ion-label position="stacked">Qty</ion-label>
-            <ion-input type="number" formControlName="qty"></ion-input>
+          <ion-item button *ngFor="let item of results" (click)="!item.parts?.length && onIngredientsSelected(item, i)">
+            <ion-label>
+              <h2> {{ item.id }} {{ item.name }}</h2>
+              <ion-chip *ngFor="let p of (item.parts ?? [])" (click)="onIngredientsSelected(item, i, p)">
+                <ion-label>{{ p.name }}</ion-label>
+              </ion-chip>
+            </ion-label>
           </ion-item>
+        </ion-list>
 
-          <ion-item>
-            <ion-label position="stacked">Unit</ion-label>
-            <ion-select formControlName="unit" interface="popover">
-              <ion-select-option *ngFor="let unit of unitOptions" [value]="unit">
-                {{ unit }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Qty</ion-label>
+          <ion-input type="number" formControlName="qty"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Note</ion-label>
-            <ion-input formControlName="note" placeholder="Optional note"></ion-input>
-          </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Unit</ion-label>
+          <ion-select formControlName="unit" interface="popover">
+            <ion-select-option *ngFor="let unit of unitOptions" [value]="unit">
+              {{ unit }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Note</ion-label>
+          <ion-input formControlName="note" placeholder="Optional note"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="grid-2 check-grid">
+        <ion-item>
+          <ion-label>Main ingredient</ion-label>
+          <ion-checkbox formControlName="isMain"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Optional</ion-label>
+          <ion-checkbox formControlName="optional"></ion-checkbox>
+        </ion-item>
+      </div>
+
+      <div class="substitutes">
+        <div class="ingredient-header">
+          <h4>Substitutes</h4>
+          <ion-button fill="outline" size="small" (click)="addSubstitute(i)">
+            Add Substitute
+          </ion-button>
         </div>
-
-        <div class="grid-2 check-grid">
+        <div class="substitute-row"
+          *ngFor="let substitute of ingredientSubstitutes(i).controls; let j = index; trackBy: trackByControl">
           <ion-item>
-            <ion-label>Main ingredient</ion-label>
-            <ion-checkbox formControlName="isMain"></ion-checkbox>
+            <ion-label position="stacked">Substitute {{ j + 1 }}</ion-label>
+            <!-- <ion-input [formControl]="substitute" (ionInput)="onSubstitutionsSearch($event, i, j)"
+              placeholder="Example: Maple Syrup" clearInput="true">
+            </ion-input> -->
+            <ion-input [formControl]="getSubstituteControl(i, j)" (ionInput)="onSubstitutionsSearch($event, i, j)"
+              placeholder="Example: Maple Syrup" clearInput="true">
+            </ion-input>
           </ion-item>
-
-          <ion-item>
-            <ion-label>Optional</ion-label>
-            <ion-checkbox formControlName="optional"></ion-checkbox>
-          </ion-item>
-        </div>
-
-        <div class="substitutes" formArrayName="subtitute">
-          <div class="ingredient-header">
-            <h4>Substitutes</h4>
-            <ion-button fill="outline" size="small" (click)="addSubstitute(i)">
-              Add Substitute
-            </ion-button>
-          </div>
-          <div
-            class="substitute-row"
-            *ngFor="let substitute of ingredientSubstitutes(i).controls; let j = index; trackBy: trackByControl">
-            <ion-item>
-              <ion-label position="stacked">Substitute {{ j + 1 }}</ion-label>
-              <ion-input 
-                [formControlName]="j" 
-                (ionInput)="onSubstitutionsSearch($event, i, j)"
-                placeholder="Example: Maple Syrup"
-                clearInput="true"
-              ></ion-input>
-            </ion-item>
-            <!-- Search Results -->
-            <ion-list 
-              *ngIf="
-                activeInput?.type === 'substitute' &&
+          <!-- Search Results -->
+          <ion-list *ngIf="
+                activeInput?.type === 'substitutes' &&
                 activeInput?.i === i &&
                 activeInput?.j === j &&
                 (ingredientsResults$ | async) as results
             ">
-              <ion-item
-                button
-                *ngFor="let item of results"
-                (click)="onSubstitutionSelected(item, i, j)">
-                  {{ item.name }} {{ item.id }}
-              </ion-item>
-            </ion-list>
-            <ion-button color="danger" fill="clear" size="small" (click)="removeSubstitute(i, j)">
-              Remove
-            </ion-button>
-          </div>
+            <ion-item button *ngFor="let item of results"
+              (click)="!item.parts?.length && onSubstitutionSelected(item, i, j)">
+              <ion-label>
+                <h2> {{ item.id }} {{ item.name }}</h2>
+                <ion-chip *ngFor="let p of (item.parts ?? [])" (click)="onSubstitutionSelected(item, i, j, p)">
+                  <ion-label>{{ p.name }} {{ p.id }}</ion-label>
+                </ion-chip>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-button color="danger" fill="clear" size="small" (click)="removeSubstitute(i, j)">
+            Remove
+          </ion-button>
         </div>
       </div>
+    </div>
 
-      <ion-button expand="block" fill="outline" (click)="addIngredient()">
-        Add Ingredient
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-</form>
+    <ion-button expand="block" fill="outline" (click)="addIngredient()">
+      Add Ingredient
+    </ion-button>
+  </ion-card-content>
+</ion-card>

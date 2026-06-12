@@ -7,16 +7,18 @@
   <ion-grid>
     <ion-row>
       <!-- Categories -->
-      <ion-col size="9">
+      <ion-col size="12" size-md="9">
         <div class="categories">
-          <button *ngFor="let cat of categories"
-                  [class.active]="cat === selectedCategory"
-                  (click)="selectCategory(cat)">
+          <button *ngFor="let cat of categories" [class.active]="cat === selectedCategory"
+            (click)="selectCategory(cat)">
             {{ cat }}
           </button>
         </div>
+
         <!-- Search Bar -->
-        <app-ingredients-search (searchChange)="onSearchChange($event)" (searchedItemClicked)="selectedSearchedItem($event)"></app-ingredients-search>
+        <app-ingredients-search (searchChange)="onSearchChange($event)"
+          (searchedItemClicked)="selectedSearchedItem($event)"></app-ingredients-search>
+
         <!-- Ingredients grid -->
         <div class="ingredients-grid">
           <div *ngFor="let ing of groupedIngredients[selectedCategory]" class="ingredient-card">
@@ -29,6 +31,7 @@
         </div>
         <!-- Meat parts modal -->
         <div class="part-modal" *ngIf="selectedPart">
+          <button class="close-btn" (click)="cancelPartSelection()">✕</button>
           <div class="title">Which Part of {{ selectedPart.name }} do you have?</div>
           <div class="parts-grid">
             <div *ngFor="let part of selectedPart.parts" (click)="addIngredientPartToCart(part)" class="part-card">
@@ -40,28 +43,9 @@
         </div>
       </ion-col>
 
-      <!-- Selected Ingredients -->
-      <ion-col class="cart-col" size="3">
-        <div class="cart">
-          <div class="title">Your selected Ingredients</div>
-          <div class="line"></div>
-          <div *ngFor="let item of cart" class="cart-item">
-            <img [src]="item.part?.image ?? item.ingredient.image" [alt]="item.part?.name ?? item.ingredient.name">
-            <div class="name">{{ item.ingredient.name }} 
-              <span *ngIf="item.part?.name"> - {{ item.part?.name }}</span>
-            </div>
-            <button (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
-          </div>
-        </div>
-        <div class="generate-recipe-button">
-          <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
-          <button 
-            class="button" 
-            [disabled]="cart.length === 0"
-            (click)="generateRecipes()"
-            >Generate Recipes
-          </button>
-        </div>
+      <!-- Selected Ingredients - desktop -->
+      <ion-col class="cart-col" size="12" size-md="3">
+        <app-selected-ingredient-panel></app-selected-ingredient-panel>
       </ion-col>
     </ion-row>
   </ion-grid>

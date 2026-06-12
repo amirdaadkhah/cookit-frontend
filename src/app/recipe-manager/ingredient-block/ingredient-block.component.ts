@@ -1,8 +1,9 @@
+import { RecipeIngredientForm } from '@/app/forms/recipe.form';
 import { IngredientPickerService } from '@/app/services/ingredient-picker.service';
-import { Ingredient } from '@/app/services/ingredient-service';
+import { Ingredient, IngredientPart } from '@/app/services/ingredient-service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -17,6 +18,9 @@ import { IonicModule } from '@ionic/angular';
   ]
 })
 export class IngredientBlockComponent {
+  @Input({ required: true }) ingredientsArray!: FormArray<RecipeIngredientForm>;
+  @Output() addIngredientEvent = new EventEmitter<{ id?: number; name?: string }>();
+
   readonly unitOptions: string[] = [
     'pcs',
     'g',
@@ -29,28 +33,14 @@ export class IngredientBlockComponent {
     'pinch',
   ];
 
-  ingredientFbArray = this.fb.group({
-    ingredients: this.fb.array([])
-  });
-
   ingredientsResults$ = this.ingredientPickerService.results$;
   activeInput: {
-    type: 'ingredient' | 'substitute';
+    type: 'ingredient' | 'substitutes';
     i: number;
     j?: number;
   } | null = null;
 
-  constructor(
-    private ingredientPickerService: IngredientPickerService,
-    private readonly fb: FormBuilder,
-  ) 
-  {
-    this.addIngredient(); // one block of 'add ingredients' is showing as default
-  }
-
-  get ingredientsArray(): FormArray {
-    return this.ingredientFbArray.get('ingredients') as FormArray;
-  }
+  constructor(private ingredientPickerService: IngredientPickerService) { }
 
   get ingredients(): any[] {
     return this.ingredientsArray.value;
@@ -65,35 +55,41 @@ export class IngredientBlockComponent {
     this.ingredientPickerService.search(value);
   }
 
-  onIngredientsSelected(item: Ingredient, i: number, j?: number): void {
+  onIngredientsSelected(item: Ingredient, i: number, part?: IngredientPart): void {
     // 1. set ID into form (this is what gets saved in JSON)
     const control = this.ingredientsArray.at(i).get('ingredientId');
-    control?.setValue(item.id)
+    const value = part?.id ? part.id : item.id
+    control?.setValue(value)
     this.activeInput = null; // hide dropdown search list
   }
 
   ingredientSubstitutes(ingredientIndex: number): FormArray {
-    return this.ingredientsArray.at(ingredientIndex).get('subtitute') as FormArray;
+    return this.ingredientsArray.at(ingredientIndex).get('substitutes') as FormArray;
   }
 
   onSubstitutionsSearch(event: any, i: number, j: number) {
     const value = event.detail?.value ?? '';
     this.activeInput = {
-      type: 'substitute',
-      i:i, j: j
+      type: 'substitutes',
+      i: i, j: j
     };
     this.ingredientPickerService.search(value);
   }
 
-  onSubstitutionSelected(item: Ingredient, i: number, j: number): void {
+  onSubstitutionSelected(item: Ingredient, i: number, j: number, part?: IngredientPart): void {
     const formArray = this.ingredientSubstitutes(i);
     const control = formArray.at(j);
-    control.setValue(item.id); // 1. set value to input
+    const value = part?.id ? part.id : item.id
+    control.setValue(value); // 1. set value to input
     this.activeInput = null; // hide dropdown search list
   }
 
+  getSubstituteControl(i: number, j: number): FormControl<number> {
+    return (this.ingredientsArray.at(i).get('substitutes') as FormArray<FormControl<number>>).at(j);
+  }
+
   addIngredient(id?: number, name?: string): void {
-    this.ingredientsArray.push(this.createIngredientGroup(id, name));
+    this.addIngredientEvent.emit({ id, name });
   }
 
   removeIngredient(index: number): void {
@@ -108,23 +104,10 @@ export class IngredientBlockComponent {
     this.ingredientSubstitutes(ingredientIndex).removeAt(substituteIndex);
   }
 
-  private createIngredientGroup(id?: number, name?: string): FormGroup {
-    return this.fb.group({
-      ingredientId: [id, [Validators.required, Validators.min(1)]],
-      name: name,
-      isMain: [false],
-      optional: [false],
-      qty: [null, [Validators.required]],
-      unit: ['pcs', Validators.required],
-      note: [''],
-      subtitute: this.fb.array<string>([]),
-    });
-  }
-
   trackByIndex(index: number): number {
     return index;
   }
-  
+
   trackByControl(index: number, control: any) {
     return control;
   }

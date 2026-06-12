@@ -7,12 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { IngredientsSearchComponent, SearchState } from './ingredients-search/ingredients-search.component';
 import { RecipeGenerateMode, RecipesModeSegmentComponent, SEGMENT } from './recipes-mode-segment/recipes-mode-segment.component';
 import { RecipeService } from '../services/recipe.service';
-
-export interface CartItem {
-  ingredient: Ingredient;
-  part?: IngredientPart;
-  quantity: number;
-}
+import { CartItem, IngredientCartService } from '../services/ingredient-cart.service';
+import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/selected-ingredient-panel.component';
 
 @Component({
   selector: 'app-ing-selector',
@@ -24,7 +20,7 @@ export interface CartItem {
     IonicModule,
     FormsModule,
     IngredientsSearchComponent,
-    RecipesModeSegmentComponent
+    SelectedIngredientPanelComponent
   ]
 })
 export class IngredientsSelectorComponent {
@@ -32,14 +28,14 @@ export class IngredientsSelectorComponent {
   groupedIngredients: { [category: string]: Ingredient[]} = {};
   selectedCategory: string = '';
   selectedPart: Ingredient | null = null;
-  cart: CartItem[] = [];
+  // cart: CartItem[] = [];
   private ingredients$: Observable<Ingredient[]> = new Observable();
-  private selectedSegment: RecipeGenerateMode = SEGMENT.MATCH_ALL;
-
+  // private selectedSegment: RecipeGenerateMode = SEGMENT.MATCH_ALL;
 
   constructor(
     private ingredientService: IngredientService, 
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private cartService: IngredientCartService
   ) {
     this.ingredientService.loadIngredients();
     this.ingredients$ = this.ingredientService.ingredients$;
@@ -77,22 +73,22 @@ export class IngredientsSelectorComponent {
 
   private addToCart(item: CartItem) {
     // Check if already exists
-    const existing = this.cart.find(c =>
+    const existing = this.cartService.cart.find(c =>
       c.ingredient.id === item.ingredient.id &&
       ((c.part?.id ?? 0) === (item.part?.id ?? 0))
     );
     if (existing) {
       existing.quantity++;
     } else {
-      this.cart.push(item);
+      this.cartService.cart.push(item);
     }
   }
 
-  removeFromCart(item: CartItem) {
-    this.cart = this.cart.filter(c =>
-      !(c.ingredient.id === item.ingredient.id && (c.part?.id ?? 0) === (item.part?.id ?? 0))
-    );
-  }
+  // removeFromCart(item: CartItem) {
+  //   this.cart = this.cart.filter(c =>
+  //     !(c.ingredient.id === item.ingredient.id && (c.part?.id ?? 0) === (item.part?.id ?? 0))
+  //   );
+  // }
 
   cancelPartSelection() {
     this.selectedPart = null;
@@ -111,38 +107,7 @@ export class IngredientsSelectorComponent {
     }
   }
 
-  onSegmentChanged(value: RecipeGenerateMode) {
-    this.selectedSegment = value;
-  }
 
-  generateRecipes() {
-    // this.recipeService.getIngredients()
-    // .subscribe(data => {
-    //   console.log(data);
-    // });
 
-    const selectedIds: number[] = [];
-    for(const item of this.cart) {
-      const id = item.part?.id ?? item.ingredient.id;
-      if (id != null) {
-        selectedIds.push(id);
-      }
-    }
 
-    let recipes: any[] = [];
-    const payload = {
-      ingredientIds: selectedIds,
-      mode: this.selectedSegment,
-      limit: 10
-    }
-    this.recipeService.searchRecipes(payload).subscribe({
-      next: (res) => {
-        recipes = res;
-        console.log('Recipes:', res);
-      },
-      error: (err) => {
-        console.error('Search failed:', err);
-      }
-    });
-  }
 }

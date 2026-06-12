@@ -1,0 +1,39 @@
+<!-- Selected Ingredients - desktop -->
+<div class="cart">
+  <div class="title">Your selected Ingredients</div>
+  <div class="line"></div>
+  <div *ngFor="let item of (cartService.cart$ | async)" class="cart-item">
+    <img [src]="item.part?.image ?? item.ingredient.image" [alt]="item.part?.name ?? item.ingredient.name">
+    <div class="name">{{ item.ingredient.name }}
+      <span *ngIf="item.part?.name"> - {{ item.part?.name }}</span>
+    </div>
+    <button (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
+  </div>
+</div>
+<div class="generate-recipe-button">
+  <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
+  <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0" (click)="generateRecipes()">Generate
+    Recipes
+  </button>
+</div>
+
+<!-- Selected Ingredients - Mobile -->
+<ion-grid>
+  <ion-row class="cart-row-mobile">
+    <ion-col size="9">
+      <div class="title">Your selected Ingredients</div>
+      <div class="desc">add at least 3 ingredients and then press the 'Generate Recipes' button</div>
+    </ion-col>
+    <ion-col size="3" class="icon-col">
+      <div class="cart-wrapper">
+        <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
+        <ion-badge class="cart-badge">{{ (cartService.cart$ | async)?.length }}</ion-badge>
+      </div>
+    </ion-col>
+    <app-recipes-mode-segment class="segment-mobile" (segmentChange)="onSegmentChanged($event)">
+    </app-recipes-mode-segment>
+    <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0" (click)="generateRecipes()">Generate
+      Recipes
+    </button>
+  </ion-row>
+</ion-grid>

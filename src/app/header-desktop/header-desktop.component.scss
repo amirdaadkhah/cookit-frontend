@@ -1,0 +1,79 @@
+@use '../../theme/variables' as *;
+
+.container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+
+  .logo {
+    flex: 1;
+    object-fit: contain;
+    padding: 0 0 0 10px;
+    height: $header-desktop-height;
+    width: 10vw;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button {
+      display: flex;
+      --padding-end: 0;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      color: $header-button-color;
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+
+      .dropDown-icon {
+        margin-inline-start: 3px;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+
+  .social-cta {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+
+    .icon-btn {
+      color: $header-button-color;
+      --padding-start: 0.5em;
+      --padding-end: 0.5em;
+
+      ion-icon {
+        font-size: 26px;
+      }
+    }
+
+    /* CTA BUTTON */
+    .cta-btn {
+      flex: 1;
+      --background: #f5c400;
+      --color: #000;
+      --border-radius: 24px;
+      padding: 0 8px 0 0;
+      height: 40px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .cta-btn:hover {
+      background: transparent;
+      transform: scale(1.1);
+      background-color: transparent;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
