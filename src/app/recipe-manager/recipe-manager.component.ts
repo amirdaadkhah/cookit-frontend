@@ -28,12 +28,15 @@ import { TagsSearchService } from '../services/tags-search.service';
   ]
 })
 export class RecipeManagerComponent {
+  // TODO: read from backend/DB
   readonly categoryOptions: RecipeCategory[] = [
     'dessert',
     'breakfast',
     'snack',
     'food',
     'drink',
+    'salad',
+    'dressing'
   ];
 
   readonly tagSearch = new FormControl('', { nonNullable: true });
@@ -104,7 +107,7 @@ export class RecipeManagerComponent {
     const tags: string[] = this.tagsArray.getRawValue();
     this.tagService.addNewTagsToDB(tags).subscribe({
       next: () => {
-        this.showToast('New tags saved successfully.', 2200, 'success', 'top');
+        this.showSuccessSavedAlert();
       },
       error: err => {
         console.error(err);
@@ -159,6 +162,15 @@ export class RecipeManagerComponent {
       position: position,
     });
     await toast.present();
+  }
+
+  private async showSuccessSavedAlert() {
+    const alert = await this.alertController.create({
+      header: 'Recipe Saved',
+      message: `Recipe and new Tags are successfully saved!`,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   private async showJsonPreview(payload: RecipePayload): Promise<void> {

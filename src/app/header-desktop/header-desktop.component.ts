@@ -38,7 +38,7 @@ export class HeaderDesktopComponent {
   }
 
   navButtonClicked(route: string, index: number): void {
-    console.log('navButtonClicked clicked', route, index);
+    this.router.navigate([route]);
   }
 
   openInstagram(): void {
