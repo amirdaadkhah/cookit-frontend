@@ -49,6 +49,11 @@
       </ion-card-content>
     </ion-card>
 
+    <app-subrecipes 
+      [subRecipesArray]="subRecipesArray"
+      (addSubRecipeEvent)="addSubRecipe($event)"
+    ></app-subrecipes>
+
     <ion-card formGroupName="times">
       <ion-card-header>
         <ion-card-title>Times</ion-card-title>
@@ -99,6 +104,8 @@
     <app-ingredient-block [ingredientsArray]="ingredientsArray"
       (addIngredientEvent)="addIngredient($event.id, $event.name)">
     </app-ingredient-block>
+
+    <!-- sub recipes / child recipes -->
 
     <!-- Tags -->
     <app-tags-block [tagsArray]="tagsArray"></app-tags-block>

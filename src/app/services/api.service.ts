@@ -16,6 +16,10 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/admin/login`, data);
   }
 
+  isRecipeExist(data: { id: string }) {
+    return this.http.post<{ exists: boolean; data: any }>(`${this.baseUrl}/recipe/exists`, data);
+  }
+
   // createPost(data: any, token: string) {
   //   return this.http.post(`${this.baseUrl}/admin/posts`, data, {
   //     headers: {

@@ -12,6 +12,14 @@ export interface RecipeIngredient {
   substitutes: number[];
 }
 
+export interface SubRecipe {
+  subRecipeId: string | null;
+  name: string | null;
+  qty: number | null;
+  unit: string;
+  note: string | null;
+}
+
 export interface RecipePayload {
   title: string;
   category: string[];
@@ -31,6 +39,7 @@ export interface RecipePayload {
     protein: string | null;
   };
   ingredients: RecipeIngredient[];
+  subRecipes: SubRecipe[];
   media: {
     instagram: string | null;
     tiktok: string | null;

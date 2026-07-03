@@ -1,5 +1,5 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ValidationResult } from "../models/recipe.model";
+import { SubRecipe, ValidationResult } from "../models/recipe.model";
 
 export function createRecipeForm(fb: FormBuilder) {
   return fb.group({
@@ -21,6 +21,7 @@ export function createRecipeForm(fb: FormBuilder) {
       protein: [''],
     }),
     ingredients: fb.array<RecipeIngredientForm>([]),
+    subRecipes: fb.array<SubRecipeForm>([]),
     media: fb.group({
       instagram: [''],
       tiktok: [''],
@@ -72,6 +73,14 @@ export type RecipeIngredientForm = FormGroup<{
   substitutes: FormArray<FormControl<number>>;
 }>;
 
+export type SubRecipeForm = FormGroup<{
+  subRecipeId: FormControl<string | null>;
+  name: FormControl<string | null>;
+  qty: FormControl<number | null>;
+  unit: FormControl<string | null>;
+  note: FormControl<string | null>;
+}>;
+
 export function createIngredientGroup(
   fb: FormBuilder,
   id?: number,
@@ -90,6 +99,23 @@ export function createIngredientGroup(
     unit: fb.control('pcs', { validators: [Validators.required] }),
     note: fb.control<string | null>(null),
     substitutes: fb.array<FormControl<number>>([]),
+  });
+}
+
+export function createSubRecipeGroup(
+  fb: FormBuilder,
+  sub: SubRecipe
+): SubRecipeForm {
+  return fb.group({
+    subRecipeId: fb.control<string | null>(sub.subRecipeId ?? null, {
+      validators: [Validators.required, Validators.min(1)], // my own validator
+    }),
+    name: fb.control<string | null>(sub.name ?? null),
+    qty: fb.control<number | null>(sub.qty ?? null, {
+      validators: [Validators.required],
+    }),
+    unit: fb.control(sub.unit ?? 'pcs', { validators: [Validators.required] }),
+    note: fb.control<string | null>(sub.note ?? null)
   });
 }
 

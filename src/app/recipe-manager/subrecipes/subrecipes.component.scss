@@ -1,0 +1,15 @@
+.sub-fields {
+  --ion-color-step-700: green;
+  display: flex;
+  flex-direction: row;
+  padding: 0 20px;
+  justify-content: space-between;
+
+  ion-item {
+    width: 100%;
+  }
+
+  .button {
+    height: 32px;
+  }
+}

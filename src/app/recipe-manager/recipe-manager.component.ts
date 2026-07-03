@@ -6,11 +6,12 @@ import { IngredientBlockComponent } from './ingredient-block/ingredient-block.co
 import { MediaBlockComponent } from './media-block/media-block.component';
 import { RecipeService } from '../services/recipe.service';
 import { RecipeMapper } from '../mapper/recipe.mapper';
-import { RecipeCategory, RecipePayload } from '../models/recipe.model';
-import { createRecipeForm, getRecipeFormDefaults, validateRecipe, createIngredientGroup } from '../forms/recipe.form';
+import { RecipeCategory, RecipePayload, SubRecipe } from '../models/recipe.model';
+import { createRecipeForm, getRecipeFormDefaults, validateRecipe, createIngredientGroup, createSubRecipeGroup } from '../forms/recipe.form';
 import { StepsBlockComponent } from './steps-block/steps-block.component';
 import { TagsBlockComponent } from './tags-block/tags-block.component';
 import { TagsSearchService } from '../services/tags-search.service';
+import { SubrecipesComponent } from './subrecipes/subrecipes.component';
 
 @Component({
   selector: 'app-recipe-manager',
@@ -24,7 +25,8 @@ import { TagsSearchService } from '../services/tags-search.service';
     IngredientBlockComponent,
     MediaBlockComponent,
     StepsBlockComponent,
-    TagsBlockComponent
+    TagsBlockComponent,
+    SubrecipesComponent
   ]
 })
 export class RecipeManagerComponent {
@@ -72,8 +74,16 @@ export class RecipeManagerComponent {
     return this.recipeForm.get('tags') as FormArray;
   }
 
+  get subRecipesArray(): FormArray {
+    return this.recipeForm.get('subRecipes') as FormArray;
+  }
+
   addIngredient(id?: number, name?: string): void {
     this.ingredientsArray.push(createIngredientGroup(this.fb, id, name));
+  }
+
+  addSubRecipe(sub: SubRecipe): void {
+    this.subRecipesArray.push(createSubRecipeGroup(this.fb, sub));
   }
 
   async saveRecipe(): Promise<void> {
@@ -95,6 +105,7 @@ export class RecipeManagerComponent {
     const payload = RecipeMapper.toPayload(
       formValue,
       this.ingredientsArray.getRawValue() ?? [],
+      this.subRecipesArray.getRawValue() ?? [],
       this.mediaGroup.getRawValue().media,
       (this.tagsArray.getRawValue() ?? []).map((t: string) => this.normalizeTag(t))
     );

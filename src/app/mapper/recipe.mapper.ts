@@ -1,9 +1,10 @@
-import { RecipePayload, RecipeIngredient } from "../models/recipe.model";
+import { RecipePayload, RecipeIngredient, SubRecipe } from "../models/recipe.model";
 
 export class RecipeMapper {
   static toPayload(
     form: any,
     ingredients: RecipeIngredient[],
+    subRecipes: SubRecipe[],
     media: any,
     tags: any
   ): RecipePayload {
@@ -26,6 +27,7 @@ export class RecipeMapper {
         protein: this.toNullableString(form.nutrition?.protein),
       },
       ingredients: ingredients.map(i => this.mapIngredient(i)),
+      subRecipes: subRecipes.map(s => this.mapSubRecipes(s)),
       media: this.mapMedia(media),
       tags: tags,
       origin: this.toNullableString(form.origin),
@@ -33,7 +35,6 @@ export class RecipeMapper {
       updatedAt: form.updatedAt || new Date(),
     };
   }
-
 
   private static mapIngredient(item: any): RecipeIngredient {
     return {
@@ -47,6 +48,16 @@ export class RecipeMapper {
       substitutes: (item.substitutes ?? [])
         .map((s: number) => Number(s))
         .filter((s: number) => !isNaN(s)),
+    };
+  }
+
+  private static mapSubRecipes(item: any): SubRecipe {
+    return {
+      subRecipeId: this.toNullableString(item.id),
+      name: this.toNullableString(item.name),
+      qty: this.toNullableNumber(item.qty),
+      unit: item.unit,
+      note: this.toNullableString(item.note),
     };
   }
 

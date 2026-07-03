@@ -1,0 +1,60 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Sub Recipe</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <!-- Toggle formControlName="hasSubRecipe"-->
+    <ion-item>
+      <ion-label>Does this recipe have a sub-recipe?</ion-label>
+      <ion-toggle (ionChange)="onToggleChange($event)"></ion-toggle>
+    </ion-item>
+    <div *ngFor="let sub of subRecipesArray.controls; let i = index; trackBy: trackByIndex" [formGroup]="sub">
+
+      <!-- Sub Recipe Fields  -->
+      <div *ngIf="isChecked" class="sub-fields">
+        <!-- Child Recipe ID -->
+        <ion-item>
+          <ion-label position="stacked">Child Recipe ID</ion-label>
+          <ion-input formControlName="subRecipeId" placeholder="Enter recipe ID" (ionInput)="onRecipeIdChange($event)"
+            [helperText]="sub.get('name')?.value ?? actuellStatus.data?.title">
+          </ion-input>
+          <ion-note *ngIf="!(sub.get('name')?.value || actuellStatus?.data?.title)" color="danger">
+            Recipe ID is required
+          </ion-note>
+        </ion-item>
+
+        <ion-button expand="block" (click)="isExisted()" class="button">
+          Check
+        </ion-button>
+
+        <!-- Quantity -->
+        <ion-item>
+          <ion-label position="stacked">Quantity</ion-label>
+          <ion-input formControlName="qty" placeholder="e.g. 200">
+          </ion-input>
+        </ion-item>
+
+        <!-- Unit -->
+        <ion-item>
+          <ion-label position="stacked">Unit</ion-label>
+          <ion-select formControlName="unit" interface="popover" placeholder="Select unit">
+            <ion-select-option *ngFor="let unit of unitOptions" [value]="unit">
+              {{ unit }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Note -->
+        <ion-item>
+          <ion-label position="stacked">Note</ion-label>
+          <ion-input formControlName="note" placeholder="Optional note"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" fill="outline" (click)="addSubRecipe()">
+          Add
+        </ion-button>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
