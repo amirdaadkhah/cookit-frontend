@@ -16,15 +16,16 @@
         <!-- Child Recipe ID -->
         <ion-item>
           <ion-label position="stacked">Child Recipe ID</ion-label>
-          <ion-input formControlName="subRecipeId" placeholder="Enter recipe ID" (ionInput)="onRecipeIdChange($event)"
+          <ion-input formControlName="subRecipeId" placeholder="Enter recipe ID" (ionInput)="onRecipeIdChange($event, i)"
             [helperText]="sub.get('name')?.value ?? actuellStatus.data?.title">
           </ion-input>
-          <ion-note *ngIf="!(sub.get('name')?.value || actuellStatus?.data?.title)" color="danger">
+          <ion-note *ngIf="!(sub.get('name')?.value || actuellStatus.data?.title)" color="danger">
             Recipe ID is required
           </ion-note>
         </ion-item>
 
-        <ion-button expand="block" (click)="isExisted()" class="button">
+        <ion-button expand="block" class="button" (click)="isExisted(i)"
+          [disabled]="(sub.get('name')?.value || actuellStatus.data?.title)">
           Check
         </ion-button>
 
@@ -51,8 +52,12 @@
           <ion-input formControlName="note" placeholder="Optional note"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" fill="outline" (click)="addSubRecipe()">
-          Add
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          (click)="addSubRecipe(i)"
+          [disabled]="!fieldVerfication(i)">
+          {{ isAlreadyAdded(sub.get('name')?.value) ? 'Remove' : 'Submit' }}
         </ion-button>
       </div>
     </div>
