@@ -23,6 +23,7 @@ export class SubrecipesComponent {
 
   isChecked: boolean = false;
   actuellStatus: { exists: boolean; data: any } = { exists: false, data: null };
+  isSearching: boolean = false;
 
   readonly unitOptions: string[] = [
     'pcs',
@@ -65,7 +66,7 @@ export class SubrecipesComponent {
 
   async isExisted(index: number): Promise<{ exists: boolean; data: any }> {
     const value_id = this.subRecipesArray.at(index).get('subRecipeId')?.value;
-
+    this.isSearching = true;
     try {
       const result = await this.recipeService.isExist(value_id!);
       // this.actuellStatus = result;
@@ -76,7 +77,7 @@ export class SubrecipesComponent {
       return { exists: false, data: null };
       // await this.showToast('Something went wrong', 'danger');
     } finally {
-      console.log('### new data: ', this.actuellStatus.data)
+      this.isSearching = false;
     }
   }
 
@@ -100,10 +101,10 @@ export class SubrecipesComponent {
 
   isAlreadyAdded(name?: string | null): boolean {
     if (name !== null && name !== undefined) {
-    const exists = this.subRecipesArray.value.some(
-      item => item.name === name
-    );
-    return exists
+      const exists = this.subRecipesArray.value.some(
+        item => item.name === name
+      );
+      return exists
 
     } else {
       return false;
@@ -121,7 +122,6 @@ export class SubrecipesComponent {
     if (!value_unit) return null;
 
     const value_note = this.subRecipesArray.at(index).get('note')?.value;
-
     const payload = {
       subRecipeId: value_id!,
       name: value_name,
@@ -151,11 +151,7 @@ export class SubrecipesComponent {
 
     const isValid = this.actuellStatus.exists && hasQty && hasUnit;
     const isAlreadyAdded = this.isAlreadyAdded(this.actuellStatus.data?.name);
-    return isValid || !isAlreadyAdded;
-  }
-
-  private getCurrentId(): string {
-    return this.actuellStatus.data?.id;
+    return isValid || isAlreadyAdded;
   }
 
   trackByIndex(index: number): number {

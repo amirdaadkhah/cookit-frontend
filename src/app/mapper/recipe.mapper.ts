@@ -53,7 +53,7 @@ export class RecipeMapper {
 
   private static mapSubRecipes(item: any): SubRecipe {
     return {
-      subRecipeId: this.toNullableString(item.id),
+      subRecipeId: this.toNullableString(item.subRecipeId),
       name: this.toNullableString(item.name),
       qty: this.toNullableNumber(item.qty),
       unit: item.unit,

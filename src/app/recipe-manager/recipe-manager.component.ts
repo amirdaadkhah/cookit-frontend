@@ -102,10 +102,14 @@ export class RecipeManagerComponent {
 
   buildPayload(): RecipePayload {
     const formValue = this.recipeForm.getRawValue();
+    const filteredSubRecipes = this.subRecipesArray
+      .getRawValue()
+      .filter(item => item.subRecipeId !== null); // remove the initial value
+
     const payload = RecipeMapper.toPayload(
       formValue,
       this.ingredientsArray.getRawValue() ?? [],
-      this.subRecipesArray.getRawValue() ?? [],
+      filteredSubRecipes ?? [],
       this.mediaGroup.getRawValue().media,
       (this.tagsArray.getRawValue() ?? []).map((t: string) => this.normalizeTag(t))
     );
