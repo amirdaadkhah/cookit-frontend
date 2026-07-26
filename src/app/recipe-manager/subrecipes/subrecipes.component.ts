@@ -4,7 +4,7 @@ import { RecipeService } from '@/app/services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-subrecipes',
@@ -36,7 +36,10 @@ export class SubrecipesComponent {
     'cup',
   ];
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(
+    private recipeService: RecipeService,
+    private readonly toastController: ToastController,
+  ) { }
 
   onToggleChange(e: any) {
     this.isChecked = e.detail.checked;
@@ -63,10 +66,26 @@ export class SubrecipesComponent {
   recipeIdValidation(): boolean {
     return this.actuellStatus.exists;
   }
+  private async showToast(message: string, duration: number, color: 'success' | 'danger' | 'warning', position: 'top' | 'middle'): Promise<void> {
+    const toast = await this.toastController.create({
+      message,
+      duration: duration,
+      color,
+      position: position,
+    });
+    await toast.present();
+  }
 
   async isExisted(index: number): Promise<{ exists: boolean; data: any }> {
     const value_id = this.subRecipesArray.at(index).get('subRecipeId')?.value;
     this.isSearching = true;
+
+    if (this.isAlreadyAddedById(value_id)) {
+      this.showToast('duplicate', 3200, 'danger', 'middle');
+      this.isSearching = false;
+      return { exists: false, data: null };
+    }
+
     try {
       const result = await this.recipeService.isExist(value_id!);
       // this.actuellStatus = result;
@@ -100,15 +119,18 @@ export class SubrecipesComponent {
   }
 
   isAlreadyAdded(name?: string | null): boolean {
-    if (name !== null && name !== undefined) {
-      const exists = this.subRecipesArray.value.some(
-        item => item.name === name
-      );
-      return exists
+    if (name === null || name === undefined) return false;
+    return this.subRecipesArray.value.some(
+      item => item.name === name
+    );
+  }
 
-    } else {
-      return false;
-    }
+  private isAlreadyAddedById(id?: string | null): boolean {
+    if (id === null || id === undefined) return false;
+    return this.subRecipesArray.value.some(
+      item =>
+        item.subRecipeId === id && this.isAlreadyAdded(item.name) // if name is valid means the item is loaded from Cloud-DB
+    );
   }
 
   private createPayload(index: number): SubRecipe | null {
