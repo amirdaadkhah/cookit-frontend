@@ -1,10 +1,11 @@
 import { SubRecipeForm } from '@/app/forms/recipe.form';
 import { SubRecipe } from '@/app/models/recipe.model';
 import { RecipeService } from '@/app/services/recipe.service';
+import { ToastService } from '@/app/services/toast.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-subrecipes',
@@ -38,7 +39,7 @@ export class SubrecipesComponent {
 
   constructor(
     private recipeService: RecipeService,
-    private readonly toastController: ToastController,
+    private toastService: ToastService
   ) { }
 
   onToggleChange(e: any) {
@@ -66,22 +67,14 @@ export class SubrecipesComponent {
   recipeIdValidation(): boolean {
     return this.actuellStatus.exists;
   }
-  private async showToast(message: string, duration: number, color: 'success' | 'danger' | 'warning', position: 'top' | 'middle'): Promise<void> {
-    const toast = await this.toastController.create({
-      message,
-      duration: duration,
-      color,
-      position: position,
-    });
-    await toast.present();
-  }
+
 
   async isExisted(index: number): Promise<{ exists: boolean; data: any }> {
     const value_id = this.subRecipesArray.at(index).get('subRecipeId')?.value;
     this.isSearching = true;
 
     if (this.isAlreadyAddedById(value_id)) {
-      this.showToast('duplicate', 3200, 'danger', 'middle');
+      this.toastService.error('duplicate');
       this.isSearching = false;
       return { exists: false, data: null };
     }
