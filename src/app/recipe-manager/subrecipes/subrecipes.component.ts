@@ -68,7 +68,6 @@ export class SubrecipesComponent {
     return this.actuellStatus.exists;
   }
 
-
   async isExisted(index: number): Promise<{ exists: boolean; data: any }> {
     const value_id = this.subRecipesArray.at(index).get('subRecipeId')?.value;
     this.isSearching = true;
@@ -86,8 +85,8 @@ export class SubrecipesComponent {
       return result;
 
     } catch (error) {
+      this.toastService.error('Something went wrong');
       return { exists: false, data: null };
-      // await this.showToast('Something went wrong', 'danger');
     } finally {
       this.isSearching = false;
     }
@@ -160,12 +159,10 @@ export class SubrecipesComponent {
     const group = this.subRecipesArray.at(index)
     const value_qty = group.get('qty')?.value;
     const value_unit = group.get('unit')?.value;
-
     const hasQty = value_qty !== null && value_qty !== undefined && value_qty !== 0;
     const hasUnit = value_unit !== null && value_unit !== undefined && value_unit !== '';
-
     const isValid = this.actuellStatus.exists && hasQty && hasUnit;
-    const isAlreadyAdded = this.isAlreadyAdded(this.actuellStatus.data?.name);
+    const isAlreadyAdded = this.isAlreadyAdded(this.subRecipesArray.at(index).value.name);
     return isValid || isAlreadyAdded;
   }
 
