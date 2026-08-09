@@ -35,9 +35,10 @@ export class SelectedIngredientPanelComponent {
   generateRecipes() {
     let recipes: any[] = [];
     const payload: SearchForRecipePayload = this.createPayload();
+
     this.recipeService.searchRecipes(payload).subscribe({
       next: (res) => {
-        recipes = res;
+        // recipes = res;
         console.log('Recipes:', res);
       },
       error: (err) => {

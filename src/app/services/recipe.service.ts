@@ -24,7 +24,10 @@ export class RecipeService {
   ) { }
 
   searchRecipes(payload: SearchForRecipePayload): Observable<any> {
-    return this.http.post(`${this.apiURL}/recipes/search`, payload);
+    return this.http.post(
+      `${this.apiURL}/recipe/search`,
+      payload
+    );
   }
 
   addRecipe(recipe: RecipePayload) {
