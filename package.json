@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "clean": "rm -rf node_modules package-lock.json",
-    "first-start": "npm i -f && ng update @angular/core@21 @angular/cli@21 && npm install @angular-devkit/build-angular@latest --save-dev && npm run start",
+    "first-start": "npm i -f && ng update @angular/core@21 @angular/cli@21 && npm install @angular-devkit/build-angular@^21 --save-dev && npm run start",
     "update-preview": "npm run build && firebase deploy"
   },
   "private": true,
@@ -37,12 +37,13 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^22.1.3",
+    "@angular-devkit/build-angular": "^21.2.20",
     "@angular-eslint/builder": "^20.0.0",
     "@angular-eslint/eslint-plugin": "^20.0.0",
     "@angular-eslint/eslint-plugin-template": "^20.0.0",
     "@angular-eslint/schematics": "^20.0.0",
     "@angular-eslint/template-parser": "^20.0.0",
+    "@angular/build": "^21.2.20",
     "@angular/cli": "^21.2.20",
     "@angular/compiler-cli": "^21.2.19",
     "@angular/language-service": "^21.2.19",

@@ -12,7 +12,7 @@
 </div>
 <div class="generate-recipe-button">
   <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
-  <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0" (click)="generateRecipes()">Generate
+  <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating" (click)="generateRecipes()">Generate
     Recipes
   </button>
 </div>
@@ -32,8 +32,23 @@
     </ion-col>
     <app-recipes-mode-segment class="segment-mobile" (segmentChange)="onSegmentChanged($event)">
     </app-recipes-mode-segment>
-    <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0" (click)="generateRecipes()">Generate
+    <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating" (click)="generateRecipes()">Generate
       Recipes
     </button>
   </ion-row>
 </ion-grid>
+
+<!-- reusable loading component -->
+<app-fantasy-spinner
+  *ngIf="isGenerating"
+  text="Creating magical recipes for you...">
+</app-fantasy-spinner>
+
+
+<!-- Error -->
+<app-error-message
+  *ngIf="generationError"
+  title="Recipe generation failed"
+  [message]="generationError"
+  (close)="generationError = null">
+</app-error-message>

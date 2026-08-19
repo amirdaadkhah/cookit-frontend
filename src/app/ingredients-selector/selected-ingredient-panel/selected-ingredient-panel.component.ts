@@ -4,6 +4,9 @@ import { IonicModule } from '@ionic/angular';
 import { RecipeGenerateMode, RecipesModeSegmentComponent, SEGMENT } from '../recipes-mode-segment/recipes-mode-segment.component';
 import { CommonModule } from '@angular/common';
 import { RecipeService, SearchForRecipePayload } from '@/app/services/recipe.service';
+import { Router } from '@angular/router';
+import { FantasySpinnerComponent } from '@/app/fantasy-spinner/fantasy-spinner.component';
+import { ErrorMessageComponent } from '@/app/error-message/error-message.component';
 
 @Component({
   selector: 'app-selected-ingredient-panel',
@@ -14,14 +17,19 @@ import { RecipeService, SearchForRecipePayload } from '@/app/services/recipe.ser
     IonicModule,
     CommonModule,
     RecipesModeSegmentComponent,
+    FantasySpinnerComponent,
+    ErrorMessageComponent
   ]
 })
 export class SelectedIngredientPanelComponent {
   private selectedSegment: RecipeGenerateMode = SEGMENT.MATCH_ALL;
+  isGenerating: boolean = false;
+  generationError: string | null = null;
 
   constructor(
     public cartService: IngredientCartService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) { }
 
   removeFromCart(item: CartItem) {
@@ -33,16 +41,27 @@ export class SelectedIngredientPanelComponent {
   }
 
   generateRecipes() {
-    let recipes: any[] = [];
     const payload: SearchForRecipePayload = this.createPayload();
+    this.isGenerating = true;
+    this.generationError = null;
 
     this.recipeService.searchRecipes(payload).subscribe({
       next: (res) => {
-        // recipes = res;
-        console.log('Recipes:', res);
+        console.log('Recipes:', res, res.length > 0);
+        this.isGenerating = false;
+        (document.activeElement as HTMLElement)?.blur(); // remove focus from clicked button before leaving the page
+
+        this.router.navigate(['/your-recipes'], {
+          state: {
+            recipes: res
+          }
+        });
       },
       error: (err) => {
         console.error('Search failed:', err);
+        this.isGenerating = false;
+        this.generationError =
+          'Something went wrong while generating your recipes. Please try again.';
       }
     });
   }

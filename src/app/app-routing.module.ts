@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RecipeManagerComponent } from './recipe-manager/recipe-manager.component';
 import { IngredientBlockComponent } from './recipe-manager/ingredient-block/ingredient-block.component';
 import { TagsResolver } from './resolver/TagResolver';
+import { GeneratedRecipesComponent } from './generated-recipes/generated-recipes.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,8 @@ const routes: Routes = [
   { path: 'demo', component: DemoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'recipes-manager', component: RecipeManagerComponent, resolve: { tags: TagsResolver } },
-  { path: 'test', component: IngredientBlockComponent }
-
+  { path: 'test', component: IngredientBlockComponent },
+  { path: 'your-recipes', component: GeneratedRecipesComponent }
 
 ];
 
