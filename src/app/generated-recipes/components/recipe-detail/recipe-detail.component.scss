@@ -1,0 +1,184 @@
+@use '../../../../theme/variables' as *;
+
+.detail-card {
+  display: flex;
+  max-width: 90%;
+  margin: 0 auto $HOME-PAGE-SIDE_PADDING;
+  overflow: hidden;
+  border-radius: 36px;
+  background: $CARD-BACKGROUND;
+  box-shadow: 0 24px 80px rgba(36, 26, 66, 0.09);
+  color: $CARD-TEXT-COLOR;
+
+  .image-side {
+    position: relative;
+    width: 50%;
+    padding: 15px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    .image-info,
+    .chef-tip {
+      position: absolute;
+      left: 35px;
+      right: 35px;
+      display: flex;
+    }
+
+    .image-info {
+      bottom: 135px;
+      justify-content: center;
+      gap: 10px;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 13px;
+        border-radius: 100px;
+        background: rgba(18, 14, 25, 0.72);
+        backdrop-filter: blur(12px);
+        color: white;
+        font-size: 13px;
+      }
+    }
+
+    .chef-tip {
+      bottom: 35px;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg,
+          #f5efff,
+          #fff2ed);
+      color: #524c59;
+
+      strong {
+        color: #332d39;
+      }
+
+      p {
+        margin: 6px 0 0;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .detail-content {
+    flex: 1;
+    min-width: 0;
+    padding: clamp(28px, 4vw, 60px);
+
+    .title-area {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 26px;
+      border-bottom: 1px solid #eeeaf3;
+
+      h2 {
+        margin: 8px 0 10px;
+        font-size: clamp(30px, 4vw, 46px);
+        letter-spacing: -1.5px;
+      }
+
+      p {
+        max-width: 640px;
+        margin: 0;
+        color: #77727d;
+        line-height: 1.65;
+      }
+
+      .favorite-button {
+        width: 48px;
+        height: 48px;
+        border: 0;
+        border-radius: 50%;
+        background: #f4efff;
+        color: #7954ff;
+        cursor: pointer;
+
+        ion-icon {
+          font-size: 23px;
+        }
+      }
+    }
+
+    .recipe-information {
+      display: flex;
+      gap: 40px;
+      margin-top: 32px;
+
+      .ingredients,
+      .steps {
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+          margin: 0 0 20px;
+          font-size: 20px;
+        }
+      }
+
+      .ingredients {
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 14px;
+        }
+      }
+
+      .steps {
+        gap: 16px;
+
+        .step {
+          display: flex;
+          gap: 14px;
+          align-items: flex-start;
+
+          p {
+            margin: 4px 0 0;
+            color: #59545e;
+            line-height: 1.5;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .check,
+      .step-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #f1ebff;
+        color: #7048ff;
+        font-size: 13px;
+      }
+
+      .step-number {
+        font-size: 13px;
+        font-weight: 600;
+      }
+    }
+  }
+}

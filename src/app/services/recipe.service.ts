@@ -1,7 +1,7 @@
 import { environment } from '@/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom, Observable } from 'rxjs';
+import { catchError, firstValueFrom, Observable, shareReplay, throwError } from 'rxjs';
 import { RecipePayload } from '../models/recipe.model';
 import { ApiService } from './api.service';
 
@@ -49,5 +49,26 @@ export class RecipeService {
       console.error('search in DB failed!!!', err);
       return { exists: false, data: null };
     }
+  }
+
+  private readonly cache = new Map<string, Observable<RecipePayload>>();
+
+  getRecipe(id: string): Observable<RecipePayload> {
+    const cached = this.cache.get(id);
+    if (cached) { return cached; }
+
+    const request$ = this.apiService.getRecipeById(id).pipe(
+      catchError(error => {
+        this.cache.delete(id);
+        return throwError(() => error);
+      }),
+      shareReplay({
+        bufferSize: 1,
+        refCount: false
+      })
+    );
+
+    this.cache.set(id, request$);
+    return request$;
   }
 }

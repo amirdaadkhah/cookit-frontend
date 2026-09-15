@@ -2,21 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, shareReplay } from 'rxjs';
 import { SearchMode, SearchOptions, SearchState } from '../ingredients-selector/ingredients-search/ingredients-search.component';
 import { HttpClient } from '@angular/common/http';
-
-export interface Ingredient {
-  id: number;
-  name: string;
-  category: string;
-  image: string;
-  type?: string; // For meat: 'lamb', 'beef', etc.
-  parts?: IngredientPart[]; // optional parts if this ingredient has sub-items
-}
-
-export interface IngredientPart {
-  id: number;
-  name: string;
-  image: string;
-}
+import { Ingredient, IngredientPart } from '../models/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +13,7 @@ export class IngredientService {
   ingredients$ = this.ingredientsSubject.asObservable();
   private generalIngredientsSubject = new BehaviorSubject<Ingredient[]>([]);
   generalIngredients$ = this.generalIngredientsSubject.asObservable();
-  private searchSubject = new BehaviorSubject<SearchState>({ query: '', mode: 'all'});
+  private searchSubject = new BehaviorSubject<SearchState>({ query: '', mode: 'all' });
   readonly search$ = this.searchSubject.asObservable();
   readonly queryIsEmpty$ = this.search$.pipe(
     map(s => !s.query || s.query.trim().length < 1)
@@ -41,14 +27,13 @@ export class IngredientService {
   };
   /** UI subscribes to this */
   readonly filtered$ = combineLatest([this.ingredients$, this.search$]).pipe(
-    map(([items, state]) => 
-      this.search(items, state.query, { ...this.defaultSearchOptions, mode: state.mode })), 
-    shareReplay({ bufferSize: 1, refCount: true})
+    map(([items, state]) =>
+      this.search(items, state.query, { ...this.defaultSearchOptions, mode: state.mode })),
+    shareReplay({ bufferSize: 1, refCount: true })
   );
-  
-  constructor(
-    private http: HttpClient
-  ) {}
+  private readonly ingredientNameMap = new Map<number, string>();
+
+  constructor(private http: HttpClient) { }
 
   loadIngredients() {
     this.ingredientsSubject.next([]);
@@ -62,18 +47,33 @@ export class IngredientService {
           i => i.type !== 'general'
         );
 
-        this.ingredientsSubject.next(nonGeneralIngredients ?? [])
-        this.generalIngredientsSubject.next(generalIngredients ?? [])
+        this.ingredientsSubject.next(nonGeneralIngredients);
+        this.generalIngredientsSubject.next(generalIngredients);
+
+        //Build lookUp map
+        this.ingredientNameMap.clear();
+        for (const ingredient of ingredients) {
+          this.ingredientNameMap.set(ingredient.id, ingredient.name);
+          for (const part of ingredient.parts ?? []) {
+            this.ingredientNameMap.set(part.id, part.name);
+          }
+        }
+
       },
       error: () => {
-        this.ingredientsSubject.next([])
-        this.generalIngredientsSubject.next([])
+        this.ingredientsSubject.next([]);
+        this.generalIngredientsSubject.next([]);
+        this.ingredientNameMap.clear();
       },
     });
   }
 
   getIngredients(): Observable<Ingredient[]> {
     return this.ingredients$;
+  }
+
+  getIngredientNameById(id: number): string {
+    return this.ingredientNameMap.get(Number(id)) ?? '';
   }
 
   setSearch(query: string, mode?: SearchMode) {
@@ -126,7 +126,7 @@ export class IngredientService {
       const combinedScore = Math.max(nameScore, bestPartScore * 0.95);
       results.push({ item: out, score: combinedScore });
     }
-    
+
     if (!options.sortByRelevance) return results.map(r => r.item);
     results.sort((a, b) => b.score - a.score);
     const limit = options.limit ?? 20;

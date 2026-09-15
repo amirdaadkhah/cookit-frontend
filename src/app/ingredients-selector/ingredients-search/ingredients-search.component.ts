@@ -1,4 +1,5 @@
-import { Ingredient, IngredientService } from '@/app/services/ingredient-service';
+import { Ingredient } from '@/app/models/ingredient.model';
+import { IngredientService } from '@/app/services/ingredient-service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnDestroy, Output, ViewChild, viewChild } from '@angular/core';
 import { IonicModule, IonSearchbar } from '@ionic/angular';

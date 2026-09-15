@@ -1,0 +1,72 @@
+<div class="detail-card">
+  <!-- IMAGE SIDE -->
+  <div class="image-side">
+    <img [src]="getImage()" [alt]="recipe.title">
+    <div class="image-info">
+      <span>
+        <ion-icon name="time-outline"></ion-icon>
+        {{ recipe.times.totalMin }} min
+      </span>
+      <span>
+        <ion-icon name="people-outline"></ion-icon>
+        {{ recipe.nutrition.portion }}
+        servings
+      </span>
+      <span>
+        {{ recipe.nutrition.kcal }} cal
+      </span>
+    </div>
+    <div class="chef-tip">
+      <div>✦</div>
+      <div>
+        <strong>Chef's Tip</strong>
+        <p>recipe.chefTip</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT SIDE -->
+  <div class="detail-content">
+    <div class="title-area">
+      <div>
+        <app-difficulty-recipe-badge [difficulty]="getDifficulty()" />
+        <h2>{{ recipe.title }}</h2>
+        <p>recipe.description</p>
+      </div>
+      <button class="favorite-button">
+        <ion-icon name="heart-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="recipe-information">
+      <!-- Ingredients -->
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients">
+            <span class="check">
+              ✓
+            </span>
+            <span>
+              {{ ingredient.qty }}
+              {{ ingredient.unit }}
+              {{ getIngredientName(ingredient.ingredientId!) }}
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Steps -->
+      <div class="steps">
+        <h3>Steps</h3>
+        <div class="step" *ngFor="let step of recipe.steps; let i = index">
+          <span class="step-number">
+            {{ i+1 }}
+          </span>
+          <p> {{ step }} </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

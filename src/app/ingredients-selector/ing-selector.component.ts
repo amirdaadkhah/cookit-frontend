@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Ingredient, IngredientPart, IngredientService } from '../services/ingredient-service';
+import { IngredientService } from '../services/ingredient-service';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { RecipeGenerateMode, RecipesModeSegmentComponent, SEGMENT } from './reci
 import { RecipeService } from '../services/recipe.service';
 import { CartItem, IngredientCartService } from '../services/ingredient-cart.service';
 import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/selected-ingredient-panel.component';
+import { Ingredient, IngredientPart } from '../models/ingredient.model';
 
 @Component({
   selector: 'app-ing-selector',
@@ -25,7 +26,7 @@ import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/se
 })
 export class IngredientsSelectorComponent {
   categories: string[] = [];
-  groupedIngredients: { [category: string]: Ingredient[]} = {};
+  groupedIngredients: { [category: string]: Ingredient[] } = {};
   selectedCategory: string = '';
   selectedPart: Ingredient | null = null;
   // cart: CartItem[] = [];
@@ -106,8 +107,4 @@ export class IngredientsSelectorComponent {
       this.addToCart({ ingredient: event, quantity: 1 });
     }
   }
-
-
-
-
 }
