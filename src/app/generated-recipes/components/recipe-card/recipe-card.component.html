@@ -1,0 +1,23 @@
+<div class="recipe-card" (click)="selectRecipe()">
+  <div class="image-area">
+    <img [src]=getImage() [alt]="recipe.title">
+    <span class="time-badge">
+      <ion-icon name="time-outline"></ion-icon>
+      {{ recipe.times.totalMin }} min
+    </span>
+  </div>
+
+  <div class="card-content">
+    <h3>{{ recipe.title }}</h3>
+
+    <div class="meta">
+      <app-difficulty-recipe-badge [difficulty]="getDifficulty()" />
+      <span *ngIf="recipe.score">
+        {{ recipe.nutrition.kcal }} cal / {{ recipe.nutrition.protein }} protein
+      </span>
+    </div>
+    <div class="rating" *ngIf="recipe.score">
+      ★ {{ getRating() }}
+    </div>
+  </div>
+</div>
