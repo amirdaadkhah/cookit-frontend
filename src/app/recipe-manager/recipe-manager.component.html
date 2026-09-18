@@ -49,10 +49,7 @@
       </ion-card-content>
     </ion-card>
 
-    <app-subrecipes 
-      [subRecipesArray]="subRecipesArray"
-      (addSubRecipeEvent)="addSubRecipe($event)"
-    ></app-subrecipes>
+    <app-subrecipes [subRecipesArray]="subRecipesArray" (addSubRecipeEvent)="addSubRecipe($event)"></app-subrecipes>
 
     <ion-card formGroupName="times">
       <ion-card-header>
@@ -99,6 +96,13 @@
         </ion-item>
       </ion-card-content>
     </ion-card>
+
+    <ion-item class="serving">
+      <ion-label position="stacked">
+        Servings
+      </ion-label>
+      <ion-input type="number" formControlName="servings" min="1" placeholder="e.g. 4"></ion-input>
+    </ion-item>
 
     <!-- Add ingredients -->
     <app-ingredient-block [ingredientsArray]="ingredientsArray"

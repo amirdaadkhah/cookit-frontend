@@ -20,6 +20,7 @@ export function createRecipeForm(fb: FormBuilder) {
       kcal: [''],
       protein: [''],
     }),
+    servings: [''],
     ingredients: fb.array<RecipeIngredientForm>([]),
     subRecipes: fb.array<SubRecipeForm>([]),
     media: fb.group({
@@ -57,6 +58,17 @@ export function validateRecipe(form: FormGroup, steps: FormArray, ingredients: F
     return { message: 'Please add at least one ingredient.', color: 'warning' };
   }
   if (form.invalid) {
+    console.log('Form invalid:', form.invalid);
+    console.log('Form errors:', form.errors);
+
+    Object.keys(form.controls).forEach(key => {
+      const control = form.get(key);
+
+      if (control?.invalid) {
+        console.log(`${key} is invalid`);
+        console.log(`${key} errors:`, control.errors);
+      }
+    });
     return { message: 'Please fix the form errors first.', color: 'danger' };
   }
   return null;

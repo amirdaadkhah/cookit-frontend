@@ -53,8 +53,12 @@
           <ion-input formControlName="note" placeholder="Optional note"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" fill="outline" (click)="addSubRecipe(i)" [disabled]="!fieldVerfication(i)">
-          {{ isAlreadyAdded(sub.get('name')?.value) ? 'Remove' : 'Submit' }}
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          (click)="handleSubRecipe(i)" 
+          [disabled]="!fieldVerfication(i)">
+          {{ isAddedSubRecipe(i) ? 'Remove' : 'Submit' }}
         </ion-button>
       </div>
     </div>

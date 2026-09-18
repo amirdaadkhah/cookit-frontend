@@ -21,7 +21,6 @@ import { IonicModule } from '@ionic/angular';
 export class SubrecipesComponent {
   @Input({ required: true }) subRecipesArray!: FormArray<SubRecipeForm>;
   @Output() addSubRecipeEvent = new EventEmitter<SubRecipe>();
-
   isChecked: boolean = false;
   actuellStatus: { exists: boolean; data: any } = { exists: false, data: null };
   isSearching: boolean = false;
@@ -92,37 +91,46 @@ export class SubrecipesComponent {
     }
   }
 
-  addSubRecipe(index: number) {
+  handleSubRecipe(index: number) {
     // 🔁 if already added → remove
-    if (this.isAlreadyAdded(this.actuellStatus.data?.name)) {
+    if (this.isAddedSubRecipe(index)) {
       this.removeSubRecipe(index);
       return;
     }
 
     const payload = this.createPayload(index);
-    if (payload && this.actuellStatus.exists) {
-      this.addToSubRecipesArray(payload); // ✅ mark as added
-      this.resetField(index);
+    if (!payload || !this.actuellStatus.exists) {
+      return;
+    }
+    this.addToSubRecipesArray(payload); // ✅ mark as added
+    this.resetField(index);
+  }
+
+  removeSubRecipe(index: number): void {
+    this.subRecipesArray.removeAt(index);
+
+    if (this.subRecipesArray.length === 0) {
+      this.isChecked = false;
     }
   }
 
-  removeSubRecipe(index: number) {
-    this.subRecipesArray.removeAt(index);
-  }
+  isAddedSubRecipe(index: number): boolean {
+    const group = this.subRecipesArray.at(index);
+    const id = group.get('subRecipeId')?.value;
+    const name = group.get('name')?.value;
 
-  isAlreadyAdded(name?: string | null): boolean {
-    if (name === null || name === undefined) return false;
-    return this.subRecipesArray.value.some(
-      item => item.name === name
-    );
+    return !!id && !!name;
   }
 
   private isAlreadyAddedById(id?: string | null): boolean {
-    if (id === null || id === undefined) return false;
-    return this.subRecipesArray.value.some(
-      item =>
-        item.subRecipeId === id && this.isAlreadyAdded(item.name) // if name is valid means the item is loaded from Cloud-DB
-    );
+    if (!id) return false;
+
+    return this.subRecipesArray.controls.some(group => {
+      const subRecipeId = group.get('subRecipeId')?.value;
+      const name = group.get('name')?.value; // if name is valid means the item is loaded from Cloud-DB
+
+      return subRecipeId === id && !!name;
+    });
   }
 
   private createPayload(index: number): SubRecipe | null {
@@ -156,14 +164,23 @@ export class SubrecipesComponent {
   }
 
   fieldVerfication(index: number): boolean {
-    const group = this.subRecipesArray.at(index)
-    const value_qty = group.get('qty')?.value;
-    const value_unit = group.get('unit')?.value;
-    const hasQty = value_qty !== null && value_qty !== undefined && value_qty !== 0;
-    const hasUnit = value_unit !== null && value_unit !== undefined && value_unit !== '';
-    const isValid = this.actuellStatus.exists && hasQty && hasUnit;
-    const isAlreadyAdded = this.isAlreadyAdded(this.subRecipesArray.at(index).value.name);
-    return isValid || isAlreadyAdded;
+    if (this.isAddedSubRecipe(index)) {
+      return true;
+    }
+
+    const group = this.subRecipesArray.at(index);
+    const qty = group.get('qty')?.value;
+    const unit = group.get('unit')?.value;
+    const hasQty =
+      qty !== null &&
+      qty !== undefined &&
+      qty !== 0;
+    const hasUnit =
+      unit !== null &&
+      unit !== undefined &&
+      unit !== '';
+
+    return this.actuellStatus.exists && hasQty && hasUnit;
   }
 
   trackByIndex(index: number): number {

@@ -26,6 +26,7 @@ export class RecipeMapper {
         kcal: this.toNullableString(form.nutrition?.kcal),
         protein: this.toNullableString(form.nutrition?.protein),
       },
+      servings: this.toNullableNumber(form.servings),
       ingredients: ingredients.map(i => this.mapIngredient(i)),
       subRecipes: subRecipes.map(s => this.mapSubRecipes(s)),
       media: this.mapMedia(media),

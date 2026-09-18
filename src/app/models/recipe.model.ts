@@ -38,6 +38,7 @@ export interface RecipePayload {
     kcal: string | null;
     protein: string | null;
   };
+  servings: number | null;
   ingredients: RecipeIngredient[];
   subRecipes: SubRecipe[];
   media: {
