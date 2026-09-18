@@ -1,0 +1,285 @@
+@use '../../../../theme/variables' as *;
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 430px;
+  padding: clamp(24px, 5vw, 70px);
+  border-radius: 0 0 48px 48px;
+  background:
+    linear-gradient(135deg,
+      #fff 0%,
+      #faf8ff 48%,
+      #fff5f0 100%);
+
+  .back-button {
+    position: relative;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    padding: 0;
+    border-radius: 50%;
+    background: $CARD-BACK-BUTTON-COLOR;
+    box-shadow: 0 8px 30px rgba(23, 17, 46, 0.08);
+    cursor: pointer;
+
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease;
+
+    ion-icon {
+      font-size: 24px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(23, 17, 46, 0.12);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .hero-content {
+    display: flex;
+    // flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    gap: clamp(32px, 5vw, 80px);
+    width: 100%;
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      min-width: 50vw;
+      flex: 1 1 50%;
+
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        margin-bottom: 18px;
+        border-radius: 100px;
+        background: rgba(111, 74, 255, 0.08);
+        color: $CARD-HERO-LABEL-COLOR;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(44px, 6vw, 82px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+        color: $CARD-TEXT-COLOR;
+
+        span {
+          display: block;
+          background:
+            linear-gradient(
+              90deg,
+              #7048ff,
+              #d658b0,
+              #ff734b);
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+      }
+
+      p {
+        max-width: 460px;
+        margin-top: 26px;
+        font-size: 18px;
+        line-height: 1.6;
+        color: #65606f;
+      }
+
+      .ingredients-summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: $CARD-TEXT-COLOR;
+        margin-top: 20px;
+        padding: 14px 20px;
+        background: white;
+        border: 1px solid rgba(30, 20, 50, 0.08);
+        border-radius: 50px;
+        box-shadow: 0 8px 30px rgba(20, 15, 40, 0.08);
+
+        .add-more-button {
+          padding: 0;
+          border: 0;
+          background: transparent;
+          color: $CARD-HERO-LABEL-COLOR;
+          font-weight: bold;
+          font: inherit;
+          cursor: pointer;
+        }
+      }
+    }
+
+    // Hero image
+    .visual-area {
+      position: relative;
+      display: grid;
+      place-items: center;
+      flex: 1 1 50%;
+      min-width: 0;
+      min-height: 360px;
+
+      .dish-orbit {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        place-items: center;
+        width: min(90%, 430px);
+        aspect-ratio: 1;
+        border-radius:
+          45% 55% 62% 38% /
+          53% 38% 62% 47%;
+        background: $CARD-BACKGROUND;
+        box-shadow: 0 30px 80px rgba(72, 44, 120, 0.17);
+        transform: rotate(-4deg);
+
+        img {
+          display: block;
+          width: 94%;
+          height: 94%;
+          object-fit: cover;
+          border-radius: inherit;
+          transform: rotate(4deg);
+        }
+      }
+
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(2px);
+        pointer-events: none;
+      }
+
+      .blob-one {
+        width: 380px;
+        height: 280px;
+        background: #c7b4ff;
+        transform: rotate(-25deg);
+      }
+
+      .blob-two {
+        right: 5%;
+        bottom: 4%;
+        width: 280px;
+        height: 250px;
+        background: #ffd3c7;
+        opacity: 0.8;
+        transform: rotate(30deg);
+      }
+
+      .spark {
+        position: absolute;
+        z-index: 5;
+        color: $CARD-SPARK-ONE-COLOR;
+        pointer-events: none;
+      }
+
+      .spark-one {
+        top: 18%;
+        right: 10%;
+        font-size: 30px;
+      }
+
+      .spark-two {
+        bottom: 15%;
+        left: 12%;
+        color: $CARD-SPARK-ONE-COLOR;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+// Tablet / smaller screens
+@media (max-width: $MIN-WIDTH-RESPONSIVE-TABLET-SCREEN) {
+  .hero {
+    .hero-content {
+      flex-direction: column;
+      align-items: stretch;
+
+      .hero-copy {
+        flex-basis: auto;
+      }
+
+      .visual-area {
+        flex-basis: auto;
+        min-height: 320px;
+      }
+    }
+  }
+}
+
+// Mobile
+@media (max-width: $MAX-WIDTH-RESPONSIVE) {
+  .hero {
+    padding: 24px 20px 40px;
+    border-radius: 0 0 32px 32px;
+
+    .back-button {
+      width: 44px;
+      height: 44px;
+    }
+
+    .hero-content {
+      gap: 28px;
+
+      .hero-copy {
+        h1 {
+          font-size: clamp(40px, 12vw, 58px);
+          letter-spacing: -0.035em;
+        }
+
+        p {
+          margin-top: 20px;
+          font-size: 16px;
+        }
+
+        .ingredients-summary {
+          flex-wrap: wrap;
+          padding: 12px 16px;
+        }
+      }
+
+      .visual-area {
+        min-height: 280px;
+
+        .dish-orbit {
+          width: min(85vw, 340px);
+        }
+
+        .blob-one {
+          width: 280px;
+          height: 210px;
+        }
+
+        .blob-two {
+          width: 210px;
+          height: 180px;
+        }
+      }
+    }
+  }
+}
+
+// Accessibility
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    .back-button {
+      transition: none;
+    }
+  }
+}

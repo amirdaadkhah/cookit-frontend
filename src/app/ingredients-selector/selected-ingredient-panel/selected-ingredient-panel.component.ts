@@ -7,6 +7,7 @@ import { RecipeService, SearchForRecipePayload } from '@/app/services/recipe.ser
 import { Router } from '@angular/router';
 import { FantasySpinnerComponent } from '@/app/fantasy-spinner/fantasy-spinner.component';
 import { ErrorMessageComponent } from '@/app/error-message/error-message.component';
+import { RecipeResultService } from '@/app/services/recipe-result.service';
 
 @Component({
   selector: 'app-selected-ingredient-panel',
@@ -29,7 +30,8 @@ export class SelectedIngredientPanelComponent {
   constructor(
     public cartService: IngredientCartService,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private recipeResultService: RecipeResultService
   ) { }
 
   removeFromCart(item: CartItem) {
@@ -47,15 +49,12 @@ export class SelectedIngredientPanelComponent {
 
     this.recipeService.searchRecipes(payload).subscribe({
       next: (res) => {
-        console.log('Recipes:', res, res.length > 0);
+        console.log('Recipes from DB:', res, res.length > 0);
         this.isGenerating = false;
         (document.activeElement as HTMLElement)?.blur(); // remove focus from clicked button before leaving the page
-
-        this.router.navigate(['/your-recipes'], {
-          state: {
-            recipes: res
-          }
-        });
+        this.recipeResultService.setRecipes(res.data);
+        this.recipeResultService.setPayload(payload);
+        this.router.navigate(['/your-recipes']);
       },
       error: (err) => {
         console.error('Search failed:', err);

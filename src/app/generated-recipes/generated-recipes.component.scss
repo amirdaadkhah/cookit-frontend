@@ -1,0 +1,59 @@
+@use '../../theme/variables' as *;
+
+ion-content {
+  --padding-top: #{$header-desktop-height};
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    --padding-top: #{$header-mobile-height};
+  }
+}
+
+.recipes-page {
+  min-height: 100%;
+  background: #faf9fc;
+}
+
+.recipe-selection {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px clamp(18px, 4vw, 60px);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7653ff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.recipe-count {
+  color: #827d8b;
+  font-size: 14px;
+}
+
+.recipe-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.recipe-list app-recipe-card {
+  flex: 0 0 250px;
+}

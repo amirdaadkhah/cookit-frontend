@@ -1,0 +1,32 @@
+<ion-content class="ion-padding">
+  <div class="recipes-page">
+
+    <!-- HERO - if Signal<SearchForRecipePayload | null> not null -->
+    <app-recipes-hero [recipesCount]="recipes().length" [payload]="payload()" (back)="goBack()">
+    </app-recipes-hero>
+
+    <!-- RECIPE SELECTOR -->
+    <section class="recipe-selection">
+      <div class="eyebrow">
+        <span>Made for you</span>
+        <h4>Choose your favorite</h4>
+      </div>
+      <span class="recipe-count">
+        {{ recipes().length }} recipes
+      </span>
+
+      <div class="recipe-list">
+        @for (recipe of recipes(); track recipe.recipe_id) {
+        <app-recipe-card [recipe]="recipe" (recipeSelected)="selectRecipe($event)">
+        </app-recipe-card>
+        }
+      </div>
+    </section>
+
+    <!-- SELECTED RECIPE -->
+    <section class="selected-recipe" *ngIf="selectedRecipeDetails()">
+      <app-recipe-detail *ngIf="selectedRecipeDetails() as recipeDetails" [recipe]="recipeDetails">
+      </app-recipe-detail>
+    </section>
+  </div>
+</ion-content>

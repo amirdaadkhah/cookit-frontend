@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { IngredientsSearchComponent, SearchState } from './ingredients-search/ingredients-search.component';
-import { RecipeGenerateMode, RecipesModeSegmentComponent, SEGMENT } from './recipes-mode-segment/recipes-mode-segment.component';
 import { RecipeService } from '../services/recipe.service';
 import { CartItem, IngredientCartService } from '../services/ingredient-cart.service';
 import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/selected-ingredient-panel.component';
@@ -29,13 +28,10 @@ export class IngredientsSelectorComponent {
   groupedIngredients: { [category: string]: Ingredient[] } = {};
   selectedCategory: string = '';
   selectedPart: Ingredient | null = null;
-  // cart: CartItem[] = [];
   private ingredients$: Observable<Ingredient[]> = new Observable();
-  // private selectedSegment: RecipeGenerateMode = SEGMENT.MATCH_ALL;
 
   constructor(
     private ingredientService: IngredientService, 
-    private recipeService: RecipeService,
     private cartService: IngredientCartService
   ) {
     this.ingredientService.loadIngredients();

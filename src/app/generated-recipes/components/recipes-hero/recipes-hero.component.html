@@ -1,0 +1,45 @@
+<section class="hero">
+  <button type="button" class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </button>
+
+  <div class="hero-content">
+    <div class="hero-copy">
+      <span class="hero-label">
+        ✦ MIXIWA generated
+      </span>
+
+      <h1>
+        Your recipes are
+        <span>ready to enjoy!</span>
+      </h1>
+
+      <p>
+        We found
+        <strong>{{ recipesCount }}</strong>
+        delicious possibilities based on your selected ingredients.
+      </p>
+
+      <!-- Ingredients Summary -->
+      <div class="ingredients-summary">
+        <span>
+          🧺
+        </span>
+        <strong>
+          {{ payload.ingredientIds.length }} ingredients
+        </strong>
+        <button class="add-more-button">+ add more</button>
+      </div>
+    </div>
+
+    <div class="visual-area">
+      <div class="blob blob-one"></div>
+      <div class="blob blob-two"></div>
+      <div class="dish-orbit">
+        <img src="assets/images/recipe-hero.png" alt="Generated recipe">
+      </div>
+      <span class="spark spark-one">✦</span>
+      <span class="spark spark-two">✧</span>
+    </div>
+  </div>
+</section>
