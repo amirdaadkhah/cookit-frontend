@@ -1,22 +1,26 @@
 <!-- Selected Ingredients - desktop -->
-<div class="cart">
-  <div class="title">Your selected Ingredients</div>
-  <div class="line"></div>
-  <div *ngFor="let item of (cartService.cart$ | async)" class="cart-item">
-    <img [src]="item.part?.image ?? item.ingredient.image" [alt]="item.part?.name ?? item.ingredient.name">
-    <div class="name">{{ item.ingredient.name }}
-      <span *ngIf="item.part?.name"> - {{ item.part?.name }}</span>
+<div>
+  <div class="cart">
+    <div class="title">
+      <span class="text">Your Ingredients</span>
+      <span class="counter"> {{ this.cartService.cart.length }}</span>
     </div>
-    <button (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
+    <div class="line"></div>
+    <div *ngFor="let item of (cartService.cart$ | async)" class="cart-item">
+      <img [src]="item.part?.image ?? item.ingredient.image" [alt]="item.part?.name ?? item.ingredient.name">
+      <div class="name">{{ item.ingredient.name }}
+        <span *ngIf="item.part?.name"> - {{ item.part?.name }}</span>
+      </div>
+      <button (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
+    </div>
+  </div>
+  <div class="generate-recipe-button">
+    <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
+    <app-generate-recipe-button [disabled]="(cartService.cart$ | async)?.length === 0" [isLoading]="isGenerating"
+      (generate)="generateRecipes()">
+    </app-generate-recipe-button>
   </div>
 </div>
-<div class="generate-recipe-button">
-  <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
-  <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating" (click)="generateRecipes()">Generate
-    Recipes
-  </button>
-</div>
-
 <!-- Selected Ingredients - Mobile -->
 <ion-grid>
   <ion-row class="cart-row-mobile">
@@ -32,22 +36,18 @@
     </ion-col>
     <app-recipes-mode-segment class="segment-mobile" (segmentChange)="onSegmentChanged($event)">
     </app-recipes-mode-segment>
-    <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating" (click)="generateRecipes()">Generate
+    <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating"
+      (click)="generateRecipes()">Generate
       Recipes
     </button>
   </ion-row>
 </ion-grid>
 
 <!-- reusable loading component -->
-<app-fantasy-spinner
-  *ngIf="isGenerating"
-  text="Creating magical recipes for you...">
+<app-fantasy-spinner *ngIf="isGenerating" text="Creating magical recipes for you...">
 </app-fantasy-spinner>
 
 <!-- Error -->
-<app-error-message
-  *ngIf="generationError"
-  title="Recipe generation failed"
-  [message]="generationError"
+<app-error-message *ngIf="generationError" title="Recipe generation failed" [message]="generationError"
   (close)="generationError = null">
 </app-error-message>

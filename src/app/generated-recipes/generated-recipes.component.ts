@@ -34,6 +34,7 @@ export class GeneratedRecipesComponent {
     }
     return payload;
   });
+  selectedRecipeId: string = '';
 
   constructor(
     private router: Router,
@@ -45,10 +46,12 @@ export class GeneratedRecipesComponent {
     this.recipeService.getRecipe(recipe.recipe_id).subscribe({
       next: (res) => {
         this.selectedRecipeDetails.set(res);
+        this.selectedRecipeId = recipe.recipe_id;
       },
       error: (err) => {
         console.log('!!! error by loading selected recipe details', err);
         this.loadingRecipeDetails.set(false);
+        this.selectedRecipeId = '';
       },
     })
   }

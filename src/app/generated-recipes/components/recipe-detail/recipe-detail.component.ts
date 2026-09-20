@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecipePayload } from '@/app/models/recipe.model';
 import { DifficultyRecipeBadgeComponent } from '@/app/shared/difficulty-recipe-badge/difficulty-recipe-badge.component';
 import { IngredientService } from '@/app/services/ingredient-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -19,8 +20,12 @@ import { IngredientService } from '@/app/services/ingredient-service';
 })
 export class RecipeDetailComponent implements OnInit {
   @Input({ required: true }) recipe!: RecipePayload;
+  @Input({ required: true }) recipeId!: string;
 
-  constructor(private ingredientService: IngredientService) {
+  constructor(
+    private ingredientService: IngredientService,
+    private router: Router
+  ) {
     this.ingredientService.loadIngredients();
   }
 
@@ -38,5 +43,11 @@ export class RecipeDetailComponent implements OnInit {
 
   getIngredientName(id: number): string {
     return this.ingredientService.getIngredientNameById(id);
+  }
+
+  viewFullRecipe(): void {
+    this.router.navigate(
+      ['/recipe', this.recipeId]
+    );
   }
 }

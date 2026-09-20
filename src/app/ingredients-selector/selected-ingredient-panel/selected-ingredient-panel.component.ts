@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FantasySpinnerComponent } from '@/app/fantasy-spinner/fantasy-spinner.component';
 import { ErrorMessageComponent } from '@/app/error-message/error-message.component';
 import { RecipeResultService } from '@/app/services/recipe-result.service';
+import { GenerateRecipeButtonComponent } from './generate-recipe-button/generate-recipe-button.component';
 
 @Component({
   selector: 'app-selected-ingredient-panel',
@@ -19,7 +20,8 @@ import { RecipeResultService } from '@/app/services/recipe-result.service';
     CommonModule,
     RecipesModeSegmentComponent,
     FantasySpinnerComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    GenerateRecipeButtonComponent
   ]
 })
 export class SelectedIngredientPanelComponent {

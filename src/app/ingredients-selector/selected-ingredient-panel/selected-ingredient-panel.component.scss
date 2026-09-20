@@ -10,8 +10,10 @@
 }
 
 %section-title {
-  font-weight: bold;
-  padding: 20px 5px 10px 15px;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 5px 10px 15px;
+  color: $ING-SELECTOR-TITLE-COLOR;
 }
 
 %name-block {
@@ -24,38 +26,13 @@
   border-bottom-right-radius: 8px;
 }
 
-%generate-button {
-  width: 80%;
-  padding: 0.6rem;
-  background: $GREEN;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
-  transition: transform 0.15s ease-in-out;
-  height: 44px;
-  font-size: 15px;
-  font-weight: 600;
-
-  &:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  &:hover {
-    transform: scale(1.1);
-  }
-}
-
 /* =========================
    Cart Column Desktop View
 ========================= */
 .cart {
   @extend %card;
   height: 100%;
+  min-height: 300px;
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     display: none;
@@ -63,8 +40,32 @@
 
   .title {
     @extend %section-title;
-    text-align: start;
-    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+
+    .text {
+      font-size: 1.5rem;
+      text-align: start;
+      font-weight: 700;
+      padding-inline-end: 5px;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background-color: $ING-SELECTOR-COUNTER-COLOR;
+      color: $ING-SELECTOR-BG;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
+    }
   }
 
   .line {
@@ -89,29 +90,6 @@
     .name {
       @extend %name-block;
     }
-
-    button {
-      margin-left: auto;
-      padding-inline-end: 10px;
-      border: none;
-      background: none;
-      color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-  }
-}
-
-.generate-recipe-button {
-  text-align: center;
-  background: transparent;
-
-  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-    display: none;
-  }
-
-  .button {
-    @extend %generate-button;
   }
 }
 
@@ -124,11 +102,13 @@
   border-radius: 8px;
   text-align: center;
 
-  @media (min-width: $MIN-WIDTH-RESPONSIVE) { // desktop view
+  @media (min-width: $MIN-WIDTH-RESPONSIVE) {
+    // desktop view
     display: none;
   }
 
   .title {
+    color: $ING-SELECTOR-TITLE-COLOR;
     padding-bottom: 0;
     white-space: nowrap;
     font-size: 5vw;
@@ -169,12 +149,5 @@
 
   .segment-mobile {
     width: 100%;
-  }
-
-  .button {
-    margin-inline-start: 10px;
-    margin-bottom: 15px;
-    @extend %generate-button;
-    width: 95%;
   }
 }

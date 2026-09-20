@@ -1,0 +1,57 @@
+@use '../../../../theme/variables.scss' as *;
+
+.button {
+  width: 100%;
+  height: 60px;
+  border: none;
+  border-radius: 20px;
+  margin-left: auto;
+  padding-inline-end: 10px;
+  background: linear-gradient(135deg,
+      #32b867,
+      #219653);
+
+  color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(33, 150, 83, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  .button-content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 30px 1fr 30px;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  ion-icon {
+    font-size: 21px;
+  }
+
+  .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(33, 150, 83, 0.35);
+
+    .arrow {
+      transform: translateX(5px);
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: #d2d4d6;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+}

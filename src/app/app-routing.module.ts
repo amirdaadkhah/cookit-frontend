@@ -21,8 +21,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'recipes-manager', component: RecipeManagerComponent, resolve: { tags: TagsResolver } },
   { path: 'test', component: IngredientBlockComponent },
-  { path: 'your-recipes', component: GeneratedRecipesComponent }
-
+  { path: 'your-recipes', component: GeneratedRecipesComponent },
+  {
+    path: 'recipe/:id',
+    loadComponent: () =>
+      import('./generated-recipes/components/full-recipe/full-recipe.component').then(m => m.FullRecipeComponent)
+  }
 ];
 
 @NgModule({

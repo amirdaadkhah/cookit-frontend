@@ -1,0 +1,23 @@
+<button class="button" [disabled]="disabled || isLoading" (click)="onClick()">
+  <div class="button-content">
+    <ion-icon
+      *ngIf="!isLoading"
+      name="sparkles-outline">
+    </ion-icon>
+
+    <ion-spinner
+      *ngIf="isLoading"
+      name="crescent">
+    </ion-spinner>
+
+    <span>
+      {{ isLoading ? 'Generating...' : 'Generate Recipes' }}
+    </span>
+
+    <ion-icon
+      *ngIf="!isLoading"
+      class="arrow"
+      name="arrow-forward-outline">
+    </ion-icon>
+  </div>
+</button>

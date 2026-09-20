@@ -1,0 +1,60 @@
+<p>
+  full-recipe works!
+</p>
+
+@if (recipe) {
+  <div class="recipe-test">
+
+    <button (click)="goBack()">
+      ← Back
+    </button>
+
+    <h1>{{ recipe.title }}</h1>
+
+    <p>
+      <strong>Recipe ID:</strong>
+    </p>
+
+    <p>
+      <strong>Servings:</strong>
+      {{ recipe.servings }}
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+    </p>
+
+    <hr>
+
+    <h2>Ingredients</h2>
+
+    <ul>
+      @for (ingredient of recipe.ingredients; track $index) {
+        <li>
+          {{ ingredient.qty }}
+          {{ ingredient.unit }}
+          -
+          {{ ingredient.name }}
+        </li>
+      }
+    </ul>
+
+    <hr>
+
+    <h2>Instructions</h2>
+
+    <ol>
+      @for (step of recipe.steps; track $index) {
+        <li>
+          {{ step }}
+        </li>
+      }
+    </ol>
+
+  </div>
+} @else {
+  <p>Loading recipe...</p>
+}
+<button (click)="goBack()">
+  Back
+</button>

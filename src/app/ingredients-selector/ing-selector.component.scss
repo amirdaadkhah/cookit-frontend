@@ -45,6 +45,10 @@
 .ingredient-selector {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-height: fit-content;
+  height: auto;
+  box-sizing: border-box;
   padding: 5vw;
   background: $ING-SELECTOR-BG;
 
@@ -58,7 +62,7 @@
 
   .category-wrapper {
     @extend %flex-center;
-    // position: relative;
+    position: relative;
     padding-bottom: 15px;
 
     .line {
@@ -222,25 +226,43 @@
   .cart-col {
     display: flex;
     flex-direction: column;
+    width: 100%;
     background: $ING-SELECTOR-BG;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    order: -1;
+  }
+
+  @media (min-width: $MIN-WIDTH-RESPONSIVE) {
+    order: 0;
+  }
+
     /* MOBILE */
-      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-        .cart-col {
-          order: -1;
-          width: 100%;
-        }
-      }
+      // @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      //   // .cart-col {
+      //     order: -1;
+      //     width: 100%;
+      //   // }
+      // }
 
 
     /* DESKTOP */
 
     .selected-ing-panel-mobile {
-      @media (min-width: $MIN-WIDTH-RESPONSIVE) {
-        .cart-col {
-          order: 0;
-        }
-      }
-    }
+  display: none;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    display: block;
+    width: 100%;
+  }
+}
+
+    // .selected-ing-panel-mobile {
+    //   @media (min-width: $MIN-WIDTH-RESPONSIVE) {
+    //     .cart-col {
+    //       order: 0;
+    //     }
+    //   }
+    // }
   }
 }

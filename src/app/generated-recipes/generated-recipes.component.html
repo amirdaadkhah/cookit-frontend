@@ -25,7 +25,7 @@
 
     <!-- SELECTED RECIPE -->
     <section class="selected-recipe" *ngIf="selectedRecipeDetails()">
-      <app-recipe-detail *ngIf="selectedRecipeDetails() as recipeDetails" [recipe]="recipeDetails">
+      <app-recipe-detail *ngIf="selectedRecipeDetails() as recipeDetails" [recipe]="recipeDetails" [recipeId]="selectedRecipeId">
       </app-recipe-detail>
     </section>
   </div>
