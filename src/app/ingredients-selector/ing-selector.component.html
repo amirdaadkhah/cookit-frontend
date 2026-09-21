@@ -1,5 +1,4 @@
 <div class="ingredient-selector">
-
   <div>
     <div class="title">Select your Ingredients</div>
     <div class="category-wrapper">
@@ -15,12 +14,12 @@
       </div>
     </div>
     <button class="more-categories-btn" (click)="toggleCategories()">
-    {{ showAllCategories ? 'Show less' : 'More' }}
+      {{ showAllCategories ? 'Show less' : 'More' }}
 
-    <ion-icon [name]="showAllCategories
+      <ion-icon [name]="showAllCategories
       ? 'chevron-up-outline'
       : 'chevron-down-outline'"></ion-icon>
-  </button>
+    </button>
 
     <!-- Search Bar -->
     <app-ingredients-search (searchChange)="onSearchChange($event)"

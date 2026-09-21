@@ -30,19 +30,15 @@
 
 <!-- Selected Ingredients - Mobile -->
 <div class="mobile">
-  <app-recipes-mode-segment class="segment-mobile" (segmentChange)="onSegmentChanged($event)">
-</app-recipes-mode-segment>
-<button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating"
-  (click)="generateRecipes()">
-  Generate Recipes
-</button>
-  <div class="cart-wrapper">
+  <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
+    <app-generate-recipe-button [disabled]="(cartService.cart$ | async)?.length === 0" [isLoading]="isGenerating"
+      (generate)="generateRecipes()">
+    </app-generate-recipe-button>
+
+  <!-- <div class="cart-wrapper">
     <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
     <ion-badge class="cart-badge">{{ (cartService.cart$ | async)?.length }}</ion-badge>
-  </div>
-
-
-
+  </div> -->
 </div>
 
 <div class="match-tip">

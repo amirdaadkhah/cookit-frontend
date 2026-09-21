@@ -95,56 +95,18 @@
   }
 }
 
-
-
 /* =========================
    Cart Row Mobile View
 ========================= */
 .mobile {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: transparent;
   border-radius: 8px;
-  // text-align: center;
+  text-align: center;
 
   @media (min-width: $MIN-WIDTH-RESPONSIVE) {
     display: none; // desktop view
-  }
-
-  .desc {
-    padding: 10px 20px;
-    color: $ING-SELECTOR-TITLE-COLOR;
-    font-size: 12px;
-    padding-bottom: 0;
-  }
-
-
-    .cart-wrapper {
-          display: flex;
-    justify-content: center;
-    align-items: center;
-      position: relative;
-      display: inline-block;
-
-      .cart-icon {
-        font-size: 48px;
-      }
-
-      .cart-badge {
-        position: absolute;
-        top: -6px;
-        right: -8px;
-        font-size: 10px;
-        padding: 3px 6px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-
-  .segment-mobile {
-    width: 100%;
   }
 }
 
@@ -160,10 +122,6 @@
   border-radius: 14px;
   background: rgba($ING-TIP-BACKGROUND-COLOR, 0.16);
   color: #5f665f;
-
-  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-    display: none;
-  }
 
   ion-icon {
     flex: 0 0 auto;

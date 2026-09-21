@@ -53,7 +53,7 @@
   background: $ING-SELECTOR-BG;
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-  flex-direction: column;
+    flex-direction: column;
     padding: 0 10px;
   }
 
@@ -311,6 +311,10 @@
     flex-direction: column;
     background: $ING-SELECTOR-BG;
     max-width: 500px;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      max-width: none;
+    }
 
     /* DESKTOP */
     .selected-ing-panel-mobile {
