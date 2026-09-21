@@ -40,6 +40,10 @@ export class SelectedIngredientPanelComponent {
     this.cartService.remove(item);
   }
 
+  clearCart() {
+    this.cartService.clear();
+  }
+
   onSegmentChanged(value: RecipeGenerateMode) {
     this.selectedSegment = value;
   }

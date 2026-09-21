@@ -24,9 +24,12 @@
 
 <!-- Selected Ingredients - Mobile -->
 <div class="mobile">
-  <div class="title" *ngIf="this.cartService.cart.length !== 0">
-    <span class="text">Your Ingredients:</span>
-    <span class="counter"> {{ this.cartService.cart.length }}</span>
+  <div class="title-panel" *ngIf="this.cartService.cart.length !== 0">
+    <div class="title">
+      <span class="text">Your Ingredients:</span>
+      <span class="counter"> {{ this.cartService.cart.length }}</span>
+    </div>
+    <button class="clear-all-button" (click)="clearCart()"><ion-icon name="trash"></ion-icon>Clear All</button>
   </div>
   <div class="cart-mobile" *ngIf="this.cartService.cart.length !== 0">
     <div *ngFor="let item of (cartService.cart$ | async)" class="cart-item">
