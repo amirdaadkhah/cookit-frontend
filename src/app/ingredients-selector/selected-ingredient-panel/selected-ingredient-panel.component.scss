@@ -5,8 +5,8 @@
 ========================= */
 %card {
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
 }
 
 %section-title {
@@ -19,77 +19,132 @@
 %name-block {
   padding: 0.5rem 0;
   color: $ING-SELECTOR-NAME-TEXT-COLOR;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 0.9rem;
   background: $ING-SELECTOR-NAME-BG;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  min-width: 0;
 }
 
 /* =========================
    Cart Column Desktop View
 ========================= */
 .desktop {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  gap: 18px;
+
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     display: none;
   }
 
   .cart {
     @extend %card;
-    height: 100%;
+    width: 100%;
     min-height: 300px;
+    overflow: hidden;
 
     .title {
       @extend %section-title;
-      display: flex;
-      align-items: center;
+      gap: 8px;
 
       .text {
-        font-size: 1.5rem;
-        text-align: start;
-        font-weight: 700;
-        padding-inline-end: 5px;
-        line-height: 1;
         margin: 0;
+        font-size: clamp(1.15rem, 1.4vw, 1.5rem);
+        font-weight: 700;
+        line-height: 1.2;
       }
 
       .counter {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 24px;
-        height: 24px;
-        padding: 0 6px;
+        min-width: 26px;
+        height: 26px;
+        padding: 0 7px;
         border-radius: 999px;
         background-color: $ING-SELECTOR-COUNTER-COLOR;
         color: $ING-SELECTOR-BG;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 13px;
+        font-weight: 700;
         line-height: 1;
       }
     }
 
     .line {
-      width: 95%;
+      width: calc(100% - 40px);
       height: 1px;
+      margin: 0 auto;
       background: $ING-SELECTOR-LINE-COLOR;
-      margin-inline-start: 5px;
     }
 
     .cart-item {
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
+      gap: 6px;
+      margin-inline-start: 10px;
 
       img {
         width: 50px;
-        height: 40px;
+        height: 46px;
         object-fit: contain;
-        padding: 5px 5px 5px 15px;
+        padding: 3px;
+        border-radius: 10px
       }
 
       .name {
         @extend %name-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 1.35;
+
+        span {
+          color: #777;
+          font-weight: 400;
+        }
+      }
+
+      .remove-button {
+        width: 36px; // CHANGED: better click/touch target
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          transform 0.2s ease;
+
+        ion-icon {
+          font-size: 20px;
+          pointer-events: none;
+        }
+
+        &:hover {
+          background: rgba($GREEN, 0.1);
+          color: $GREEN;
+          transform: rotate(90deg);
+        }
+
+        &:active {
+          transform: rotate(90deg) scale(0.92);
+        }
+
+        &:focus-visible {
+          outline: 2px solid $GREEN;
+          outline-offset: 2px;
+        }
       }
     }
   }
@@ -101,7 +156,7 @@
 .mobile {
   display: flex;
   flex-direction: column;
-    width: 100%;
+  width: 100%;
   background: transparent;
   border-radius: 10px;
   text-align: start;
@@ -114,7 +169,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-     width: 100%;
+    width: 100%;
     padding: 8px 4px;
     gap: 12px;
 
@@ -169,7 +224,7 @@
       }
 
       &:hover {
-                background: rgba($GREEN, 0.08);
+        background: rgba($GREEN, 0.08);
         color: $GREEN;
       }
     }

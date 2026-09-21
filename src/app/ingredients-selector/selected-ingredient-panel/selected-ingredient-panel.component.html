@@ -11,7 +11,7 @@
       <div class="name">{{ item.ingredient.name }}
         <span *ngIf="item.part?.name"> - {{ item.part?.name }}</span>
       </div>
-      <button (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
+      <button class="remove-button" (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
     </div>
   </div>
   <div>
