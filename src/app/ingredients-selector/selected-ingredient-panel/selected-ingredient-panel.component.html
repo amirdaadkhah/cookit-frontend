@@ -1,5 +1,5 @@
 <!-- Selected Ingredients - desktop -->
-<div>
+<div class="desktop">
   <div class="cart">
     <div class="title">
       <span class="text">Your Ingredients</span>
@@ -14,34 +14,43 @@
       <button (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
     </div>
   </div>
-  <div class="generate-recipe-button">
+  <div>
     <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
     <app-generate-recipe-button [disabled]="(cartService.cart$ | async)?.length === 0" [isLoading]="isGenerating"
       (generate)="generateRecipes()">
     </app-generate-recipe-button>
+    <div class="match-tip">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <div><strong>Tip</strong>
+        <p>{{ matchTip }}</p>
+      </div>
+    </div>
   </div>
 </div>
+
 <!-- Selected Ingredients - Mobile -->
-<ion-grid>
-  <ion-row class="cart-row-mobile">
-    <ion-col size="9">
-      <div class="title">Your selected Ingredients</div>
-      <div class="desc">add at least 3 ingredients and then press the 'Generate Recipes' button</div>
-    </ion-col>
-    <ion-col size="3" class="icon-col">
-      <div class="cart-wrapper">
-        <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
-        <ion-badge class="cart-badge">{{ (cartService.cart$ | async)?.length }}</ion-badge>
-      </div>
-    </ion-col>
-    <app-recipes-mode-segment class="segment-mobile" (segmentChange)="onSegmentChanged($event)">
-    </app-recipes-mode-segment>
-    <button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating"
-      (click)="generateRecipes()">Generate
-      Recipes
-    </button>
-  </ion-row>
-</ion-grid>
+<div class="mobile">
+  <app-recipes-mode-segment class="segment-mobile" (segmentChange)="onSegmentChanged($event)">
+</app-recipes-mode-segment>
+<button class="button" [disabled]="(cartService.cart$ | async)?.length === 0 || isGenerating"
+  (click)="generateRecipes()">
+  Generate Recipes
+</button>
+  <div class="cart-wrapper">
+    <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
+    <ion-badge class="cart-badge">{{ (cartService.cart$ | async)?.length }}</ion-badge>
+  </div>
+
+
+
+</div>
+
+<div class="match-tip">
+  <ion-icon name="bulb-outline"></ion-icon>
+  <div><strong>Tip</strong>
+    <p>{{ matchTip }}</p>
+  </div>
+</div>
 
 <!-- reusable loading component -->
 <app-fantasy-spinner *ngIf="isGenerating" text="Creating magical recipes for you...">

@@ -82,4 +82,11 @@ export class SelectedIngredientPanelComponent {
     }
     return payload;
   }
+
+  get matchTip(): string {
+    if (this.selectedSegment === SEGMENT.MATCH_ALL) {
+      return 'These recipes can be made with all the ingredients you already have. add at least 3 ingredients and then press the Generate Recipes button';
+    }
+    return 'Best Match shows recipes that fit your ingredients best, even if a few ingredients are missing. add at least 3 ingredients and then press the Generate Recipes button';
+  }
 }

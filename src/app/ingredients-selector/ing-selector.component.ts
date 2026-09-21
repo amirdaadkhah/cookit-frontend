@@ -29,9 +29,10 @@ export class IngredientsSelectorComponent {
   selectedCategory: string = '';
   selectedPart: Ingredient | null = null;
   private ingredients$: Observable<Ingredient[]> = new Observable();
+  showAllCategories = false; // for mobile view
 
   constructor(
-    private ingredientService: IngredientService, 
+    private ingredientService: IngredientService,
     private cartService: IngredientCartService
   ) {
     this.ingredientService.loadIngredients();
@@ -102,5 +103,9 @@ export class IngredientsSelectorComponent {
     } else {
       this.addToCart({ ingredient: event, quantity: 1 });
     }
+  }
+
+  toggleCategories(): void {
+    this.showAllCategories = !this.showAllCategories;
   }
 }

@@ -44,7 +44,7 @@
 
 .ingredient-selector {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   min-height: fit-content;
   height: auto;
@@ -52,12 +52,22 @@
   padding: 5vw;
   background: $ING-SELECTOR-BG;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+  flex-direction: column;
+    padding: 0 10px;
+  }
+
   .title {
     text-align: center;
     font-weight: bold;
     font-size: 2rem;
     padding-bottom: 25px;
     color: $ING-SELECTOR-TITLE-COLOR;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      font-size: 24px;
+      padding: 10px;
+    }
   }
 
   .category-wrapper {
@@ -78,41 +88,114 @@
       color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
       z-index: 2;
       text-align: center;
-    }
-  }
 
-  .categories {
-
-    button {
-      padding: 0.6rem 1rem;
-      margin: 0.2rem;
-      border-radius: 6px;
-      border: 2px solid $ING-SELECTOR-LINE-COLOR;
-      background: $ING-SELECTOR-BG;
-      cursor: pointer;
-      color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
-
-      &.active {
-        background: $GREEN;
-        color: white;
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        display: none;
       }
     }
   }
 
-  .ingredients-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 4px;
+
+    .cat-buttons {
+
+      button {
+        max-width: 220px;
+        width: fit-content;
+        padding: 0.6rem 1rem;
+        margin: 0.2rem;
+        border-radius: 6px;
+        border: 2px solid $ING-SELECTOR-LINE-COLOR;
+        background: $ING-SELECTOR-BG;
+        color: $ING-SELECTOR-SUBTITLE-TEXT-COLOR;
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease,
+          transform 0.2s ease;
+
+        &:hover {
+          transform: translateY(-1px);
+          border-color: $GREEN;
+        }
+
+        &.active {
+          background: $GREEN;
+          color: white;
+        }
+      }
+    }
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      max-height: 88px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+
+      &.expanded {
+        max-height: 500px;
+      }
+
+      button {
+        padding: 0.55rem 0.85rem;
+        margin: 2px;
+        font-size: 13px;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .more-categories-btn {
+    display: none;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px auto 0;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      color: $GREEN;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+
+      ion-icon {
+        font-size: 17px;
+      }
+    }
+  }
+
+  .ingredients {
+    display: flex;
+    flex-wrap: wrap;
     padding: 10px 0;
 
     @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     }
 
     .ingredient-card {
       @extend %card;
+      flex-direction: column;
+      width: 120px;
       text-align: center;
       padding: 0.2rem;
       margin: 3px;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        padding: 0;
+        margin: 3px;
+        white-space: nowrp
+      }
 
       .image-wrapper {
         position: relative;
@@ -223,46 +306,20 @@
     }
   }
 
-  .cart-col {
+  .cart {
     display: flex;
     flex-direction: column;
-    width: 100%;
     background: $ING-SELECTOR-BG;
-
-  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-    order: -1;
-  }
-
-  @media (min-width: $MIN-WIDTH-RESPONSIVE) {
-    order: 0;
-  }
-
-    /* MOBILE */
-      // @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-      //   // .cart-col {
-      //     order: -1;
-      //     width: 100%;
-      //   // }
-      // }
-
+    max-width: 500px;
 
     /* DESKTOP */
-
     .selected-ing-panel-mobile {
-  display: none;
+      display: none;
 
-  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-    display: block;
-    width: 100%;
-  }
-}
-
-    // .selected-ing-panel-mobile {
-    //   @media (min-width: $MIN-WIDTH-RESPONSIVE) {
-    //     .cart-col {
-    //       order: 0;
-    //     }
-    //   }
-    // }
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        display: block;
+        width: 100%;
+      }
+    }
   }
 }

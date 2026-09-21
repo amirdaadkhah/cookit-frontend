@@ -12,7 +12,7 @@
 %section-title {
   display: flex;
   flex-direction: row;
-  padding: 10px 5px 10px 15px;
+  padding: 20px 5px 20px 15px;
   color: $ING-SELECTOR-TITLE-COLOR;
 }
 
@@ -29,103 +29,100 @@
 /* =========================
    Cart Column Desktop View
 ========================= */
-.cart {
-  @extend %card;
-  height: 100%;
-  min-height: 300px;
-
+.desktop {
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     display: none;
   }
 
-  .title {
-    @extend %section-title;
-    display: flex;
-    align-items: center;
+  .cart {
+    @extend %card;
+    height: 100%;
+    min-height: 300px;
 
-    .text {
-      font-size: 1.5rem;
-      text-align: start;
-      font-weight: 700;
-      padding-inline-end: 5px;
-      line-height: 1;
-      margin: 0;
-    }
-
-    .counter {
-      display: inline-flex;
+    .title {
+      @extend %section-title;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      min-width: 24px;
-      height: 24px;
-      padding: 0 6px;
-      border-radius: 999px;
-      background-color: $ING-SELECTOR-COUNTER-COLOR;
-      color: $ING-SELECTOR-BG;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1;
-    }
-  }
 
-  .line {
-    width: 95%;
-    height: 1px;
-    background: $ING-SELECTOR-LINE-COLOR;
-    margin-inline-start: 5px;
-  }
+      .text {
+        font-size: 1.5rem;
+        text-align: start;
+        font-weight: 700;
+        padding-inline-end: 5px;
+        line-height: 1;
+        margin: 0;
+      }
 
-  .cart-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-
-    img {
-      width: 50px;
-      height: 40px;
-      object-fit: contain;
-      padding: 5px 5px 5px 15px;
+      .counter {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        height: 24px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background-color: $ING-SELECTOR-COUNTER-COLOR;
+        color: $ING-SELECTOR-BG;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+      }
     }
 
-    .name {
-      @extend %name-block;
+    .line {
+      width: 95%;
+      height: 1px;
+      background: $ING-SELECTOR-LINE-COLOR;
+      margin-inline-start: 5px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      img {
+        width: 50px;
+        height: 40px;
+        object-fit: contain;
+        padding: 5px 5px 5px 15px;
+      }
+
+      .name {
+        @extend %name-block;
+      }
     }
   }
 }
 
 
+
 /* =========================
    Cart Row Mobile View
 ========================= */
-.cart-row-mobile {
+.mobile {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-radius: 8px;
-  text-align: center;
+  // text-align: center;
 
   @media (min-width: $MIN-WIDTH-RESPONSIVE) {
-    // desktop view
-    display: none;
-  }
-
-  .title {
-    color: $ING-SELECTOR-TITLE-COLOR;
-    padding-bottom: 0;
-    white-space: nowrap;
-    font-size: 5vw;
+    display: none; // desktop view
   }
 
   .desc {
     padding: 10px 20px;
-    color: grey;
+    color: $ING-SELECTOR-TITLE-COLOR;
     font-size: 12px;
+    padding-bottom: 0;
   }
 
-  .icon-col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     .cart-wrapper {
+          display: flex;
+    justify-content: center;
+    align-items: center;
       position: relative;
       display: inline-block;
 
@@ -145,9 +142,47 @@
         justify-content: center;
       }
     }
-  }
 
   .segment-mobile {
     width: 100%;
+  }
+}
+
+.match-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin: 8px auto 22px;
+  padding: 14px 16px;
+  border: 1px solid rgba($GREEN, 0.18);
+  border-radius: 14px;
+  background: rgba($ING-TIP-BACKGROUND-COLOR, 0.16);
+  color: #5f665f;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    display: none;
+  }
+
+  ion-icon {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    font-size: 20px;
+    color: $GREEN;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 3px;
+    color: $GREEN;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
   }
 }
