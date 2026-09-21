@@ -101,9 +101,10 @@
 .mobile {
   display: flex;
   flex-direction: column;
-  background-color: transparent;
-  border-radius: 8px;
-  text-align: center;
+    width: 100%;
+  background: transparent;
+  border-radius: 10px;
+  text-align: start;
 
   @media (min-width: $MIN-WIDTH-RESPONSIVE) {
     display: none; // desktop view
@@ -113,52 +114,62 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    width: 100%;
+     width: 100%;
+    padding: 8px 4px;
+    gap: 12px;
 
     .title {
       display: flex;
-      flex-direction: row;
-      padding-bottom: 5px;
-      padding-top: 10px;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
 
       .text {
-        font-weight: bold;
+        margin: 0;
         font-size: 14px;
-        color: black;
+        font-weight: 700;
+        color: #1f2937;
       }
 
       .counter {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 16px;
-        height: 16px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 5px;
         border-radius: 999px;
-        margin-inline-start: 3px;
         background-color: $ING-SELECTOR-COUNTER-COLOR;
         color: $ING-SELECTOR-BG;
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 11px;
+        font-weight: 700;
         line-height: 1;
-        margin: 2px;
       }
     }
 
     .clear-all-button {
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 5px;
       margin-left: auto;
+      padding: 6px 8px;
       border: none;
+      border-radius: 8px;
       background: transparent;
       color: #777;
-      padding-inline-end: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+
       ion-icon {
-        font-size: 18px;
+        font-size: 17px;
       }
 
       &:hover {
+                background: rgba($GREEN, 0.08);
         color: $GREEN;
       }
     }
@@ -166,56 +177,69 @@
 
 
   .cart-mobile {
-    background: rgb(216, 234, 200);
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    min-height: 60px;
-    border-radius: 8px;
+    align-items: flex-start;
+    gap: 7px;
+    width: 100%;
+    min-height: 64px;
+    padding: 8px;
+    border-radius: 12px;
+    background: rgb(216, 234, 200);
 
     .cart-item {
       display: flex;
       align-items: center;
-      margin: 3px 5px;
-      border: none;
-      height: fit-content;
+      gap: 5px;
+      height: 44px;
       width: fit-content;
-      border-radius: 15px;
+      margin: 0;
+      padding: 2px 6px 2px 3px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: 14px;
       background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
       img {
-        width: 50px;
-        height: 40px;
+        width: 42px;
+        height: 38px;
         object-fit: contain;
-        padding: 3px 3px 3px 3px;
+        padding: 2px;
+        border-radius: 10px;
       }
 
       .name {
-        color: black;
-        padding-inline-end: 8px;
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #1f2937;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0;
       }
 
       .remove-button {
-        width: 24px;
-        height: 24px;
+        flex: 0 0 28px;
+        width: 28px;
+        height: 28px;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0;
         border: none;
         border-radius: 50%;
         background: #f3f4f6;
-        color: #a7a8aa;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        padding-inline-end: 3px;
+        color: #9ca3af;
+        box-shadow: none;
 
         transition:
           background 0.2s ease,
           color 0.2s ease,
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
+          transform 0.2s ease;
 
         ion-icon {
-          font-size: 20px;
+          font-size: 18px;
           pointer-events: none;
         }
 
@@ -223,7 +247,6 @@
           background: #e8f5ec;
           color: $GREEN;
           transform: rotate(90deg);
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
         }
 
         &:active {
