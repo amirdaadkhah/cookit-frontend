@@ -19,26 +19,28 @@
     <app-generate-recipe-button [disabled]="(cartService.cart$ | async)?.length === 0" [isLoading]="isGenerating"
       (generate)="generateRecipes()">
     </app-generate-recipe-button>
-    <div class="match-tip">
-      <ion-icon name="bulb-outline"></ion-icon>
-      <div><strong>Tip</strong>
-        <p>{{ matchTip }}</p>
-      </div>
-    </div>
   </div>
 </div>
 
 <!-- Selected Ingredients - Mobile -->
 <div class="mobile">
+  <div class="title" *ngIf="this.cartService.cart.length !== 0">
+    <span class="text">Your Ingredients:</span>
+    <span class="counter"> {{ this.cartService.cart.length }}</span>
+  </div>
+  <div class="cart-mobile" *ngIf="this.cartService.cart.length !== 0">
+    <div *ngFor="let item of (cartService.cart$ | async)" class="cart-item">
+      <img [src]="item.part?.image ?? item.ingredient.image" [alt]="item.part?.name ?? item.ingredient.name">
+      <div class="name">{{ item.ingredient.name }}
+        <span *ngIf="item.part?.name"> - {{ item.part?.name }}</span>
+      </div>
+      <button class="remove-button" (click)="removeFromCart(item)"><ion-icon name="close-circle"></ion-icon></button>
+    </div>
+  </div>
   <app-recipes-mode-segment (segmentChange)="onSegmentChanged($event)"></app-recipes-mode-segment>
-    <app-generate-recipe-button [disabled]="(cartService.cart$ | async)?.length === 0" [isLoading]="isGenerating"
-      (generate)="generateRecipes()">
-    </app-generate-recipe-button>
-
-  <!-- <div class="cart-wrapper">
-    <ion-icon class="cart-icon" name="cart-outline"></ion-icon>
-    <ion-badge class="cart-badge">{{ (cartService.cart$ | async)?.length }}</ion-badge>
-  </div> -->
+  <app-generate-recipe-button [disabled]="(cartService.cart$ | async)?.length === 0" [isLoading]="isGenerating"
+    (generate)="generateRecipes()">
+  </app-generate-recipe-button>
 </div>
 
 <div class="match-tip">

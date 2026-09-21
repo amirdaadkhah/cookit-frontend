@@ -108,6 +108,103 @@
   @media (min-width: $MIN-WIDTH-RESPONSIVE) {
     display: none; // desktop view
   }
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5px;
+    padding-top: 10px;
+
+    .text {
+      font-weight: bold;
+      font-size: 14px;
+      color: black;
+    }
+
+    .counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      margin-inline-start: 3px;
+      background-color: $ING-SELECTOR-COUNTER-COLOR;
+      color: $ING-SELECTOR-BG;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      margin: 2px;
+    }
+  }
+
+  .cart-mobile {
+    background: rgb(216, 234, 200);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 60px;
+    border-radius: 8px;
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin: 3px 5px;
+      border: none;
+      height: fit-content;
+      width: fit-content;
+      border-radius: 15px;
+      background: white;
+
+      img {
+        width: 50px;
+        height: 40px;
+        object-fit: contain;
+        padding: 3px 3px 3px 3px;
+      }
+
+      .name {
+        color: black;
+        padding-inline-end: 8px;
+      }
+
+      .remove-button {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background: #f3f4f6;
+        color: #a7a8aa;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding-inline-end: 3px;
+
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+
+        ion-icon {
+          font-size: 20px;
+          pointer-events: none;
+        }
+
+        &:hover {
+          background: #e8f5ec;
+          color: $GREEN;
+          transform: rotate(90deg);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        &:active {
+          transform: rotate(90deg) scale(0.92);
+        }
+      }
+    }
+  }
 }
 
 .match-tip {
