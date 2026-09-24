@@ -48,7 +48,6 @@
     display: flex;
     // flex-direction: row;
     align-items: center;
-    margin: 0 auto;
     gap: clamp(32px, 5vw, 80px);
     width: 100%;
 
@@ -62,7 +61,7 @@
         display: inline-flex;
         align-items: center;
         padding: 8px 14px;
-        margin-bottom: 18px;
+        margin: 18px 0;
         border-radius: 100px;
         background: rgba(111, 74, 255, 0.08);
         color: $CARD-HERO-LABEL-COLOR;
@@ -79,10 +78,8 @@
         color: $CARD-TEXT-COLOR;
 
         span {
-          display: block;
           background:
-            linear-gradient(
-              90deg,
+            linear-gradient(90deg,
               #7048ff,
               #d658b0,
               #ff734b);
@@ -141,8 +138,7 @@
         width: min(90%, 430px);
         aspect-ratio: 1;
         border-radius:
-          45% 55% 62% 38% /
-          53% 38% 62% 47%;
+          45% 55% 62% 38% / 53% 38% 62% 47%;
         background: $CARD-BACKGROUND;
         box-shadow: 0 30px 80px rgba(72, 44, 120, 0.17);
         transform: rotate(-4deg);
@@ -207,9 +203,13 @@
 // Tablet / smaller screens
 @media (max-width: $MIN-WIDTH-RESPONSIVE-TABLET-SCREEN) {
   .hero {
+    min-height: 230px;
+
     .hero-content {
       flex-direction: column;
       align-items: stretch;
+      padding: 5px 0 0 0;
+      gap: 0;
 
       .hero-copy {
         flex-basis: auto;
@@ -218,6 +218,20 @@
       .visual-area {
         flex-basis: auto;
         min-height: 320px;
+
+        .dish-orbit {
+          width: clamp(190px, 38vw, 230px);
+        }
+
+        .blob-one {
+          width: 250px;
+          height: 190px;
+        }
+
+        .blob-two {
+          width: 185px;
+          height: 155px;
+        }
       }
     }
   }
@@ -226,20 +240,21 @@
 // Mobile
 @media (max-width: $MAX-WIDTH-RESPONSIVE) {
   .hero {
-    padding: 24px 20px 40px;
+    padding: 24px 20px 0px;
     border-radius: 0 0 32px 32px;
 
     .back-button {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
     }
 
     .hero-content {
-      gap: 28px;
+      padding: 5px 0 0 0;
+      gap: 0;
 
       .hero-copy {
         h1 {
-          font-size: clamp(40px, 12vw, 58px);
+          font-size: clamp(14px, 6vw, 32px);
           letter-spacing: -0.035em;
         }
 
@@ -251,25 +266,12 @@
         .ingredients-summary {
           flex-wrap: wrap;
           padding: 12px 16px;
+          margin: 20px 0;
         }
       }
 
       .visual-area {
-        min-height: 280px;
-
-        .dish-orbit {
-          width: min(85vw, 340px);
-        }
-
-        .blob-one {
-          width: 280px;
-          height: 210px;
-        }
-
-        .blob-two {
-          width: 210px;
-          height: 180px;
-        }
+        display: none;
       }
     }
   }

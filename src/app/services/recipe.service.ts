@@ -17,6 +17,7 @@ export interface SearchForRecipePayload {
 })
 export class RecipeService {
   private apiURL = environment.apiURL;
+  private readonly cache = new Map<string, Observable<RecipePayload>>();
 
   constructor(
     private http: HttpClient,
@@ -50,8 +51,6 @@ export class RecipeService {
       return { exists: false, data: null };
     }
   }
-
-  private readonly cache = new Map<string, Observable<RecipePayload>>();
 
   getRecipe(id: string): Observable<RecipePayload> {
     const cached = this.cache.get(id);

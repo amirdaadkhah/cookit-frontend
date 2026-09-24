@@ -39,6 +39,10 @@
     height: 220px;
     overflow: hidden;
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      height: 140px;
+    }
+
     img {
       display: block;
       width: 100%;
@@ -62,11 +66,22 @@
       font-size: 13px;
       line-height: 1;
       white-space: nowrap;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        left: 5px;
+        bottom: 5px;
+        gap: 3px;
+        font-size: 11px;
+      }
     }
   }
 
   .card-content {
     padding: 18px;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      padding: 8px;
+    }
 
     h3 {
       min-height: 52px;
@@ -75,6 +90,12 @@
       line-height: 1.35;
       color: $CARD-TEXT-COLOR;
       font-weight: bold;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        min-height: 40px;
+        font-size: 14px;
+        margin: 0 0 5px;
+      }
     }
 
     .meta {
@@ -84,12 +105,21 @@
       gap: 12px;
       font-size: 13px;
       color: $CARD-SUBTITLE-TEXT-COLOR;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        font-size: 10px;
+      }
     }
 
     .rating {
       margin-top: 12px;
       font-size: 13px;
       color: $CARD-RATING-TEXT-COLOR;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        margin-top: 8px;
+        font-size: 10px;
+      }
     }
   }
 }

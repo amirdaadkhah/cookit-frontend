@@ -16,7 +16,11 @@ ion-content {
 .recipe-selection {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 60px clamp(18px, 4vw, 60px);
+  padding: 10px clamp(18px, 4vw, 60px);
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    --padding-top: #{$header-mobile-height};
+  }
 }
 
 .section-heading {
@@ -34,11 +38,27 @@ ion-content {
   color: #7653ff;
   text-transform: uppercase;
   letter-spacing: 1.5px;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    text-align: start;
+
+    span {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
 }
 
 .recipe-count {
   color: #827d8b;
   font-size: 14px;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    display: flex;
+    justify-content: start;
+    font-weight: bold;
+    padding-bottom: 15px;
+  }
 }
 
 .recipe-list {
@@ -49,6 +69,14 @@ ion-content {
   padding-bottom: 10px;
   scrollbar-width: none;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    gap: 8px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -56,4 +84,8 @@ ion-content {
 
 .recipe-list app-recipe-card {
   flex: 0 0 250px;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    flex: 0 0 150px;
+  }
 }

@@ -11,10 +11,21 @@
   box-shadow: 0 24px 80px rgba(36, 26, 66, 0.09);
   color: $CARD-TEXT-COLOR;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    flex-direction: column;
+    max-width: 95%;
+    margin: 0 auto $HOME-PAGE-SIDE_PADDING_MOBILE;
+  }
+
   .image-side {
     position: relative;
     width: 50%;
     padding: 15px;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      width: 90%;
+      margin: 30px;
+    }
 
     img {
       display: block;
@@ -36,6 +47,12 @@
       bottom: 135px;
       justify-content: center;
       gap: 10px;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        bottom: 10px;
+        left: 15px;
+        right: 15px;
+      }
 
       span {
         display: flex;
@@ -77,12 +94,21 @@
     min-width: 0;
     padding: clamp(28px, 4vw, 60px);
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      padding: 0 $HOME-PAGE-SIDE_PADDING_MOBILE;
+    }
+
     .title-area {
       display: flex;
       justify-content: space-between;
       gap: 20px;
       padding-bottom: 26px;
       border-bottom: 1px solid #eeeaf3;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        gap: 0;
+        padding-bottom: 5px;
+      }
 
       h2 {
         margin: 8px 0 10px;
