@@ -34,15 +34,21 @@ export class GeneratedRecipesComponent {
     }
     return payload;
   });
-  selectedRecipeId: string = '';
+  selectedRecipeId: string = this.recipeResultService.recommendedRecipe()!.recipe_id;
 
   constructor(
     private router: Router,
     private recipeResultService: RecipeResultService,
-    private recipeService: RecipeService) {
+    private recipeService: RecipeService) 
+    {
+    const recipe = this.recipeResultService.recommendedRecipe();
+    if (recipe) {
+      this.selectRecipe(recipe);
+    }
   }
 
   selectRecipe(recipe: RecipeSearchResult): void {
+    console.log('######', recipe)
     this.recipeService.getRecipe(recipe.recipe_id).subscribe({
       next: (res) => {
         this.selectedRecipeDetails.set(res);

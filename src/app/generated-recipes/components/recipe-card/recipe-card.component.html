@@ -1,6 +1,7 @@
 <div class="recipe-card" (click)="selectRecipe()">
   <div class="image-area">
     <img [src]=getImage() [alt]="recipe.title">
+    <span class="recommended-badge" *ngIf="selected">Reccomended</span>
     <span class="time-badge">
       <ion-icon name="time-outline"></ion-icon>
       {{ recipe.times.totalMin }} min

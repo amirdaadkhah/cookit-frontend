@@ -17,7 +17,7 @@
 
       <div class="recipe-list">
         @for (recipe of recipes(); track recipe.recipe_id) {
-        <app-recipe-card [recipe]="recipe" (recipeSelected)="selectRecipe($event)">
+        <app-recipe-card [recipe]="recipe" [selected]="selectedRecipeId !==null" (recipeSelected)="selectRecipe($event)">
         </app-recipe-card>
         }
       </div>

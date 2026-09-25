@@ -67,7 +67,7 @@
       }
     }
 
-    .chef-tip {
+    .chef-tip-desktop {
       bottom: 35px;
       gap: 16px;
       padding: 20px;
@@ -77,6 +77,10 @@
           #f5efff,
           #fff2ed);
       color: #524c59;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        display: none;
+      }
 
       strong {
         color: #332d39;
@@ -138,10 +142,33 @@
       }
     }
 
+    .chef-tip-mobile {
+      padding: 20px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg,
+          #f5efff,
+          #fff2ed);
+      color: #524c59;
+
+      @media (min-width: $MIN-WIDTH-RESPONSIVE) {
+        display: none;
+      }
+
+      strong {
+        color: #332d39;
+      }
+
+      p {
+        margin: 6px 0 0;
+        line-height: 1.5;
+      }
+    }
+
     .recipe-information {
       display: flex;
       gap: 40px;
-      margin-top: 32px;
+      margin-top: 12px;
 
       .ingredients,
       .steps {
@@ -156,8 +183,8 @@
 
       .ingredients {
         ul {
-          display: flex;
-          flex-direction: column;
+          // display: flex;
+          // flex-direction: column;
           gap: 14px;
           margin: 0;
           padding: 0;
@@ -169,11 +196,19 @@
           align-items: center;
           gap: 10px;
           font-size: 14px;
+
+          @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+            padding-bottom: 5px;
+          }
         }
       }
 
       .steps {
         gap: 16px;
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+          display: none;
+        }
 
         .step {
           display: flex;
@@ -219,6 +254,10 @@
     margin: 0 auto 20px;
     background: transparent;
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      padding-bottom: 5px;
+    }
+
     .full-recipe-button {
       min-width: 220px;
       height: 54px;
@@ -245,6 +284,11 @@
         transform 0.2s ease,
         box-shadow 0.2s ease,
         filter 0.2s ease;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        margin: 10px 0 30px 0;
+        min-width: 75vw;
+      }
 
       &:hover {
         transform: translateY(-3px) scale(1.02);

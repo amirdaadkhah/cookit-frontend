@@ -16,12 +16,9 @@
         {{ recipe.nutrition.kcal }} cal
       </span>
     </div>
-    <div class="chef-tip">
-      <div>✦</div>
-      <div>
-        <strong>Chef's Tip</strong>
-        <p>recipe.chefTip</p>
-      </div>
+    <div class="chef-tip-desktop">
+      <div>✦<strong> Chef's Tip</strong></div>
+      <p>recipe.chefTip</p>
     </div>
   </div>
 
@@ -36,6 +33,10 @@
       <button class="favorite-button">
         <ion-icon name="heart-outline"></ion-icon>
       </button>
+    </div>
+    <div class="chef-tip-mobile">
+      <div>✦<strong> Chef's Tip</strong></div>
+      <p>recipe.chefTip</p>
     </div>
 
     <div class="recipe-information">
@@ -70,10 +71,7 @@
   </div>
 
   <div class="full-recipe-button-container">
-    <button 
-      class="full-recipe-button"
-      expand="block"
-      click="viewFullRecipe()">
+    <button class="full-recipe-button" expand="block" click="viewFullRecipe()">
       View Full Recipe
     </button>
   </div>

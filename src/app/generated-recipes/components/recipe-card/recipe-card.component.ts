@@ -17,7 +17,7 @@ import { DifficultyRecipeBadgeComponent } from '@/app/shared/difficulty-recipe-b
 })
 export class RecipeCardComponent implements OnInit {
   @Input({ required: true }) recipe!: RecipeSearchResult;
-  // @Input() selected = false; // TODO: must be implemented
+  @Input() selected = false;
   @Output() recipeSelected = new EventEmitter<RecipeSearchResult>();
 
   constructor() { }
