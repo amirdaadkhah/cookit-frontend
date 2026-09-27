@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IngredientsSelectorComponent } from '../ingredients-selector/ing-selector.component';
 import { IonicModule } from '@ionic/angular';
 import { FooterComponent } from '../footer/footer.component';
+import { HowItWorksComponent } from '../how-it-works/how-it-works.component';
 
 @Component({
   selector: 'app-demo',
@@ -11,7 +12,8 @@ import { FooterComponent } from '../footer/footer.component';
   imports: [
     IonicModule,
     IngredientsSelectorComponent,
-    FooterComponent
+    FooterComponent,
+    HowItWorksComponent
   ]
 })
 export class DemoComponent {

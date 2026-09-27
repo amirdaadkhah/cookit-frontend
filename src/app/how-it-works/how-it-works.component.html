@@ -1,0 +1,25 @@
+<div class="how-it-works">
+  <div class="steps">
+    @for (step of steps; track step.title; let last = $last) {
+      <div class="step">
+        <div class="icon-wrapper">
+          <ion-icon [name]="step.icon"></ion-icon>
+        </div>
+        <div class="text">
+          <div class="title"><strong>{{ step.title }}</strong></div>
+          <div class="description">{{ step.description }}</div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="slogan">
+    <span>
+      Good Food
+      <br>
+      Happier You
+    </span>
+    <ion-icon name="heart"></ion-icon>
+    <div class="smile"></div>
+  </div>
+</div>

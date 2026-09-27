@@ -48,7 +48,6 @@ export class GeneratedRecipesComponent {
   }
 
   selectRecipe(recipe: RecipeSearchResult): void {
-    console.log('######', recipe)
     this.recipeService.getRecipe(recipe.recipe_id).subscribe({
       next: (res) => {
         this.selectedRecipeDetails.set(res);

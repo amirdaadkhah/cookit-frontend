@@ -18,23 +18,31 @@ import { Router } from '@angular/router';
     DifficultyRecipeBadgeComponent
   ]
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeDetailComponent {
   @Input({ required: true }) recipe!: RecipePayload;
   @Input({ required: true }) recipeId!: string;
+  chefTip: string = '';
+  private readonly chefTipKey = 'Tip:';
 
   constructor(
     private ingredientService: IngredientService,
     private router: Router
   ) {
     this.ingredientService.loadIngredients();
-  }
 
-  ngOnInit(): void {
-    // this.ingredientService.loadIngredients();
+
   }
 
   getImage(): string {
     return 'assets/images/recipe-hero.png';
+  }
+
+  getChefTip(): string {
+    const chefTip = this.recipe.steps.find(step => step.startsWith(this.chefTipKey));
+    if (chefTip) {
+      return chefTip.substring(this.chefTipKey.length).trim();
+    }
+    return 'Words can\'t say the taste';
   }
 
   getDifficulty(): RecipeDifficulty {

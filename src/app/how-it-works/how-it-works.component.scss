@@ -1,0 +1,137 @@
+@use '../../theme/variables' as *;
+
+.how-it-works {
+  display: flex;
+  width: 100vw;
+  padding: 10px calc($HOME-PAGE-SIDE_PADDING / 2);
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  background:
+    linear-gradient(135deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(248, 249, 248, 0.9));
+
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.06);
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    // MOBILE
+    padding: 15px 5px;
+  }
+
+  .steps {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      width: 100%;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        gap: 2px
+      }
+
+      .icon-wrapper {
+        flex: 0 0 48px;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: rgba($GREEN, 0.06);
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+          width: 32px;
+          height: 32px;
+
+          ion-icon {
+            font-size: 20px;
+          }
+        }
+
+        ion-icon {
+          font-size: 32px;
+          color: #111827;
+        }
+      }
+
+      .text {
+
+        .title {
+          color: #252936;
+          font-size: 15px;
+          font-weight: 700;
+          white-space: nowrap;
+
+          @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+            // MOBILE
+            font-size: 11px;
+          }
+        }
+
+        .description {
+          margin-top: 4px;
+          color: #7d818c;
+          font-size: 13px;
+
+          @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+            // MOBILE
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .slogan {
+    width: 20%;
+    position: relative;
+    flex: 0 0 210px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #72747b;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // MOBILE
+      display: none;
+    }
+
+    span {
+      transform: rotate(-4deg);
+      font-size: 18px;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    ion-icon {
+      position: absolute;
+      top: 2px;
+      right: 22px;
+      font-size: 15px;
+      color: #e8b63c;
+    }
+
+    .smile {
+      position: absolute;
+      right: 5px;
+      bottom: 3px;
+      width: 58px;
+      height: 20px;
+      border-bottom: 2px solid #bbb;
+      border-radius: 0 0 50% 50%;
+    }
+  }
+}

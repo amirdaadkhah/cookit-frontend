@@ -129,6 +129,10 @@
         min-height: 40px;
         font-size: 14px;
         margin: 0 0 5px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
       }
     }
 

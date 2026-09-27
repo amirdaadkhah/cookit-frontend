@@ -24,10 +24,14 @@
   .logo {
     position: absolute;
     margin-inline-start: $HOME-PAGE-SIDE_PADDING;
-    top: 10%;
+    top: 22%;
     background-color: transparent;
     z-index: 1;
-    height: 20vw;
+    height: 10vw;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      display: none;
+    }
   }
 
   .email-input {

@@ -13,8 +13,9 @@
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     flex-direction: column;
-    max-width: 95%;
-    margin: 0 auto $HOME-PAGE-SIDE_PADDING_MOBILE;
+    max-width: 100%;
+    margin: $HOME-PAGE-SIDE_PADDING_MOBILE;
+    padding: 0;
   }
 
   .image-side {
