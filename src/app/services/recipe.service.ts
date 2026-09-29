@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { catchError, firstValueFrom, Observable, shareReplay, throwError } from 'rxjs';
 import { RecipePayload } from '../models/recipe.model';
 import { ApiService } from './api.service';
+import { RecipeSearchResult } from '../generated-recipes/model/generated-recipe.model';
 
 export interface SearchForRecipePayload {
   ingredientIds: number[]; // selected ingredient ids by user
@@ -12,11 +13,17 @@ export interface SearchForRecipePayload {
   category?: string | null; // breakfast | lunch | dinner | snack | salad | dessert
 }
 
+export interface SearchRecipeResponse {
+  exists: boolean;
+  data: RecipeSearchResult[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  private apiURL = environment.apiURL;
+  private readonly apiURL = environment.apiURL;
+  private readonly searchApiURL = environment.searchApiURL;
   private readonly cache = new Map<string, Observable<RecipePayload>>();
 
   constructor(
@@ -24,9 +31,10 @@ export class RecipeService {
     private apiService: ApiService
   ) { }
 
-  searchRecipes(payload: SearchForRecipePayload): Observable<any> {
-    return this.http.post(
-      `${this.apiURL}/recipe/search`,
+  searchRecipes(payload: SearchForRecipePayload): Observable<SearchRecipeResponse> {
+    console.log('#### called', `${this.searchApiURL}/recipe/search`)
+    return this.http.post<SearchRecipeResponse>(
+      `${this.searchApiURL}/recipe/search`,
       payload
     );
   }

@@ -55,7 +55,6 @@ export class SelectedIngredientPanelComponent {
 
     this.recipeService.searchRecipes(payload).subscribe({
       next: (res) => {
-        console.log('Recipes from DB:', res, res.length > 0);
         this.isGenerating = false;
         (document.activeElement as HTMLElement)?.blur(); // remove focus from clicked button before leaving the page
         this.recipeResultService.setRecipes(res.data);
