@@ -2,7 +2,7 @@
   <div class="recipes-page">
 
     <!-- HERO - if Signal<SearchForRecipePayload | null> not null -->
-    <app-recipes-hero [recipesCount]="recipes().length" [payload]="payload()" (back)="goBack()">
+    <app-recipes-hero [recipesCount]="recipes().length" [recipeId]="selectedRecipeId" [payload]="payload()" (back)="goBack()">
     </app-recipes-hero>
 
     <!-- RECIPE SELECTOR -->

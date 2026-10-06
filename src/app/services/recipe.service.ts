@@ -32,7 +32,6 @@ export class RecipeService {
   ) { }
 
   searchRecipes(payload: SearchForRecipePayload): Observable<SearchRecipeResponse> {
-    console.log('#### called', `${this.searchApiURL}/recipe/search`)
     return this.http.post<SearchRecipeResponse>(
       `${this.searchApiURL}/recipe/search`,
       payload

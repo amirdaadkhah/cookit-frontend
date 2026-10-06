@@ -1,4 +1,5 @@
 import { SearchForRecipePayload } from '@/app/services/recipe.service';
+import { environment } from '@/environments/environment.prod';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
@@ -8,19 +9,24 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './recipes-hero.component.html',
   styleUrls: ['./recipes-hero.component.scss'],
   standalone: true,
-    imports: [
+  imports: [
     CommonModule,
     IonicModule
   ]
 })
 export class RecipesHeroComponent {
   @Input() recipesCount: number = 0;
+  @Input() recipeId: string = '';
   @Input({ required: true }) payload!: SearchForRecipePayload;
   @Output() back = new EventEmitter<void>();
 
-  constructor() {}
+  constructor() { }
 
   goBack(): void {
     this.back.emit();
+  }
+
+  getRecipeImageUrl(): string {
+    return `${environment.supabaseURL}/storage/v1/object/public/recipe-images/${this.recipeId}/main.png`;
   }
 }
