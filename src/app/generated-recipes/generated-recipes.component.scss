@@ -3,7 +3,9 @@
 
 ion-content {
   --padding-top: #{$header-desktop-height};
-  --ion-background-color: white;
+  --ion-background-color: #{$BACKGROUND};
+  --padding-end: 0;
+  --padding-start: 0;
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     --padding-top: #{$header-mobile-height};
@@ -12,13 +14,14 @@ ion-content {
 
 .recipes-page {
   min-height: 100%;
-  background: #faf9fc;
+  background: $BACKGROUND;
 }
 
 .recipe-selection {
   max-width: 1400px;
   margin: 0 auto;
   padding: 10px clamp(18px, 4vw, 60px);
+  background: rgb(244, 215, 215, 0.25);
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     --padding-top: #{$header-mobile-height};

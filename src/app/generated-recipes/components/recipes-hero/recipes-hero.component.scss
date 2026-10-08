@@ -1,26 +1,21 @@
 @use '../../../../theme/variables' as *;
 
 .hero {
+  display: flex;
+  flex-direction: row;
   position: relative;
   overflow: hidden;
-  min-height: 430px;
-  padding: clamp(24px, 5vw, 70px);
+  padding: 20px calc($HOME-PAGE-SIDE_PADDING/2);
   border-radius: 0 0 48px 48px;
-  background:
-    linear-gradient(135deg,
-      #fff 0%,
-      #faf8ff 48%,
-      #fff5f0 100%);
+  background: $BACKGROUND;
 
   .back-button {
-    position: relative;
-    z-index: 10;
     width: 48px;
     height: 48px;
-    display: grid;
     place-items: center;
     border: 0;
-    padding: 0;
+    padding: 10px;
+    margin: 10px;
     border-radius: 50%;
     background: $CARD-BACK-BUTTON-COLOR;
     box-shadow: 0 8px 30px rgba(23, 17, 46, 0.08);
@@ -120,84 +115,9 @@
         }
       }
     }
-
-    // Hero image
-    .visual-area {
-      position: relative;
-      display: grid;
-      place-items: center;
-      flex: 1 1 50%;
-      min-width: 0;
-      min-height: 360px;
-
-      .dish-orbit {
-        position: relative;
-        z-index: 3;
-        display: grid;
-        place-items: center;
-        width: min(90%, 430px);
-        aspect-ratio: 1;
-        border-radius:
-          45% 55% 62% 38% / 53% 38% 62% 47%;
-        background: $CARD-BACKGROUND;
-        box-shadow: 0 30px 80px rgba(72, 44, 120, 0.17);
-        transform: rotate(-4deg);
-
-        img {
-          display: block;
-          width: 94%;
-          height: 94%;
-          object-fit: cover;
-          border-radius: inherit;
-          transform: rotate(4deg);
-        }
-      }
-
-      .blob {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(2px);
-        pointer-events: none;
-      }
-
-      .blob-one {
-        width: 380px;
-        height: 280px;
-        background: #c7b4ff;
-        transform: rotate(-25deg);
-      }
-
-      .blob-two {
-        right: 5%;
-        bottom: 4%;
-        width: 280px;
-        height: 250px;
-        background: #ffd3c7;
-        opacity: 0.8;
-        transform: rotate(30deg);
-      }
-
-      .spark {
-        position: absolute;
-        z-index: 5;
-        color: $CARD-SPARK-ONE-COLOR;
-        pointer-events: none;
-      }
-
-      .spark-one {
-        top: 18%;
-        right: 10%;
-        font-size: 30px;
-      }
-
-      .spark-two {
-        bottom: 15%;
-        left: 12%;
-        color: $CARD-SPARK-ONE-COLOR;
-        font-size: 24px;
-      }
-    }
   }
+
+  .dish-img {}
 }
 
 // Tablet / smaller screens
@@ -214,25 +134,6 @@
       .hero-copy {
         flex-basis: auto;
       }
-
-      .visual-area {
-        flex-basis: auto;
-        min-height: 320px;
-
-        .dish-orbit {
-          width: clamp(190px, 38vw, 230px);
-        }
-
-        .blob-one {
-          width: 250px;
-          height: 190px;
-        }
-
-        .blob-two {
-          width: 185px;
-          height: 155px;
-        }
-      }
     }
   }
 }
@@ -240,12 +141,12 @@
 // Mobile
 @media (max-width: $MAX-WIDTH-RESPONSIVE) {
   .hero {
-    padding: 24px 20px 0px;
+    padding: 10px calc($HOME-PAGE-SIDE_PADDING_MOBILE/2) 0px;
     border-radius: 0 0 32px 32px;
+    flex-direction: column;
 
     .back-button {
-      width: 42px;
-      height: 42px;
+      display: none;
     }
 
     .hero-content {
@@ -269,19 +170,10 @@
           margin: 20px 0;
         }
       }
-
-      .visual-area {
-        display: none;
-      }
     }
-  }
-}
 
-// Accessibility
-@media (prefers-reduced-motion: reduce) {
-  .hero {
-    .back-button {
-      transition: none;
+    .dish-img {
+      display: none;
     }
   }
 }

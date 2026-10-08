@@ -2,6 +2,7 @@ import { SearchForRecipePayload } from '@/app/services/recipe.service';
 import { environment } from '@/environments/environment.prod';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -20,7 +21,7 @@ export class RecipesHeroComponent {
   @Input({ required: true }) payload!: SearchForRecipePayload;
   @Output() back = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   goBack(): void {
     this.back.emit();
@@ -28,5 +29,9 @@ export class RecipesHeroComponent {
 
   getRecipeImageUrl(): string {
     return `${environment.supabaseURL}/storage/v1/object/public/recipe-images/${this.recipeId}/main.png`;
+  }
+
+  addMoreIngredients(): void {
+        this.router.navigate(['/demo']);
   }
 }

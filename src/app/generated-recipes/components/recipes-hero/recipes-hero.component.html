@@ -1,4 +1,4 @@
-<section class="hero">
+<div class="hero">
   <button type="button" class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
   </button>
@@ -28,18 +28,12 @@
         <strong>
           {{ payload.ingredientIds.length }} ingredients
         </strong>
-        <button class="add-more-button">+ add more</button>
+        <button class="add-more-button" (click)="addMoreIngredients()">+ add more</button>
       </div>
-    </div>
-
-    <div class="visual-area">
-      <div class="blob blob-one"></div>
-      <div class="blob blob-two"></div>
-      <div class="dish-orbit">
-        <img [src]="getRecipeImageUrl()" alt="Generated recipe">
-      </div>
-      <span class="spark spark-one">✦</span>
-      <span class="spark spark-two">✧</span>
     </div>
   </div>
-</section>
+
+  <div class="dish-img">
+    <img [src]="getRecipeImageUrl()" alt="Generated recipe">
+  </div>
+</div>

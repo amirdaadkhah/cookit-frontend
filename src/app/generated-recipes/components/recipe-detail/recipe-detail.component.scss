@@ -3,7 +3,6 @@
 .detail-card {
   display: flex;
   flex-wrap: wrap;
-  max-width: 90%;
   margin: 0 auto $HOME-PAGE-SIDE_PADDING;
   overflow: hidden;
   border-radius: 36px;
@@ -14,7 +13,7 @@
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     flex-direction: column;
     max-width: 100%;
-    margin: $HOME-PAGE-SIDE_PADDING_MOBILE;
+    margin: $HOME-PAGE-SIDE_PADDING_MOBILE 8px;
     padding: 0;
   }
 
@@ -79,6 +78,7 @@
           #f5efff,
           #fff2ed);
       color: #524c59;
+      width: 95%;
 
       @media (max-width: $MAX-WIDTH-RESPONSIVE) {
         display: none;
@@ -185,8 +185,6 @@
 
       .ingredients {
         ul {
-          // display: flex;
-          // flex-direction: column;
           gap: 14px;
           margin: 0;
           padding: 0;
