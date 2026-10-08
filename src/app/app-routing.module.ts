@@ -6,6 +6,7 @@ import { RecipeManagerComponent } from './recipe-manager/recipe-manager.componen
 import { IngredientBlockComponent } from './recipe-manager/ingredient-block/ingredient-block.component';
 import { TagsResolver } from './resolver/TagResolver';
 import { GeneratedRecipesComponent } from './generated-recipes/generated-recipes.component';
+import { RecipeComponent } from './recipe/recipe.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,8 @@ const routes: Routes = [
   { path: 'recipes-manager', component: RecipeManagerComponent, resolve: { tags: TagsResolver } },
   { path: 'test', component: IngredientBlockComponent },
   { path: 'your-recipes', component: GeneratedRecipesComponent },
+  { path: 'recipe/:id', component: RecipeComponent },
+
   {
     path: 'recipe/:id',
     loadComponent: () =>

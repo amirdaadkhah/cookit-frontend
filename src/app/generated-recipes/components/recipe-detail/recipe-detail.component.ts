@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RecipeDifficulty } from '../../model/generated-recipe.model';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -29,8 +29,6 @@ export class RecipeDetailComponent {
     private router: Router
   ) {
     this.ingredientService.loadIngredients();
-
-
   }
 
   getImage(): string {
@@ -54,8 +52,6 @@ export class RecipeDetailComponent {
   }
 
   viewFullRecipe(): void {
-    this.router.navigate(
-      ['/recipe', this.recipeId]
-    );
+    this.router.navigate(['/recipe', this.recipeId]);
   }
 }

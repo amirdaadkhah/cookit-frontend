@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { IngredientsSearchComponent, SearchState } from './ingredients-search/ingredients-search.component';
-import { RecipeService } from '../services/recipe.service';
 import { CartItem, IngredientCartService } from '../services/ingredient-cart.service';
 import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/selected-ingredient-panel.component';
 import { Ingredient, IngredientPart } from '../models/ingredient.model';
