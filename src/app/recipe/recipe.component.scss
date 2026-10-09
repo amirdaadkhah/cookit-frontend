@@ -130,6 +130,11 @@
           align-items: center;
           justify-content: center;
           text-align: start;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.1);
+          }
 
           @media (max-width: $MAX-WIDTH-RESPONSIVE) {
             flex-direction: row;

@@ -2,13 +2,14 @@ import { Component, inject, signal } from '@angular/core';
 import { RecipePayload } from '../models/recipe.model';
 import { RecipeResultService } from '../services/recipe-result.service';
 import { RecipeService } from '../services/recipe.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { getQtyString } from '../utils/recipe.utils';
 import { IngredientService } from '../services/ingredient-service';
 import { FooterComponent } from '../footer/footer.component';
 import { CommentsComponent } from '../comment/comments.component';
+import { RecipeSearchResult } from '../generated-recipes/model/generated-recipe.model';
 
 @Component({
   selector: 'app-recipe',
@@ -29,17 +30,19 @@ export class RecipeComponent {
   readonly getQtyString = getQtyString;
   tmp: string = './assets/images/recipe-hero.png';
   recipeId: string = '';
+shuffledRecipes: RecipeSearchResult[] = [];
+
 
   constructor(
     private recipeResultService: RecipeResultService,
     private recipeService: RecipeService,
-    private ingredientService: IngredientService
-    // private router: Router
-
+    private ingredientService: IngredientService,
+    private router: Router
   ) {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.loadRecipe(id);
+      this.setRandomRecipes(id);
       // this.router.navigate(
       //   ['/recipe', 'correctSlug'], // TODO: decide to implement this for user
       //   { replaceUrl: true }
@@ -66,8 +69,22 @@ export class RecipeComponent {
     })
   }
 
+  private setRandomRecipes(id: string | null): void {
+    this.shuffledRecipes = this.recipes
+      .filter(recipe => recipe.recipe_id !== id)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+  }
+
   getIngredientNameById(id: number | null): string {
-    if (id===null) { return ''; };
+    if (id === null) { return ''; };
     return this.ingredientService.getIngredientNameById(id);
+  }
+
+  openRecipe(recipeId: string): void {
+    this.router.navigate([
+      '/recipe',
+      recipeId
+    ]);
   }
 }
