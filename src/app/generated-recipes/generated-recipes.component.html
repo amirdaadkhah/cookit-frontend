@@ -2,7 +2,8 @@
   <div class="recipes-page">
 
     <!-- HERO - if Signal<SearchForRecipePayload | null> not null -->
-    <app-recipes-hero [recipesCount]="recipes().length" [recipeId]="selectedRecipeId" [payload]="payload()" (back)="goBack()">
+    <app-recipes-hero [recipesCount]="recipes().length" [recipeId]="selectedRecipeId" [payload]="payload()"
+      (back)="goBack()">
     </app-recipes-hero>
 
     <!-- RECIPE SELECTOR -->
@@ -17,7 +18,8 @@
 
       <div class="recipe-list">
         @for (recipe of recipes(); track recipe.recipe_id) {
-        <app-recipe-card [recipe]="recipe" [selected]="selectedRecipeId !==null" (recipeSelected)="selectRecipe($event)">
+        <app-recipe-card [recipe]="recipe" [selected]="selectedRecipeId !==null"
+          (recipeSelected)="selectRecipe($event)">
         </app-recipe-card>
         }
       </div>
@@ -25,8 +27,10 @@
 
     <!-- SELECTED RECIPE -->
     <section class="selected-recipe" *ngIf="selectedRecipeDetails()">
-      <app-recipe-detail *ngIf="selectedRecipeDetails() as recipeDetails" [recipe]="recipeDetails" [recipeId]="selectedRecipeId">
+      <app-recipe-detail *ngIf="selectedRecipeDetails() as recipeDetails" [recipe]="recipeDetails"
+        [recipeId]="selectedRecipeId">
       </app-recipe-detail>
     </section>
   </div>
+  <app-footer></app-footer>
 </ion-content>

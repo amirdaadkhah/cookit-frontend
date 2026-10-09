@@ -9,6 +9,7 @@ import { RecipesHeroComponent } from './components/recipes-hero/recipes-hero.com
 import { RecipeResultService } from '../services/recipe-result.service';
 import { RecipeService } from '../services/recipe.service';
 import { RecipePayload } from '../models/recipe.model';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-generated-recipes',
@@ -20,7 +21,8 @@ import { RecipePayload } from '../models/recipe.model';
     CommonModule,
     RecipeCardComponent,
     RecipeDetailComponent,
-    RecipesHeroComponent
+    RecipesHeroComponent,
+    FooterComponent
   ]
 })
 export class GeneratedRecipesComponent {

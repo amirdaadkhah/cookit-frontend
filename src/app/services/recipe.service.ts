@@ -61,7 +61,11 @@ export class RecipeService {
 
   getRecipe(id: string): Observable<RecipePayload> {
     const cached = this.cache.get(id);
-    if (cached) { return cached; }
+    if (cached) {
+      console.log('###### load from CACHE!!!!')
+      return cached;
+    }
+    console.log('###### load from APiService!!!!')
 
     const request$ = this.apiService.getRecipeById(id).pipe(
       catchError(error => {

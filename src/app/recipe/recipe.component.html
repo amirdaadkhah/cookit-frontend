@@ -1,0 +1,61 @@
+<ion-content [fullscreen]="true">
+  <div class="container" *ngIf="recipeToShow() as recipeDetails">
+    <div class="recipe-name">
+      {{ recipeDetails.title }}
+    </div>
+    <div class="recipe-infos">
+      <div class="info-section">
+        <ion-icon name="time-outline"></ion-icon>
+        <span>Prep Time</span>
+        <span>{{ recipeDetails.times.prepMin }}</span>
+      </div>
+      <div class="info-section">
+        <ion-icon name="timer-outline"></ion-icon>
+        <span>Cooking Time</span>
+        <span>{{ recipeDetails.times.cookMin }}</span>
+      </div>
+      <div class="info-section">
+        <ion-icon name="people-outline"></ion-icon>
+        <span>Servings</span>
+        <span>{{ recipeDetails.servings }} People</span>
+      </div>
+    </div>
+    <div class="seperated-line"></div>
+    <div class="details">
+      <div class="recipe-details">
+        <div class="subject">Ingredients:</div>
+        <div class="ingredients" *ngFor="let ing of recipeDetails.ingredients">
+          <ion-icon name="ellipse-outline"></ion-icon>
+          {{ getQtyString(ing.qty) }}{{ ing.unit }} of {{ getIngredientNameById(ing.ingredientId) }}
+        </div>
+        <div class="subject">Instructions:</div>
+        <div class="instructions" *ngFor="let step of recipeDetails.steps">
+          <ion-icon name="checkmark-circle-sharp"></ion-icon>
+          {{ step }}
+        </div>
+      </div>
+
+      <div class="extra-details">
+        <div class="nutrition-fact">
+          <div class="subject">NUTRITION FACTS / {{ recipeDetails.nutrition.portion }}:</div>
+          <div class="nutrition-table-row">
+            <span>Calories</span>
+            <span>{{ recipeDetails.nutrition.kcal }}</span>
+          </div>
+          <div class="nutrition-table-row">
+            <span>Protein</span>
+            <span>{{ recipeDetails.nutrition.protein }}</span>
+          </div>
+        </div>
+        <div *ngIf="recipes.length !== 0" class="recipe-suggestion-list">
+          <div class="subject">More Recipes</div>
+          <div *ngFor="let recipe of recipes" class="more-recipe-card">
+            <img class="img" [src]="tmp" alt="Generated recipe">
+            <span class="span">{{ recipe.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

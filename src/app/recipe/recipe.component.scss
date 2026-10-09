@@ -1,0 +1,143 @@
+@use '../../theme/variables' as *;
+
+.container {
+  background: $BACKGROUND;
+  margin-top: $header-desktop-height;
+  padding: 0 $HOME-PAGE-SIDE_PADDING;
+  overflow: hidden;
+  overflow-y: hidden;
+
+
+  .recipe-name {
+    color: $RECIPE-TEXT-COLOR;
+    font-size: 5vw;
+    font-weight: 600;
+    padding-top: 30px;
+  }
+
+  .recipe-infos {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+
+    .info-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: $RECIPE-INFO-COLOR;
+      padding-inline-start: 20px;
+      padding-inline-end: 20px;
+      border-inline-end: 1px solid $RECIPE-INFO-COLOR;
+
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .seperated-line {
+    height: 1px;
+    background: $RECIPE-LINE-COLOR;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .recipe-details {
+      background: transparent;
+      padding: 20px;
+      line-height: 2.2;
+
+      .subject {
+        color: black;
+        font-weight: 700;
+        font-size: 28px;
+      }
+
+      .ingredients {
+        color: $RECIPE-TEXT-COLOR;
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .instructions {
+        color: $RECIPE-TEXT-COLOR;
+        font-size: 20px;
+        font-weight: 300;
+
+        ion-icon {
+          color: $RECIPE-INSTRUCTION-ICON-COLOR;
+        }
+      }
+    }
+
+    .extra-details {
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+
+      .nutrition-fact {
+        background: $RECIPE-NUTRITION-BACKGROUND;
+        padding: 20px 30px;
+        border-radius: 10px;
+        margin-top: 20px;
+
+        .subject {
+          color: black;
+          font-weight: 700;
+          font-size: 20px;
+        }
+
+        .nutrition-table-row {
+          padding: 10px 5px;
+          display: flex;
+          border-bottom: 1px solid $RECIPE-LINE-COLOR;
+          color: $RECIPE-TEXT-COLOR;
+          justify-content: space-between;
+
+        }
+      }
+
+      .recipe-suggestion-list {
+        display: flex;
+        flex-direction: column;
+        padding-top: 40px;
+
+        .subject {
+          color: black;
+          font-weight: 700;
+          font-size: 28px;
+        }
+
+        .more-recipe-card {
+          display: flex;
+          flex-direction: row;
+          padding-top: 15px;
+          align-items: center;
+          justify-content: center;
+          text-align: start;
+
+          .img {
+            max-width: 150px;
+          }
+
+          .span {
+            width: 50%;
+            color: $RECIPE-TEXT-COLOR;
+            font-weight: 600;
+            font-size: 20px;
+            height: fit-content;
+          }
+        }
+
+      }
+
+    }
+
+  }
+}
