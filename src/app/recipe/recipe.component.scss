@@ -7,6 +7,10 @@
   overflow: hidden;
   overflow-y: hidden;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    padding: 0 $HOME-PAGE-SIDE_PADDING_MOBILE;
+  }
+
 
   .recipe-name {
     color: $RECIPE-TEXT-COLOR;
@@ -47,6 +51,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      flex-direction: column;
+      padding-bottom: 40px;
+    }
 
     .recipe-details {
       background: transparent;
