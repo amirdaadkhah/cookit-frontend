@@ -1,0 +1,95 @@
+@use '../../theme/variables' as *;
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  background: $BACKGROUND;
+  padding: 40px $HOME-PAGE-SIDE_PADDING;
+
+  .header {
+    flex-direction: column;
+
+    .title {
+      color: black;
+      font-weight: 700;
+      font-size: 48px;
+    }
+
+    .description {
+      color: $RECIPE-SUBTITLE-TEXT-COLOR;
+      font-weight: 400;
+      font-size: 20px;
+    }
+
+    .seperated-line {
+      height: 10px;
+      width: 100%;
+      background: $RECIPE-INSTRUCTION-ICON-COLOR;
+      border-radius: 5px;
+      margin-top: 30px;
+    }
+  }
+
+  .comments-input {
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    h2 {
+      color: $RECIPE-TEXT-COLOR;
+      margin: 0;
+      padding-top: 30px;
+      font-size: 3vw;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    span {
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: $RECIPE-SUBTITLE-TEXT-COLOR;
+    }
+  }
+
+  .comments-form {
+
+    .new-comment-input {
+      border: 1px solid $RECIPE-LINE-COLOR;
+      background: white;
+      border-radius: 5px;
+      --placeholder-color: #{$RECIPE-INFO-COLOR};
+      --padding-start: 10px;
+      --border-color: #{$RECIPE-LINE-COLOR};
+      height: fit-content;
+      color: $CARD-TEXT-COLOR;
+    }
+
+    .post-button {
+      padding: 16px;
+      border-radius: 5px;
+      font-weight: 500;
+      margin-top: 10px;
+      background: $RECIPE-COMMENT-BUTTON-COLOR;
+      color: white;
+
+      &:disabled {
+        background: $RECIPE-COMMENT-BUTTON-DISABLED-COLOR;
+      }
+    }
+  }
+
+  .comments {
+    padding: 40px 10px 0;
+
+    .comment-content {
+      display: flex;
+      flex-direction: column;
+      color: black;
+      border-bottom: 1px solid $RECIPE-LINE-COLOR;
+    }
+
+    .comment-date {
+      color: black;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div class="comments">
+  <div class="header">
+    <div class="title">Already made this?</div>
+    <div class="description">Share your experience! Add a rating, leave a comment to help others.</div>
+    <div class="seperated-line"></div>
+  </div>
+
+  <div class="comments-input">
+    <h2>
+      Comments
+      <span>({{ comments.length }})</span>
+    </h2>
+  </div>
+
+  <div class="comments-form">
+    <ion-textarea 
+      class="new-comment-input" 
+      [(ngModel)]="newComment" 
+      placeholder="Write a comment..." 
+      [counter]="true" 
+      [maxlength]="300" 
+      rows="5">
+    </ion-textarea>
+    <button class="post-button" type="button" [disabled]="!newComment.trim() || isSubmitting" (click)="submitComment()">
+      {{ isSubmitting ? 'Posting...' : 'Post comment' }}
+    </button>
+  </div>
+
+  <div *ngIf="isLoading">
+    Loading comments...
+  </div>
+
+  <div *ngFor="let comment of comments" class="comments">
+    <!-- <img *ngIf="comment.userAvatar" class="comment__avatar" [src]="comment.userAvatar" alt=""> -->
+    <div class="comment-content">
+      <strong>{{ comment.userName || 'Gast' }}</strong>
+
+      <span class="comment-date">
+        {{ comment.createdAt | date:'short' }}
+      </span>
+
+      <p>{{ comment.comment }}</p>
+    </div>
+  </div>
+</div>

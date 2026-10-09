@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { getQtyString } from '../utils/recipe.utils';
 import { IngredientService } from '../services/ingredient-service';
 import { FooterComponent } from '../footer/footer.component';
+import { CommentsComponent } from '../comment/comments.component';
 
 @Component({
   selector: 'app-recipe',
@@ -17,7 +18,8 @@ import { FooterComponent } from '../footer/footer.component';
   imports: [
     CommonModule,
     IonicModule,
-    FooterComponent
+    FooterComponent,
+    CommentsComponent
   ]
 })
 export class RecipeComponent {
@@ -25,7 +27,8 @@ export class RecipeComponent {
   readonly recipeToShow = signal<RecipePayload | null>(null);
   private readonly route = inject(ActivatedRoute);
   readonly getQtyString = getQtyString;
-  tmp: string = './assets/images/recipe-hero.png'
+  tmp: string = './assets/images/recipe-hero.png';
+  recipeId: string = 'FD-NV-NONVEG-0001';
 
   constructor(
     private recipeResultService: RecipeResultService,
