@@ -32,7 +32,6 @@ export class CommentsComponent implements OnInit {
 
   loadComments(): void {
     this.isLoading = true;
-    console.log('#### - loaded comments is called: ', this.recipeId);
 
     this.commentService
       .getComments(this.recipeId)
@@ -53,7 +52,6 @@ export class CommentsComponent implements OnInit {
     if (!comment || this.isSubmitting) { return; }
 
     this.isSubmitting = true;
-    console.log('#### - add  comments added: ', comment);
 
     this.commentService
       .addComment(this.recipeId, comment)

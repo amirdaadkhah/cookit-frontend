@@ -49,7 +49,7 @@
         </div>
         <div *ngIf="recipes.length !== 0" class="recipe-suggestion-list">
           <div class="subject">More Recipes</div>
-          <div *ngFor="let recipe of recipes" class="more-recipe-card">
+          <div *ngFor="let recipe of recipes | slice:0:3" class="more-recipe-card">
             <img class="img" [src]="tmp" alt="Generated recipe">
             <span class="span">{{ recipe.title }}</span>
           </div>

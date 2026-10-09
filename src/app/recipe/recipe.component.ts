@@ -28,7 +28,7 @@ export class RecipeComponent {
   private readonly route = inject(ActivatedRoute);
   readonly getQtyString = getQtyString;
   tmp: string = './assets/images/recipe-hero.png';
-  recipeId: string = 'FD-NV-NONVEG-0001';
+  recipeId: string = '';
 
   constructor(
     private recipeResultService: RecipeResultService,
@@ -47,8 +47,6 @@ export class RecipeComponent {
       // this.recipeId = params.get('id');
     });
     this.ingredientService.loadIngredients();
-    console.log('####', this.recipes)
-
   }
 
   private loadRecipe(id: string | null) {
@@ -60,6 +58,7 @@ export class RecipeComponent {
     this.recipeService.getRecipe(id).subscribe({
       next: (res) => {
         this.recipeToShow.set(res);
+        this.recipeId = id;
       },
       error: (err) => {
         console.log('!!! error by loading full recipe details', err);
