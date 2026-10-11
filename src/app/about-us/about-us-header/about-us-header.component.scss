@@ -1,0 +1,87 @@
+@use '../../../theme/variables' as *;
+
+.header-container {
+  padding-top: $header-desktop-height;
+  position: relative;
+  background: $COLOR-CREAM;
+  overflow: hidden;
+
+  .header-image {
+    height: clamp(280px, 40vw, 500px);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .title {
+    position: absolute;
+    z-index: 1;
+    font-weight: 800;
+    font-size: 4vw;
+    font-family: 'Playfair Display', serif;
+    top: calc($header-desktop-height*1.5);
+    padding-inline-start: calc($HOME-PAGE-SIDE_PADDING/2);
+    box-shadow: 0 10px 35px rgba(25, 20, 50, 0.06);
+    line-height: 0.95;
+
+    &-01 {
+      color: $COLOR-CHAROCOAL;
+    }
+
+    &-02 {
+      color: $COLOR-OLIVE-GREEN;
+      font-size: 5vw;
+    }
+
+    &-03 {
+      color: $COLOR-TERRACOTTA;
+      font-size: 6vw;
+    }
+
+    .goal {
+      width: 45vw;
+      background: rgba(255, 255, 255, 0.56);
+      color: $COLOR-CHAROCOAL;
+      font-weight: 400;
+      font-size: 1.5vw;
+      line-height: 1.4;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: inherit;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border: 1px solid white;
+      border-radius: 999px;
+      background: $COLOR-TERRACOTTA;
+      color: $COLOR-CREAM;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+    }
+  }
+}

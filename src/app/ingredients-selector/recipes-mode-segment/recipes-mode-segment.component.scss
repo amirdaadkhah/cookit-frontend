@@ -12,7 +12,7 @@
     max-width: 360px;
     padding: 4px;
     border-radius: 16px;
-    background: rgba($GREEN, 0.12);
+    background: rgba($COLOR-OLIVE-GREEN, 0.12);
 
     @media (max-width: $MAX-WIDTH-RESPONSIVE) {
       max-width: none;
@@ -21,7 +21,7 @@
     ion-segment-button {
       min-height: 42px;
       --background: transparent;
-      --indicator-color: #{$GREEN};
+      --indicator-color: #{$COLOR-OLIVE-GREEN};
       --color: #6b7280;
       --color-checked: white;
       --border-radius: 12px;

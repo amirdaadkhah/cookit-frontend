@@ -32,6 +32,6 @@ export class RecipesHeroComponent {
   }
 
   addMoreIngredients(): void {
-        this.router.navigate(['/demo']);
+    this.router.navigate(['/demo']);
   }
 }

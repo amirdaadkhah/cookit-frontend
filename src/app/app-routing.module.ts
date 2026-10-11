@@ -7,6 +7,7 @@ import { IngredientBlockComponent } from './recipe-manager/ingredient-block/ingr
 import { TagsResolver } from './resolver/TagResolver';
 import { GeneratedRecipesComponent } from './generated-recipes/generated-recipes.component';
 import { RecipeComponent } from './recipe/recipe.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'test', component: IngredientBlockComponent },
   { path: 'your-recipes', component: GeneratedRecipesComponent },
   { path: 'recipe/:id', component: RecipeComponent },
+  { path: 'about-us', component: AboutUsComponent },
 
   {
     path: 'recipe/:id',

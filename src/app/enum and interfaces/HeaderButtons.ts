@@ -11,7 +11,8 @@ export interface HeaderButton {
 
 export const HEADER_BUTTONS: HeaderButton[] = [
   { icon: 'home', key: 'HOME', route: '/home', dropDown: false },
-  { icon: 'bag', key: 'ABOUT US', route: '/', dropDown: false },
+  { icon: 'bag', key: 'ABOUT US', route: '/about-us', dropDown: false },
+
   // { 
   //   icon: 'information-circle', 
   //   key: 'CONTACT US', 

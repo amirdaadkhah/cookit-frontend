@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 interface HowItWorksStep {
@@ -17,24 +18,26 @@ interface HowItWorksStep {
   ],
 })
 export class HowItWorksComponent {
-readonly steps: HowItWorksStep[] = [
+  readonly steps: HowItWorksStep[] = [
     {
-      icon: 'basket-outline',
+      icon: 'leaf',
       title: 'Add what you have',
-      description: 'Choose your available ingredients'
+      description: 'Choose ingredients from your fridge, pantry or type them in.'
     },
     {
-      icon: 'search-outline',
-      title: 'We find recipes',
-      description: 'Our AI matches the best recipes'
+      icon: 'search',
+      title: 'Get recipe ideas',
+      description: 'Mixia suggests creative. delicious recipes in seconds.'
     },
     {
-      icon: 'heart-outline',
+      icon: 'receipt',
       title: 'Cook & enjoy',
-      description: 'Discover new favorite meals'
+      description: 'Follow simple steps and make something amazing.'
     }
   ];
-  constructor() { }
+  constructor(private router: Router) { }
 
-
+  startDemo() {
+    this.router.navigate(['/demo']);
+  }
 }

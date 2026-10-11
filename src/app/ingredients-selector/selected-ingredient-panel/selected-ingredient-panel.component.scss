@@ -129,8 +129,8 @@
         }
 
         &:hover {
-          background: rgba($GREEN, 0.1);
-          color: $GREEN;
+          background: rgba($COLOR-OLIVE-GREEN, 0.1);
+          color: $COLOR-OLIVE-GREEN;
           transform: rotate(90deg);
         }
 
@@ -139,7 +139,7 @@
         }
 
         &:focus-visible {
-          outline: 2px solid $GREEN;
+          outline: 2px solid $COLOR-OLIVE-GREEN;
           outline-offset: 2px;
         }
       }
@@ -221,8 +221,8 @@
       }
 
       &:hover {
-        background: rgba($GREEN, 0.08);
-        color: $GREEN;
+        background: rgba($COLOR-OLIVE-GREEN, 0.08);
+        color: $COLOR-OLIVE-GREEN;
       }
     }
   }
@@ -297,7 +297,7 @@
 
         &:hover {
           background: #e8f5ec;
-          color: $GREEN;
+          color: $COLOR-OLIVE-GREEN;
           transform: rotate(90deg);
         }
 
@@ -317,7 +317,7 @@
   max-width: 520px;
   margin: 8px auto 22px;
   padding: 14px 16px;
-  border: 1px solid rgba($GREEN, 0.18);
+  border: 1px solid rgba($COLOR-OLIVE-GREEN, 0.18);
   border-radius: 14px;
   background: rgba($ING-TIP-BACKGROUND-COLOR, 0.16);
   color: #5f665f;
@@ -326,13 +326,13 @@
     flex: 0 0 auto;
     margin-top: 2px;
     font-size: 20px;
-    color: $GREEN;
+    color: $COLOR-OLIVE-GREEN;
   }
 
   strong {
     display: block;
     margin-bottom: 3px;
-    color: $GREEN;
+    color: $COLOR-OLIVE-GREEN;
     font-size: 13px;
     font-weight: 700;
   }

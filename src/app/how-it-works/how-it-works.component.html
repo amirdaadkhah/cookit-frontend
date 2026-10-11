@@ -1,25 +1,31 @@
 <div class="how-it-works">
+  <div class="slogan-start">
+    <div class="title">Turn fridge leftovers into fresh ideas.</div>
+    <div class="desc">Quick and easy recipes from the ingredients you already have.
+      Mixiwa suggests delicious meal ideas based on what you choose
+      - or what's in your fridge.</div>
+    <button class="button-start-mixing" (click)="startDemo()">Start Mixing<span>→</span></button>
+  </div>
   <div class="steps">
     @for (step of steps; track step.title; let last = $last) {
-      <div class="step">
-        <div class="icon-wrapper">
-          <ion-icon [name]="step.icon"></ion-icon>
-        </div>
-        <div class="text">
-          <div class="title"><strong>{{ step.title }}</strong></div>
-          <div class="description">{{ step.description }}</div>
-        </div>
-      </div>
+    <div class="step">
+      <div class="icon-wrapper"><ion-icon [name]="step.icon"></ion-icon></div>
+      <div class="title"><strong>{{ step.title }}</strong></div>
+      <div class="description">{{ step.description }}</div>
+    </div>
+    <div class="next-icon"><ion-icon name="chevron-forward-outline"></ion-icon></div>
     }
   </div>
 
-  <div class="slogan">
-    <span>
-      Good Food
-      <br>
-      Happier You
-    </span>
-    <ion-icon name="heart"></ion-icon>
-    <div class="smile"></div>
+  <div class="slogan-happy-food-container">
+    <div class="slogan-happy-food">
+      <span>
+        Good Food
+        <br>
+        Happier You
+      </span>
+      <ion-icon name="heart"></ion-icon>
+      <div class="smile"></div>
+    </div>
   </div>
 </div>

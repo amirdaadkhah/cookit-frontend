@@ -122,11 +122,11 @@
 
         &:hover {
           transform: translateY(-1px);
-          border-color: $GREEN;
+          border-color: $COLOR-OLIVE-GREEN;
         }
 
         &.active {
-          background: $GREEN;
+          background: $COLOR-OLIVE-GREEN;
           color: white;
         }
       }
@@ -163,7 +163,7 @@
       border: none;
       border-radius: 12px;
       background: transparent;
-      color: $GREEN;
+      color: $COLOR-OLIVE-GREEN;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
@@ -215,7 +215,7 @@
           border-radius: 50%;
           border: none;
           background: white;
-          color: $GREEN;
+          color: $COLOR-OLIVE-GREEN;
           cursor: pointer;
           transform: translateY(50%);
           font-size: 20px;
