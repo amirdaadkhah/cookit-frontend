@@ -16,7 +16,8 @@
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     // MOBILE
-    padding: 15px 5px;
+    flex-direction: column;
+    padding: 10px calc($HOME-PAGE-SIDE_PADDING_MOBILE);
   }
 
   .slogan-start {
@@ -25,6 +26,13 @@
     width: 30%;
     padding-top: 10px;
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // MOBILE
+      width: 100%;
+      align-items: end;
+      justify-content: center;
+    }
+
     .title {
       font-weight: 900;
       font-size: 1.9rem;
@@ -32,6 +40,11 @@
       width: 100%;
       line-height: 1.2;
       font-family: 'Inter', sans-serif;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        text-align: center;
+      }
     }
 
     .desc {
@@ -42,6 +55,11 @@
       width: 100%;
       line-height: 1.2;
       font-family: 'Inter', sans-serif;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        text-align: center;
+      }
     }
 
     .button-start-mixing {
@@ -58,11 +76,15 @@
       font-weight: bold;
       margin: 0 20px;
 
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        margin: 10px 20px 20px 20px;
+      }
+
       cursor: pointer;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
+      transition: transform 0.2s ease,
+      box-shadow 0.2s ease,
+      opacity 0.2s ease;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 
       &:hover:not(:disabled) {
@@ -107,12 +129,9 @@
         background: rgba($COLOR-TERRACOTTA, 0.06);
 
         @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-          width: 32px;
-          height: 32px;
-
-          ion-icon {
-            font-size: 20px;
-          }
+          // MOBILE
+          width: 48px;
+          height: 48px;
         }
 
         ion-icon {
@@ -156,18 +175,14 @@
       justify-content: center;
       background: transparent;
 
-
       @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-        width: 32px;
-        height: 32px;
-
-        ion-icon {
-          font-size: 20px;
-        }
+        // MOBILE
+        width: 28px;
+        height: auto;
       }
 
       ion-icon {
-        font-size: 32px;
+        font-size: 14px;
         color: rgba($COLOR-TERRACOTTA, 0.2);
       }
     }
@@ -181,6 +196,11 @@
     justify-content: center;
     align-items: center;
 
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // MOBILE
+      display: none;
+    }
+
     .slogan-happy-food {
       width: 100%;
       position: relative;
@@ -190,11 +210,6 @@
       align-items: center;
       justify-content: center;
       color: $COLOR-OLIVE-GREEN;
-
-      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-        // MOBILE
-        display: none;
-      }
 
       span {
         transform: rotate(-4deg);
