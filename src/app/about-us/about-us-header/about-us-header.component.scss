@@ -6,6 +6,11 @@
   background: $COLOR-CREAM;
   overflow: hidden;
 
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    // MOBILE
+    padding-top: 0;
+  }
+
   .header-image {
     height: clamp(280px, 40vw, 500px);
 
@@ -27,6 +32,12 @@
     padding-inline-start: calc($HOME-PAGE-SIDE_PADDING/2);
     box-shadow: 0 10px 35px rgba(25, 20, 50, 0.06);
     line-height: 0.95;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // MOBILE
+      top: calc($header-mobile-height*1.3);
+      line-height: 1.2;
+    }
 
     &-01 {
       color: $COLOR-CHAROCOAL;
@@ -52,6 +63,12 @@
       border-radius: 10px;
       padding: 12px 16px;
       font-family: inherit;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        width: 55vw;
+        padding: 6px 8px;
+      }
     }
 
     .button {
@@ -73,6 +90,13 @@
         box-shadow 0.2s ease,
         opacity 0.2s ease;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        padding: 8px 12px;
+        font-size: 0.7rem;
+        margin-top: 10px;
+      }
 
       &:hover:not(:disabled) {
         transform: translateY(-2px);
