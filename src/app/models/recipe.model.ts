@@ -1,4 +1,4 @@
-export type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink' | 'salad' | 'dressing';
+export type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink' | 'salad' | 'dressing' | 'sauce' | 'soup';
 
 
 export interface RecipeIngredient {

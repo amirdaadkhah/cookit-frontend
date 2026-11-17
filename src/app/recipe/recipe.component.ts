@@ -10,6 +10,7 @@ import { IngredientService } from '../services/ingredient-service';
 import { FooterComponent } from '../footer/footer.component';
 import { CommentsComponent } from '../comment/comments.component';
 import { RecipeSearchResult } from '../generated-recipes/model/generated-recipe.model';
+import { RecipeImageService } from '../services/recipe-image.service';
 
 @Component({
   selector: 'app-recipe',
@@ -28,7 +29,7 @@ export class RecipeComponent {
   readonly recipeToShow = signal<RecipePayload | null>(null);
   private readonly route = inject(ActivatedRoute);
   readonly getQtyString = getQtyString;
-  tmp: string = './assets/images/recipe-hero.png';
+  coverImage: string = '';
   recipeId: string = '';
 shuffledRecipes: RecipeSearchResult[] = [];
 
@@ -37,12 +38,14 @@ shuffledRecipes: RecipeSearchResult[] = [];
     private recipeResultService: RecipeResultService,
     private recipeService: RecipeService,
     private ingredientService: IngredientService,
-    private router: Router
+    private router: Router,
+    private recipeImageService: RecipeImageService
   ) {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.loadRecipe(id);
       this.setRandomRecipes(id);
+      this.coverImage = this.recipeImageService.getImage(id)
       // this.router.navigate(
       //   ['/recipe', 'correctSlug'], // TODO: decide to implement this for user
       //   { replaceUrl: true }

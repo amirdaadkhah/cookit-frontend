@@ -53,7 +53,7 @@
             *ngFor="let recipe of shuffledRecipes" 
             class="more-recipe-card"
             (click)="openRecipe(recipe.recipe_id)">
-            <img class="img" [src]="tmp" alt="Generated recipe">
+            <img class="img" [src]="coverImage" alt="Generated recipe">
             <span class="span">{{ recipe.title }}</span>
           </div>
         </div>

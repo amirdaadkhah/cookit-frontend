@@ -38,7 +38,9 @@ export class RecipeManagerComponent {
     'food',
     'drink',
     'salad',
-    'dressing'
+    'dressing',
+    'sauce',
+    'soup'
   ];
 
   readonly tagSearch = new FormControl('', { nonNullable: true });

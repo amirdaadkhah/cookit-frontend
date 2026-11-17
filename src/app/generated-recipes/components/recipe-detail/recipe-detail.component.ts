@@ -6,6 +6,7 @@ import { RecipePayload } from '@/app/models/recipe.model';
 import { DifficultyRecipeBadgeComponent } from '@/app/shared/difficulty-recipe-badge/difficulty-recipe-badge.component';
 import { IngredientService } from '@/app/services/ingredient-service';
 import { Router } from '@angular/router';
+import { RecipeImageService } from '@/app/services/recipe-image.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -22,13 +23,16 @@ export class RecipeDetailComponent {
   @Input({ required: true }) recipe!: RecipePayload;
   @Input({ required: true }) recipeId!: string;
   chefTip: string = '';
+  coverImage: string = '';
   private readonly chefTipKey = 'Tip:';
 
   constructor(
     private ingredientService: IngredientService,
-    private router: Router
+    private router: Router,
+    private recipeImageService: RecipeImageService
   ) {
     this.ingredientService.loadIngredients();
+    this.coverImage = this.recipeImageService.getImage(this.recipeId);
   }
 
   getImage(): string {

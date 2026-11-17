@@ -3,6 +3,7 @@ import { RecipeDifficulty, RecipeSearchResult } from '../../model/generated-reci
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { DifficultyRecipeBadgeComponent } from '@/app/shared/difficulty-recipe-badge/difficulty-recipe-badge.component';
+import { RecipeImageService } from '@/app/services/recipe-image.service';
 
 @Component({
   selector: 'app-recipe-card',
@@ -19,19 +20,19 @@ export class RecipeCardComponent implements OnInit {
   @Input({ required: true }) recipe!: RecipeSearchResult;
   @Input() selected = false;
   @Output() recipeSelected = new EventEmitter<RecipeSearchResult>();
+  coverImage: string = '';
 
-  constructor() { }
+  constructor(
+    private recipeImageService: RecipeImageService
+  ) { 
+  }
 
   ngOnInit(): void {
-    // console.log('Recipe received:', this.recipe);
+    this.coverImage = this.recipeImageService.getImage(this.recipe.recipe_id);
   }
 
   selectRecipe(): void {
     this.recipeSelected.emit(this.recipe);
-  }
-
-  getImage(): string {
-    return 'assets/images/recipe-hero.png'; // only as test, must be called from backend
   }
 
   getDifficulty(): RecipeDifficulty {
