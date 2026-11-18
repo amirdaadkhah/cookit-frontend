@@ -1,7 +1,7 @@
 <div class="detail-card">
   <!-- IMAGE SIDE -->
   <div class="image-side">
-    <img [src]="coverImage" [alt]="recipe.title">
+    <img [src]="getImage()" [alt]="recipe.title">
     <div class="image-info">
       <span>
         <ion-icon name="time-outline"></ion-icon>
@@ -28,7 +28,6 @@
       <div>
         <app-difficulty-recipe-badge [difficulty]="getDifficulty()" />
         <h2>{{ recipe.title }}</h2>
-        <p>recipe.description</p>
       </div>
       <button class="favorite-button">
         <ion-icon name="heart-outline"></ion-icon>
@@ -44,15 +43,16 @@
       <div class="ingredients">
         <h3>Ingredients</h3>
         <ul>
-          <li *ngFor="let ingredient of recipe.ingredients">
+          <li *ngFor="let ingredient of recipe.ingredients| slice:0:4; let i = index">
             <span class="check">
               ✓
             </span>
-            <span>
+            <span *ngIf="i < 3">
               {{ ingredient.qty }}
               {{ ingredient.unit }}
               {{ getIngredientName(ingredient.ingredientId!) }}
             </span>
+            <span *ngIf="recipe.ingredients.length > 3 && i === 3"> ... </span>
           </li>
         </ul>
       </div>
@@ -60,11 +60,12 @@
       <!-- Steps -->
       <div class="steps">
         <h3>Steps</h3>
-        <div class="step" *ngFor="let step of recipe.steps; let i = index">
+        <div class="step" *ngFor="let step of recipe.steps | slice:0:4; let i = index">
           <span class="step-number">
             {{ i+1 }}
           </span>
-          <p> {{ step }} </p>
+          <p *ngIf="i < 3"> {{ step }} </p>
+          <p *ngIf="recipe.steps.length > 3 && i === 3"> ... </p>
         </div>
       </div>
     </div>

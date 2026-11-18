@@ -23,7 +23,6 @@ export class RecipeDetailComponent {
   @Input({ required: true }) recipe!: RecipePayload;
   @Input({ required: true }) recipeId!: string;
   chefTip: string = '';
-  coverImage: string = '';
   private readonly chefTipKey = 'Tip:';
 
   constructor(
@@ -32,11 +31,6 @@ export class RecipeDetailComponent {
     private recipeImageService: RecipeImageService
   ) {
     this.ingredientService.loadIngredients();
-    this.coverImage = this.recipeImageService.getImage(this.recipeId);
-  }
-
-  getImage(): string {
-    return 'assets/images/recipe-hero.png';
   }
 
   getChefTip(): string {
@@ -49,6 +43,10 @@ export class RecipeDetailComponent {
 
   getDifficulty(): RecipeDifficulty {
     return 'Hard';
+  }
+
+  getImage(): string {
+    return this.recipeImageService.getImage(this.recipeId);
   }
 
   getIngredientName(id: number): string {
