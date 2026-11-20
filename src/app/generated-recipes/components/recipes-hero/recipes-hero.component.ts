@@ -1,5 +1,4 @@
 import { SearchForRecipePayload } from '@/app/services/recipe.service';
-import { environment } from '@/environments/environment.prod';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
@@ -25,10 +24,6 @@ export class RecipesHeroComponent {
 
   goBack(): void {
     this.back.emit();
-  }
-
-  getRecipeImageUrl(): string {
-    return `${environment.supabaseURL}/storage/v1/object/public/recipe-images/${this.recipeId}/main.png`;
   }
 
   addMoreIngredients(): void {

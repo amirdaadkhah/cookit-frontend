@@ -24,8 +24,7 @@ export class RecipeCardComponent implements OnInit {
 
   constructor(
     private recipeImageService: RecipeImageService
-  ) { 
-  }
+  ) {}
 
   ngOnInit(): void {
     this.coverImage = this.recipeImageService.getImage(this.recipe.recipe_id);

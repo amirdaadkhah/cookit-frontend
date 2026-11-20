@@ -26,12 +26,6 @@ const routes: Routes = [
   { path: 'your-recipes', component: GeneratedRecipesComponent },
   { path: 'recipe/:id', component: RecipeComponent },
   { path: 'about-us', component: AboutUsComponent },
-
-  {
-    path: 'recipe/:id',
-    loadComponent: () =>
-      import('./generated-recipes/components/full-recipe/full-recipe.component').then(m => m.FullRecipeComponent)
-  }
 ];
 
 @NgModule({

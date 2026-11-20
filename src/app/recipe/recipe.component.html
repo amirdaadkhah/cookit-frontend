@@ -1,25 +1,34 @@
 <ion-content [fullscreen]="true">
   <div class="container" *ngIf="recipeToShow() as recipeDetails">
-    <div class="recipe-name">
-      {{ recipeDetails.title }}
+    <div class="header">
+      <iframe class="yt-frame" [src]="youtube_src"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="recipe-infos">
+        <div class="recipe-name">
+          {{ recipeDetails.title }}
+        </div>
+        <div class="infos">
+          <div class="info-section">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Prep Time</span>
+            <span>{{ recipeDetails.times.prepMin }} min</span>
+          </div>
+          <div class="info-section">
+            <ion-icon name="timer-outline"></ion-icon>
+            <span>Cooking Time</span>
+            <span>{{ recipeDetails.times.cookMin }} min</span>
+          </div>
+          <div class="info-section end">
+            <ion-icon name="people-outline"></ion-icon>
+            <span>Servings</span>
+            <span>{{ recipeDetails.servings }} People</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="recipe-infos">
-      <div class="info-section">
-        <ion-icon name="time-outline"></ion-icon>
-        <span>Prep Time</span>
-        <span>{{ recipeDetails.times.prepMin }}</span>
-      </div>
-      <div class="info-section">
-        <ion-icon name="timer-outline"></ion-icon>
-        <span>Cooking Time</span>
-        <span>{{ recipeDetails.times.cookMin }}</span>
-      </div>
-      <div class="info-section">
-        <ion-icon name="people-outline"></ion-icon>
-        <span>Servings</span>
-        <span>{{ recipeDetails.servings }} People</span>
-      </div>
-    </div>
+
     <div class="seperated-line"></div>
     <div class="details">
       <div class="recipe-details">
@@ -49,10 +58,7 @@
         </div>
         <div *ngIf="recipes.length !== 0" class="recipe-suggestion-list">
           <div class="subject">More Recipes</div>
-          <div 
-            *ngFor="let recipe of shuffledRecipes" 
-            class="more-recipe-card"
-            (click)="openRecipe(recipe.recipe_id)">
+          <div *ngFor="let recipe of shuffledRecipes" class="more-recipe-card" (click)="openRecipe(recipe.recipe_id)">
             <img class="img" [src]="coverImage" alt="Generated recipe">
             <span class="span">{{ recipe.title }}</span>
           </div>

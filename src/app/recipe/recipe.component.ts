@@ -11,7 +11,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { CommentsComponent } from '../comment/comments.component';
 import { RecipeSearchResult } from '../generated-recipes/model/generated-recipe.model';
 import { RecipeImageService } from '../services/recipe-image.service';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -31,21 +31,26 @@ export class RecipeComponent {
   readonly getQtyString = getQtyString;
   coverImage: string = '';
   recipeId: string = '';
-shuffledRecipes: RecipeSearchResult[] = [];
-
+  shuffledRecipes: RecipeSearchResult[] = [];
+  youtube_src: SafeResourceUrl | null = null;
 
   constructor(
     private recipeResultService: RecipeResultService,
     private recipeService: RecipeService,
     private ingredientService: IngredientService,
     private router: Router,
-    private recipeImageService: RecipeImageService
+    private recipeImageService: RecipeImageService,
+    private sanitizer: DomSanitizer
   ) {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.loadRecipe(id);
       this.setRandomRecipes(id);
-      this.coverImage = this.recipeImageService.getImage(id)
+      this.coverImage = this.recipeImageService.getImage(id);
+      this.youtube_src = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `https://www.youtube.com/embed/6kxRwolzUKE?si=ZWvC64oMlC3uysS4`
+        // `${videoId}`
+      );
       // this.router.navigate(
       //   ['/recipe', 'correctSlug'], // TODO: decide to implement this for user
       //   { replaceUrl: true }

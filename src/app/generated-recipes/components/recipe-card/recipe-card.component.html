@@ -17,7 +17,8 @@
         {{ recipe.nutrition.kcal }} cal / {{ recipe.nutrition.protein }} protein
       </span>
     </div>
-    <div class="rating" *ngIf="recipe.score">
+    <!-- TODO: implement rating-->
+    <div class="rating" *ngIf="recipe.score && false">
       ★ {{ getRating() }}
     </div>
   </div>

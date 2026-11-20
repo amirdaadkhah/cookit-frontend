@@ -38,8 +38,17 @@
 
 /* plus-jakarta-sans font */
 @import '@fontsource/plus-jakarta-sans';
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import '@fontsource-variable/vazirmatn/index.css';
 
 :root {
-  --ion-font-family: 'DM Sans', sans-serif;
+  --ion-font-family: 'Vazirmatn Variable', sans-serif;
+}
+
+html,
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'Vazirmatn Variable', sans-serif;
 }

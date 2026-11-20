@@ -42,7 +42,7 @@ export class RecipeDetailComponent {
   }
 
   getDifficulty(): RecipeDifficulty {
-    return 'Hard';
+    return 'Easy';
   }
 
   getImage(): string {

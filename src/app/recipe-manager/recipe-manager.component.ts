@@ -112,7 +112,7 @@ export class RecipeManagerComponent {
       formValue,
       this.ingredientsArray.getRawValue() ?? [],
       filteredSubRecipes ?? [],
-      this.mediaGroup.getRawValue().media,
+      this.mediaGroup.getRawValue(),
       (this.tagsArray.getRawValue() ?? []).map((t: string) => this.normalizeTag(t))
     );
     return payload;
