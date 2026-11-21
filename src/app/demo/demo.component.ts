@@ -17,7 +17,7 @@ import { HowItWorksComponent } from '../how-it-works/how-it-works.component';
   ]
 })
 export class DemoComponent {
-  header: string = '../../assets/images/generate-recipe-header01.png';
+  header: string = '../../assets/images/generate-recipe-header.png';
 
   constructor() { }
 }

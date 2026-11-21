@@ -1,6 +1,6 @@
 <div class="recipe-card" (click)="selectRecipe()">
   <div class="image-area">
-    <img [src]="coverImage" [alt]="recipe.title">
+    <img [src]="coverImage" [alt]="recipe.title" (error)="coverImage = recipeImageService.dummy_image">
     <span class="recommended-badge" *ngIf="selected">Reccomended</span>
     <span class="time-badge">
       <ion-icon name="time-outline"></ion-icon>

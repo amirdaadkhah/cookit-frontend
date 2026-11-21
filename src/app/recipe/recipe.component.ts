@@ -29,10 +29,11 @@ export class RecipeComponent {
   readonly recipeToShow = signal<RecipePayload | null>(null);
   private readonly route = inject(ActivatedRoute);
   readonly getQtyString = getQtyString;
-  coverImage: string = '';
+  coverImage?: string;
   recipeId: string = '';
   shuffledRecipes: RecipeSearchResult[] = [];
   youtube_src: SafeResourceUrl | null = null;
+  dummy_image?: string;
 
   constructor(
     private recipeResultService: RecipeResultService,
@@ -47,10 +48,15 @@ export class RecipeComponent {
       this.loadRecipe(id);
       this.setRandomRecipes(id);
       this.coverImage = this.recipeImageService.getImage(id);
-      this.youtube_src = this.sanitizer.bypassSecurityTrustResourceUrl(
-        `https://www.youtube.com/embed/6kxRwolzUKE?si=ZWvC64oMlC3uysS4`
-        // `${videoId}`
-      );
+
+      if (this.recipeToShow()?.media.youtube) {
+        this.youtube_src = this.sanitizer.bypassSecurityTrustResourceUrl(
+          `${this.recipeToShow()?.media.youtube}`
+        );
+      } else {
+        this.dummy_image = this.recipeImageService.dummy_image;
+      }
+
       // this.router.navigate(
       //   ['/recipe', 'correctSlug'], // TODO: decide to implement this for user
       //   { replaceUrl: true }
@@ -94,5 +100,11 @@ export class RecipeComponent {
       '/recipe',
       recipeId
     ]);
+  }
+
+  onImageError(): void {
+    if (this.coverImage !== this.recipeImageService.dummy_image) {
+      this.coverImage = this.recipeImageService.dummy_image;
+    }
   }
 }

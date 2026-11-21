@@ -20,10 +20,10 @@ export class RecipeCardComponent implements OnInit {
   @Input({ required: true }) recipe!: RecipeSearchResult;
   @Input() selected = false;
   @Output() recipeSelected = new EventEmitter<RecipeSearchResult>();
-  coverImage: string = '';
+  coverImage?: string;
 
   constructor(
-    private recipeImageService: RecipeImageService
+    public recipeImageService: RecipeImageService
   ) {}
 
   ngOnInit(): void {

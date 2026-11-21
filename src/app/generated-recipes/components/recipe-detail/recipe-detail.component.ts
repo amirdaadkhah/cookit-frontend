@@ -28,7 +28,7 @@ export class RecipeDetailComponent {
   constructor(
     private ingredientService: IngredientService,
     private router: Router,
-    private recipeImageService: RecipeImageService
+    public recipeImageService: RecipeImageService
   ) {
     this.ingredientService.loadIngredients();
   }
@@ -47,6 +47,12 @@ export class RecipeDetailComponent {
 
   getImage(): string {
     return this.recipeImageService.getImage(this.recipeId);
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = this.recipeImageService.dummy_image;
   }
 
   getIngredientName(id: number): string {

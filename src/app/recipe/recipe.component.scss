@@ -126,6 +126,7 @@
       background: transparent;
       padding: 20px;
       line-height: 2.2;
+      flex: 0 0 65%;
 
       .subject {
         color: black;
@@ -193,7 +194,7 @@
           flex-direction: row;
           padding-top: 15px;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
           text-align: start;
           cursor: pointer;
 
@@ -207,6 +208,7 @@
 
           .img {
             max-width: 150px;
+            border-radius: 10px;
           }
 
           .span {
@@ -227,7 +229,6 @@
     }
   }
 }
-
 
 // Tablet
 @media (max-width: 1024px) {

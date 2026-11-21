@@ -1,10 +1,15 @@
 <ion-content [fullscreen]="true">
   <div class="container" *ngIf="recipeToShow() as recipeDetails">
     <div class="header">
-      <iframe class="yt-frame" [src]="youtube_src"
-        title="YouTube video player" frameborder="0"
+      @if (youtube_src) {
+      <iframe class="yt-frame" [src]="youtube_src" title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+      </iframe>
+      } @else {
+      <img class="yt-frame" [src]="coverImage" [alt]="recipeDetails.title" (error)="onImageError()" />
+      }
+
       <div class="recipe-infos">
         <div class="recipe-name">
           {{ recipeDetails.title }}

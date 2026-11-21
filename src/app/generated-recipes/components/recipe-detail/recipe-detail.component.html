@@ -1,7 +1,7 @@
 <div class="detail-card">
   <!-- IMAGE SIDE -->
   <div class="image-side">
-    <img [src]="getImage()" [alt]="recipe.title">
+    <img [src]="getImage()" [alt]="recipe.title" (error)="onImageError($event)">
     <div class="image-info">
       <span>
         <ion-icon name="time-outline"></ion-icon>
