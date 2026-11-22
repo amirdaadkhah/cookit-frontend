@@ -5,10 +5,12 @@
   position: relative;
   width: 100vw;
   background: $BACKGROUND;
+  padding-top: $header-desktop-height;
 
   @media (max-width: $MAX-WIDTH-RESPONSIVE) {
     // mobile view
     flex-direction: column;
+    padding-top: $header-mobile-height;
   }
 
   .img {
