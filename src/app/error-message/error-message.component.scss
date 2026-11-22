@@ -1,0 +1,74 @@
+.error-box {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  z-index: 10000;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  width: min(90%, 450px);
+  padding: 16px 18px;
+
+  background: white;
+
+  border: 1px solid #e57373;
+  border-radius: 14px;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+
+  animation: slide-up 0.3s ease;
+}
+
+.error-icon {
+  flex-shrink: 0;
+  font-size: 30px;
+  color: #d32f2f;
+}
+
+.error-content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  strong {
+    font-size: 16px;
+  }
+
+  span {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+}
+
+.close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  background: transparent;
+
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 24px;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

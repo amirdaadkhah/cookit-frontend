@@ -5,6 +5,9 @@ import { LoginComponent } from './login/login.component';
 import { RecipeManagerComponent } from './recipe-manager/recipe-manager.component';
 import { IngredientBlockComponent } from './recipe-manager/ingredient-block/ingredient-block.component';
 import { TagsResolver } from './resolver/TagResolver';
+import { GeneratedRecipesComponent } from './generated-recipes/generated-recipes.component';
+import { RecipeComponent } from './recipe/recipe.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -19,9 +22,10 @@ const routes: Routes = [
   { path: 'demo', component: DemoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'recipes-manager', component: RecipeManagerComponent, resolve: { tags: TagsResolver } },
-  { path: 'test', component: IngredientBlockComponent }
-
-
+  { path: 'test', component: IngredientBlockComponent },
+  { path: 'your-recipes', component: GeneratedRecipesComponent },
+  { path: 'recipe/:id', component: RecipeComponent },
+  { path: 'about-us', component: AboutUsComponent },
 ];
 
 @NgModule({

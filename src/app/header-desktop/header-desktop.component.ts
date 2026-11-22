@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class HeaderDesktopComponent {
-  logo: string = '../../assets/logos/logo.png';
+  logo: string = '../../assets/logos/logo_1.png';
   buttons = HEADER_BUTTONS;
 
   constructor(

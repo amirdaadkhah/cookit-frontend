@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Ingredient, IngredientPart } from './ingredient-service';
+import { Ingredient, IngredientPart } from '../models/ingredient.model';
 
 export interface CartItem {
   ingredient: Ingredient;

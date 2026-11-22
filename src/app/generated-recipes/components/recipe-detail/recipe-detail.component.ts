@@ -1,0 +1,65 @@
+import { Component, Input } from '@angular/core';
+import { RecipeDifficulty } from '../../model/generated-recipe.model';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { RecipePayload } from '@/app/models/recipe.model';
+import { DifficultyRecipeBadgeComponent } from '@/app/shared/difficulty-recipe-badge/difficulty-recipe-badge.component';
+import { IngredientService } from '@/app/services/ingredient-service';
+import { Router } from '@angular/router';
+import { RecipeImageService } from '@/app/services/recipe-image.service';
+
+@Component({
+  selector: 'app-recipe-detail',
+  templateUrl: './recipe-detail.component.html',
+  styleUrls: ['./recipe-detail.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+    DifficultyRecipeBadgeComponent
+  ]
+})
+export class RecipeDetailComponent {
+  @Input({ required: true }) recipe!: RecipePayload;
+  @Input({ required: true }) recipeId!: string;
+  chefTip: string = '';
+  private readonly chefTipKey = 'Tip:';
+
+  constructor(
+    private ingredientService: IngredientService,
+    private router: Router,
+    public recipeImageService: RecipeImageService
+  ) {
+    this.ingredientService.loadIngredients();
+  }
+
+  getChefTip(): string {
+    const chefTip = this.recipe.steps.find(step => step.startsWith(this.chefTipKey));
+    if (chefTip) {
+      return chefTip.substring(this.chefTipKey.length).trim();
+    }
+    return 'Words can\'t say the taste';
+  }
+
+  getDifficulty(): RecipeDifficulty {
+    return 'Easy';
+  }
+
+  getImage(): string {
+    return this.recipeImageService.getImage(this.recipeId);
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = this.recipeImageService.dummy_image;
+  }
+
+  getIngredientName(id: number): string {
+    return this.ingredientService.getIngredientNameById(id);
+  }
+
+  viewFullRecipe(): void {
+    this.router.navigate(['/recipe', this.recipeId]);
+  }
+}

@@ -1,0 +1,23 @@
+.difficulty {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 9px;
+  border-radius: 8px;
+
+  background: #eff9ee;
+  color: #3c9144;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  &[data-level='Medium'] {
+    background: #fff5df;
+    color: #d68513;
+  }
+
+  &[data-level='Hard'] {
+    background: #ffe8e5;
+    color: #d64c41;
+  }
+}

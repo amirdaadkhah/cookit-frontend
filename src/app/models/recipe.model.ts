@@ -1,4 +1,4 @@
-export type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink' | 'salad' | 'dressing';
+export type RecipeCategory = 'dessert' | 'breakfast' | 'snack' | 'food' | 'drink' | 'salad' | 'dressing' | 'sauce' | 'soup';
 
 
 export interface RecipeIngredient {
@@ -10,6 +10,14 @@ export interface RecipeIngredient {
   unit: string;
   note: string | null;
   substitutes: number[];
+}
+
+export interface SubRecipe {
+  subRecipeId: string | null;
+  name: string | null;
+  qty: number | null;
+  unit: string;
+  note: string | null;
 }
 
 export interface RecipePayload {
@@ -30,7 +38,9 @@ export interface RecipePayload {
     kcal: string | null;
     protein: string | null;
   };
+  servings: number | null;
   ingredients: RecipeIngredient[];
+  subRecipes: SubRecipe[];
   media: {
     instagram: string | null;
     tiktok: string | null;

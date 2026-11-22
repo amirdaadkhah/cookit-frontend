@@ -1,0 +1,18 @@
+<div class="error-box">
+  <ion-icon
+    class="error-icon"
+    name="alert-circle-outline">
+  </ion-icon>
+
+  <div class="error-content">
+    <strong>{{ title }}</strong>
+    <span>{{ message }}</span>
+  </div>
+
+  <button
+    type="button"
+    class="close-button"
+    (click)="closeError()">
+    <ion-icon name="close-outline"></ion-icon>
+  </button>
+</div>

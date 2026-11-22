@@ -1,10 +1,11 @@
-.header-foto {
-  // width: 100vw;
-  // height: 41vw;
-  // object-fit: fill;
-  // padding-top: calc($header-button-height/2);
+@use '../../theme/variables.scss' as *;
 
-  // @media (max-width: $MAX-WIDTH-RESPONSIVE) {
-  //   padding-top: $header-mobile-height;
-  // }
+.header-foto {
+  background: $BACKGROUND;
+  padding-top: $header-desktop-height;
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    // mobile view
+    padding-top: $header-mobile-height;
+  }
 }

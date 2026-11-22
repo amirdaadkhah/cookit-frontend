@@ -1,0 +1,79 @@
+<div class="detail-card">
+  <!-- IMAGE SIDE -->
+  <div class="image-side">
+    <img [src]="getImage()" [alt]="recipe.title" (error)="onImageError($event)">
+    <div class="image-info">
+      <span>
+        <ion-icon name="time-outline"></ion-icon>
+        {{ recipe.times.totalMin }} min
+      </span>
+      <span>
+        <ion-icon name="people-outline"></ion-icon>
+        {{ recipe.nutrition.portion }}
+        servings
+      </span>
+      <span>
+        {{ recipe.nutrition.kcal }} cal
+      </span>
+    </div>
+    <div class="chef-tip-desktop">
+      <div>✦<strong> Chef's Tip</strong></div>
+      <p>{{ getChefTip() }}</p>
+    </div>
+  </div>
+
+  <!-- CONTENT SIDE -->
+  <div class="detail-content">
+    <div class="title-area">
+      <div>
+        <app-difficulty-recipe-badge [difficulty]="getDifficulty()" />
+        <h2>{{ recipe.title }}</h2>
+      </div>
+      <button class="favorite-button">
+        <ion-icon name="heart-outline"></ion-icon>
+      </button>
+    </div>
+    <div class="chef-tip-mobile">
+      <div>✦<strong> Chef's Tip</strong></div>
+      <p>{{ getChefTip() }}</p>
+    </div>
+
+    <div class="recipe-information">
+      <!-- Ingredients -->
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients| slice:0:4; let i = index">
+            <span class="check">
+              ✓
+            </span>
+            <span *ngIf="i < 3">
+              {{ ingredient.qty }}
+              {{ ingredient.unit }}
+              {{ getIngredientName(ingredient.ingredientId!) }}
+            </span>
+            <span *ngIf="recipe.ingredients.length > 3 && i === 3"> ... </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Steps -->
+      <div class="steps">
+        <h3>Steps</h3>
+        <div class="step" *ngFor="let step of recipe.steps | slice:0:4; let i = index">
+          <span class="step-number">
+            {{ i+1 }}
+          </span>
+          <p *ngIf="i < 3"> {{ step }} </p>
+          <p *ngIf="recipe.steps.length > 3 && i === 3"> ... </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-recipe-button-container">
+    <button class="full-recipe-button" expand="block" (click)="viewFullRecipe()">
+      View Full Recipe
+    </button>
+  </div>
+</div>

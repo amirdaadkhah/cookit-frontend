@@ -38,7 +38,17 @@
 
 /* plus-jakarta-sans font */
 @import '@fontsource/plus-jakarta-sans';
+@import '@fontsource-variable/vazirmatn/index.css';
 
 :root {
-  --ion-font-family: 'Plus Jakarta Sans', sans-serif;
+  --ion-font-family: 'Vazirmatn Variable', sans-serif;
+}
+
+html,
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'Vazirmatn Variable', sans-serif;
 }

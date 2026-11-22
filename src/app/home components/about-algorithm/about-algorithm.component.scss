@@ -7,29 +7,28 @@
   padding-bottom: 30px;
 
   .title {
-    padding: 40px 0;
+    padding: 40px 0 20px 0;
     background: transparent;
     color: $HOME-PAGE-TITLE-COLOR;
-    text-align: left;
+    text-align: center;
     flex-direction: column;
-    font-size: clamp(24px, 5vw, 36px);
-    font-weight: 400;
-    line-height: 130%;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.65;
 
     @media (max-width: $MAX-WIDTH-RESPONSIVE) { // mobile view
-      padding: 20px 0;
-      white-space: nowrap;
-      font-weight: bold;
+      font-size: 1.4rem;
+      padding: 20px 0 10px 0;
     }
   }
 
   .demo-button {
     background: transparent;
-    background: transparent;
     text-align: end;
+    padding-top: 16px;
 
     .button {
-      background: $HOME-PAGE-DEMO-BUTTON-BGCOLOR;
+      background: $COLOR-OLIVE-GREEN;
       height: 48px;
       padding: 0 10px;
       color: white;

@@ -14,9 +14,6 @@ import { Router } from '@angular/router';
   ]
 })
 export class AboutAlgorithmComponent {
-  icon: string = 'accessibility-outline';
-  title: string = 'Grocery specific features';
-  description: string = 'Our platform includes all the features grocery stores need out-of-the box, like weighed products, and cutting options.';
 
   constructor(private router: Router) { }
 

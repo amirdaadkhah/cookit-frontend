@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { Ingredient, IngredientPart, IngredientService } from '../services/ingredient-service';
+import { IngredientService } from '../services/ingredient-service';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { IngredientsSearchComponent, SearchState } from './ingredients-search/ingredients-search.component';
-import { RecipeGenerateMode, RecipesModeSegmentComponent, SEGMENT } from './recipes-mode-segment/recipes-mode-segment.component';
-import { RecipeService } from '../services/recipe.service';
 import { CartItem, IngredientCartService } from '../services/ingredient-cart.service';
 import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/selected-ingredient-panel.component';
+import { Ingredient, IngredientPart } from '../models/ingredient.model';
 
 @Component({
   selector: 'app-ing-selector',
@@ -25,16 +24,14 @@ import { SelectedIngredientPanelComponent } from './selected-ingredient-panel/se
 })
 export class IngredientsSelectorComponent {
   categories: string[] = [];
-  groupedIngredients: { [category: string]: Ingredient[]} = {};
+  groupedIngredients: { [category: string]: Ingredient[] } = {};
   selectedCategory: string = '';
   selectedPart: Ingredient | null = null;
-  // cart: CartItem[] = [];
   private ingredients$: Observable<Ingredient[]> = new Observable();
-  // private selectedSegment: RecipeGenerateMode = SEGMENT.MATCH_ALL;
+  showAllCategories = false; // for mobile view
 
   constructor(
-    private ingredientService: IngredientService, 
-    private recipeService: RecipeService,
+    private ingredientService: IngredientService,
     private cartService: IngredientCartService
   ) {
     this.ingredientService.loadIngredients();
@@ -107,7 +104,7 @@ export class IngredientsSelectorComponent {
     }
   }
 
-
-
-
+  toggleCategories(): void {
+    this.showAllCategories = !this.showAllCategories;
+  }
 }

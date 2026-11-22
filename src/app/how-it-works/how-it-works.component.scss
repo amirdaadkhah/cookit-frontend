@@ -1,0 +1,242 @@
+@use '../../theme/variables' as *;
+
+.how-it-works {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  padding: 10px calc($HOME-PAGE-SIDE_PADDING / 2);
+  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  background:
+    linear-gradient(135deg,
+      rgba($COLOR-CREAM, 0.95),
+      rgba($COLOR-CREAM, 0.9));
+
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+
+  @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+    // MOBILE
+    flex-direction: column;
+    padding: 10px calc($HOME-PAGE-SIDE_PADDING_MOBILE);
+  }
+
+  .slogan-start {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding-top: 10px;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // MOBILE
+      width: 100%;
+      align-items: end;
+      justify-content: center;
+    }
+
+    .title {
+      font-weight: 900;
+      font-size: 1.9rem;
+      color: $COLOR-CHAROCOAL;
+      width: 100%;
+      line-height: 1.2;
+      font-family: 'Inter', sans-serif;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        text-align: center;
+      }
+    }
+
+    .desc {
+      padding: 5px;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: $COLOR-SUBTITLE-TEXT;
+      width: 100%;
+      line-height: 1.2;
+      font-family: 'Inter', sans-serif;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        text-align: center;
+      }
+    }
+
+    .button-start-mixing {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px;
+      border: 1px solid white;
+      border-radius: 999px;
+      background: $COLOR-OLIVE-GREEN;
+      color: $COLOR-CREAM;
+      font-family: inherit;
+      font-weight: bold;
+      margin: 0 20px;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        margin: 10px 20px 20px 20px;
+      }
+
+      cursor: pointer;
+      transition: transform 0.2s ease,
+      box-shadow 0.2s ease,
+      opacity 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .steps {
+    display: flex;
+    justify-content: space-evenly;
+    padding-inline-start: 15px;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      width: 100%;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      min-width: 0;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        gap: 2px
+      }
+
+      .icon-wrapper {
+        display: flex;
+        width: 64px;
+        height: 64px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: rgba($COLOR-TERRACOTTA, 0.06);
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+          // MOBILE
+          width: 48px;
+          height: 48px;
+        }
+
+        ion-icon {
+          font-size: 32px;
+          color: $COLOR-TERRACOTTA;
+        }
+      }
+
+      .title {
+        color: #252936;
+        font-size: 1.2rem;
+        font-weight: 700;
+        white-space: nowrap;
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+          // MOBILE
+          font-size: 11px;
+        }
+      }
+
+      .description {
+        color: $COLOR-SUBTITLE-TEXT;
+        font-size: 0.8rem;
+        text-align: center;
+        line-height: 1.2;
+        font-family: 'Inter', sans-serif;
+        width: 100%;
+
+        @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+          // MOBILE
+          font-size: 10px;
+        }
+      }
+    }
+
+    .next-icon {
+      display: flex;
+      width: 64px;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+
+      @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+        // MOBILE
+        width: 28px;
+        height: auto;
+      }
+
+      ion-icon {
+        font-size: 14px;
+        color: rgba($COLOR-TERRACOTTA, 0.2);
+      }
+    }
+  }
+
+  .slogan-happy-food-container {
+    display: flex;
+    width: 20%;
+    height: stretch;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: $MAX-WIDTH-RESPONSIVE) {
+      // MOBILE
+      display: none;
+    }
+
+    .slogan-happy-food {
+      width: 100%;
+      position: relative;
+      flex: 0 0 210px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $COLOR-OLIVE-GREEN;
+
+      span {
+        transform: rotate(-4deg);
+        font-size: 22px;
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1.05;
+        text-align: center;
+      }
+
+      ion-icon {
+        position: absolute;
+        top: 2px;
+        right: 22px;
+        font-size: 15px;
+        color: #e8b63c;
+      }
+
+      .smile {
+        position: absolute;
+        right: 5px;
+        bottom: 3px;
+        width: 58px;
+        height: 20px;
+        border-bottom: 2px solid #bbb;
+        border-radius: 0 0 50% 50%;
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@ import { IonicModule } from '@ionic/angular';
   ]
 })
 export class FooterComponent {
-  logo: string = '../../assets/logos/logo.png';
+  logo: string = '../../assets/logos/logo_1.png';
 
   constructor() {}
 }

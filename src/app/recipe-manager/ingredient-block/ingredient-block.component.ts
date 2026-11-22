@@ -1,6 +1,6 @@
 import { RecipeIngredientForm } from '@/app/forms/recipe.form';
+import { Ingredient, IngredientPart } from '@/app/models/ingredient.model';
 import { IngredientPickerService } from '@/app/services/ingredient-picker.service';
-import { Ingredient, IngredientPart } from '@/app/services/ingredient-service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';

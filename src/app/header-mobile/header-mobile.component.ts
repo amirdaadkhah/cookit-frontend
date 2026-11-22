@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class HeaderMobileComponent {
-  logo: string = '../../assets/logos/logo.png';
+  logo: string = '../../assets/logos/logo_1.png';
 
   constructor(
     private router: Router,

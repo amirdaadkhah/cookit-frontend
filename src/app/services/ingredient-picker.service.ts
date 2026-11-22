@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { Ingredient, IngredientService } from '@/app/services/ingredient-service';
+import { IngredientService } from '@/app/services/ingredient-service';
+import { Ingredient } from '../models/ingredient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,6 @@ export class IngredientPickerService {
   ]).pipe(
     map(([term, ingredients]) => this.filterIngredients(term, ingredients))
   );
-
 
   constructor(private ingredientService: IngredientService) {
     this.ingredientService.loadIngredients();

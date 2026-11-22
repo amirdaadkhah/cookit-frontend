@@ -1,0 +1,110 @@
+import { Component, inject, signal } from '@angular/core';
+import { RecipePayload } from '../models/recipe.model';
+import { RecipeResultService } from '../services/recipe-result.service';
+import { RecipeService } from '../services/recipe.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { getQtyString } from '../utils/recipe.utils';
+import { IngredientService } from '../services/ingredient-service';
+import { FooterComponent } from '../footer/footer.component';
+import { CommentsComponent } from '../comment/comments.component';
+import { RecipeSearchResult } from '../generated-recipes/model/generated-recipe.model';
+import { RecipeImageService } from '../services/recipe-image.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+@Component({
+  selector: 'app-recipe',
+  templateUrl: './recipe.component.html',
+  styleUrls: ['./recipe.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+    FooterComponent,
+    CommentsComponent
+  ]
+})
+export class RecipeComponent {
+  readonly recipes = this.recipeResultService.recipes();
+  readonly recipeToShow = signal<RecipePayload | null>(null);
+  private readonly route = inject(ActivatedRoute);
+  readonly getQtyString = getQtyString;
+  coverImage?: string;
+  recipeId: string = '';
+  shuffledRecipes: RecipeSearchResult[] = [];
+  youtube_src: SafeResourceUrl | null = null;
+  dummy_image?: string;
+
+  constructor(
+    private recipeResultService: RecipeResultService,
+    private recipeService: RecipeService,
+    private ingredientService: IngredientService,
+    private router: Router,
+    private recipeImageService: RecipeImageService,
+    private sanitizer: DomSanitizer
+  ) {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.loadRecipe(id);
+      this.setRandomRecipes(id);
+      this.coverImage = this.recipeImageService.getImage(id);
+
+      if (this.recipeToShow()?.media.youtube) {
+        this.youtube_src = this.sanitizer.bypassSecurityTrustResourceUrl(
+          `${this.recipeToShow()?.media.youtube}`
+        );
+      } else {
+        this.dummy_image = this.recipeImageService.dummy_image;
+      }
+
+      // this.router.navigate(
+      //   ['/recipe', 'correctSlug'], // TODO: decide to implement this for user
+      //   { replaceUrl: true }
+      // );
+      // this.recipeId = params.get('id');
+    });
+    this.ingredientService.loadIngredients();
+  }
+
+  private loadRecipe(id: string | null) {
+    if (!id) {
+      console.log('!!! ID is NULL');
+      return;
+    }
+
+    this.recipeService.getRecipe(id).subscribe({
+      next: (res) => {
+        this.recipeToShow.set(res);
+        this.recipeId = id;
+      },
+      error: (err) => {
+        console.log('!!! error by loading full recipe details', err);
+      },
+    })
+  }
+
+  private setRandomRecipes(id: string | null): void {
+    this.shuffledRecipes = this.recipes
+      .filter(recipe => recipe.recipe_id !== id)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+  }
+
+  getIngredientNameById(id: number | null): string {
+    if (id === null) { return ''; };
+    return this.ingredientService.getIngredientNameById(id);
+  }
+
+  openRecipe(recipeId: string): void {
+    this.router.navigate([
+      '/recipe',
+      recipeId
+    ]);
+  }
+
+  onImageError(): void {
+    if (this.coverImage !== this.recipeImageService.dummy_image) {
+      this.coverImage = this.recipeImageService.dummy_image;
+    }
+  }
+}
